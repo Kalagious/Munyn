@@ -1,0 +1,57 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Munyn.ViewModels"
+			 xmlns:nodes="clr-namespace:Munyn;assembly=Munyn"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Munyn.Views.MainView"
+             x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+	  
+    <vm:MainViewModel />
+  </Design.DataContext>
+	<Grid Background="White" ShowGridLines="True" ColumnDefinitions="Auto,*">
+
+		<!--Leftside Panel-->
+		<StackPanel Grid.Column="0" Background="Teal">
+			<Button Command="{Binding ToggleTrayCommand}">Munyn</Button>
+			<Button>Paths</Button>
+			<Button>Nodes</Button>
+			<Button>Extras</Button>
+		</StackPanel>
+
+
+		<SplitView Grid.Column="1" Name="ItemTray" IsPaneOpen="{Binding IsTrayOpen}" DisplayMode="Inline" OpenPaneLength="150">
+			<SplitView.Pane>
+				<StackPanel Background="Red">
+					<Button>Host</Button>
+					<Button>Service</Button>
+					<Button>User</Button>
+				</StackPanel>
+			</SplitView.Pane>
+
+			<!-- Right Side of Screen-->
+			<Grid RowDefinitions="auto, *">
+				<Grid Grid.Row="0" ColumnDefinitions="*,auto">
+					<StackPanel Grid.Column="0" Orientation="Vertical" Background="Lime">
+						<TextBlock Text="Context Name" FontSize="24"  Background="Lime"/>
+						<TextBlock Text="HTB > 10.10.1.1 > Mailing" FontSize="12"  Background="Lime"/>
+					</StackPanel>
+					<!--TopBar Right Grouping-->
+					<StackPanel Grid.Column="1" Orientation="Horizontal" Background="Lime">
+						<Button>File</Button>
+						<TextBlock Grid.Column="0" Text="FileName.json" FontSize="16" VerticalAlignment="Center" Background="Lime"/>
+					</StackPanel>
+				</Grid>
+
+				<Canvas Grid.Row="1" Background="Tan">
+
+				</Canvas>
+			</Grid>
+
+		</SplitView>
+
+	</Grid>
+ 
+</UserControl>

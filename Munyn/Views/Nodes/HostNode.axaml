@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Munyn.HostNode"
+			 xmlns:vm="clr-namespace:Munyn.ViewModels"
+			 x:DataType="vm:HostNodeViewModel">
+
+	<Design.DataContext>
+
+		<vm:HostNodeViewModel />
+	</Design.DataContext>
+	<StackPanel Background="Blue">
+		<Label Content="{Binding HostName}"></Label>
+		<Label Content="{Binding HostIP}"></Label>
+		<Label Content="{Binding HostOS}"></Label>
+	</StackPanel>
+</UserControl>
