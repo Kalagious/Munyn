@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 
@@ -6,8 +7,11 @@ namespace Munyn.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
+
+    public Canvas? nodeCanvas;
+
     [ObservableProperty]
-    private bool _isTrayOpen = false;
+    private bool _isTrayOpen = true;
 
     [RelayCommand]
     private void ToggleTray()
@@ -15,19 +19,26 @@ public partial class MainViewModel : ViewModelBase
         IsTrayOpen = ! IsTrayOpen;
     }
 
+    [RelayCommand]
+     private void NewHostDrag()
+    {
+        if (nodeCanvas != null)
+            Nodes.Add(new HostNodeViewModel("New Host", "1.1.1.1", "Ubuntu", 0, 0, nodeCanvas));
+    }
+
+    [RelayCommand]
+    private void NewUserDrag()
+    {
+        if (nodeCanvas != null)
+            Nodes.Add(new UserNodeViewModel("Jeff", "Admin", "Test details", 0, 0, nodeCanvas));
+    }
 
     [ObservableProperty]
-    private ObservableCollection<HostNodeViewModel> _hostNodes;
+    private ObservableCollection<ViewModelBase> _Nodes;
 
-    public void MainWindowViewModel()
+    public MainViewModel()
     {
         // Initialize the ObservableCollection
-        HostNodes = new ObservableCollection<HostNodeViewModel>();
-
-        // Add some sample data to the list
-        HostNodes.Add(new HostNodeViewModel("Server 1", "192.168.1.10", "Ubuntu", 100, 200));
-        HostNodes.Add(new HostNodeViewModel("Router", "192.168.1.1", "Cisco IOS", 100, 400));
-        HostNodes.Add(new HostNodeViewModel("Workstation 3", "192.168.1.25", "Windows", 200, 100));
-        HostNodes.Add(new HostNodeViewModel("Printer", "192.168.1.50", "Linux", 200, 400));
+        Nodes = new ObservableCollection<ViewModelBase>();
     }
 }

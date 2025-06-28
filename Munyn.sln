@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Munyn", "Munyn\Munyn.csproj", "{3350D289-3B87-4CEA-BDC4-E2F96E06857F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Munyn.Desktop", "Munyn.Desktop\Munyn.Desktop.csproj", "{B6B0C492-BB7D-4F5A-B2E2-651D6BFA30EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Munyn.Desktop", "Munyn.Desktop\Munyn.Desktop.csproj", "{8453AF46-900D-4D17-83D9-20CD82F2C0AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{3350D289-3B87-4CEA-BDC4-E2F96E06857F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3350D289-3B87-4CEA-BDC4-E2F96E06857F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3350D289-3B87-4CEA-BDC4-E2F96E06857F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B6B0C492-BB7D-4F5A-B2E2-651D6BFA30EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B6B0C492-BB7D-4F5A-B2E2-651D6BFA30EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B6B0C492-BB7D-4F5A-B2E2-651D6BFA30EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B6B0C492-BB7D-4F5A-B2E2-651D6BFA30EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8453AF46-900D-4D17-83D9-20CD82F2C0AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8453AF46-900D-4D17-83D9-20CD82F2C0AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8453AF46-900D-4D17-83D9-20CD82F2C0AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8453AF46-900D-4D17-83D9-20CD82F2C0AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

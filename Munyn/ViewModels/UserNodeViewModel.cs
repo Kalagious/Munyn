@@ -10,21 +10,24 @@ using System.Xml.Linq;
 
 namespace Munyn.ViewModels
 {
-    public partial class HostNodeViewModel : NodeBaseViewModel
+    public partial class UserNodeViewModel : NodeBaseViewModel
     {
         [ObservableProperty]
-        private string _HostName;
+        private string _Username;
         [ObservableProperty]
-        private string _HostIP;
+        private string _UserRole;
         [ObservableProperty]
-        private string _HostOS;
-       
+        private string? _UserPassword;
+        [ObservableProperty]
+        private string _UserDetails;
 
-        public HostNodeViewModel(string name, string ipAddress, string status, float x, float y, Canvas tmpParentCanvas)
+        
+
+        public UserNodeViewModel(string name, string role, string details, float x, float y, Canvas tmpParentCanvas)
         {
-            HostName = name;
-            HostIP = ipAddress;
-            HostOS = status;
+            Username = name;
+            UserRole = role;
+            UserDetails = details;
             X = x;
             Y = y;
             parentCanvas = tmpParentCanvas;

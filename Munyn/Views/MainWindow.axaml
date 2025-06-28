@@ -6,7 +6,7 @@
         xmlns:views="clr-namespace:Munyn.Views"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Munyn.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/Munyn-Logo.ico"
         Title="Munyn">
         <views:MainView />
 </Window>

@@ -9,15 +9,14 @@ using System;
 
 namespace Munyn.Views.Nodes;
 
-public partial class HostNode : NodeBase
+public partial class UserNode : NodeBase
 {
 
 
-    public HostNode()
+    public UserNode()
     {
         InitializeComponent();
 
     }
 
-    
-} 
+}

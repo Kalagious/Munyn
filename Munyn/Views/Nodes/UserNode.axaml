@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Munyn.Views.Nodes.UserNode"
+			 xmlns:vm="clr-namespace:Munyn.ViewModels"
+			 x:DataType="vm:UserNodeViewModel"
+			 
+			 Canvas.Left="{Binding X}"
+			 Canvas.Top="{Binding Y}"
+			 PointerPressed="Node_PointerPressed"
+			 PointerMoved="Node_PointerMoved"
+			 PointerReleased="Node_PointerReleased">
+	<Design.DataContext>
+		<vm:UserNodeViewModel Username="BillyBob" UserRole="Admin" UserPassword="password123" UserDetails="Test"/>
+	</Design.DataContext>
+
+	<Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5" Background="LightCoral">
+		<StackPanel>
+			<TextBlock Text="{Binding Username}" Foreground="Black" FontWeight="Bold" FontSize="16"/>
+			<TextBlock Text="{Binding UserRole}" Foreground="Gray"/>
+			<TextBlock Text="{Binding UserDetails}" Foreground="Gray"/>
+		</StackPanel>
+	</Border>
+</UserControl>
