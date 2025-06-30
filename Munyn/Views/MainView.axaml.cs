@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Shapes;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Threading;
@@ -14,10 +15,16 @@ namespace Munyn.Views;
 public partial class MainView : UserControl
 {
     private Canvas? _nodeCanvas;
+
+
+
+
     public MainView()
     {
         InitializeComponent();
         this.Loaded += OnLoaded;
+
+        
     }
 
     private void InitializeComponent()
@@ -48,68 +55,9 @@ public partial class MainView : UserControl
             }
             else
             {
-                System.Diagnostics.Debug.WriteLine("Error: Canvas 'NodeCanvas' not found.");
+                System.Diagnostics.Debug.WriteLine("Error: Canvas '_nodeCanvas' not found.");
                 return;
             }
-            
-
-        }
-        if (_nodeCanvas != null)
-        {
-            DrawCanvasExtras();
-            _nodeCanvas.GetObservable(BoundsProperty)
-        .Select(bounds => bounds.Size)
-        .DistinctUntilChanged()
-        .Throttle(TimeSpan.FromMilliseconds(100))
-        .Subscribe(size =>
-        {
-            Dispatcher.UIThread.Post(() =>
-            {
-                DrawCanvasExtras();
-            }); 
-        });
-        }
-
-    }
-
-    private void DrawCanvasExtras()
-    {
-        if (_nodeCanvas == null)
-            return;
-
-        // Clear old lines
-
-        // Draw new gridlines
-        AddGridLines(_nodeCanvas, spacing: 50, width: _nodeCanvas.Bounds.Width, height: _nodeCanvas.Bounds.Height);
-    }
-    public void AddGridLines(Canvas canvas, double spacing = 50, double width = 800, double height = 600)
-    {
-
-        SolidColorBrush lineColor = new SolidColorBrush(Color.Parse("#202020"));
-        for (double x = 0; x <= width; x += spacing)
-        {
-            var line = new Line
-            {
-                StartPoint = new Point(x, 0),
-                EndPoint = new Point(x, height),
-                Stroke = lineColor,
-                StrokeThickness = 1,
-                ZIndex = -10
-            };
-            canvas.Children.Add(line);
-        }
-
-        for (double y = 0; y <= height; y += spacing)
-        {
-            var line = new Line
-            {
-                StartPoint = new Point(0, y),
-                EndPoint = new Point(width, y),
-                Stroke = lineColor,
-                StrokeThickness = 1,
-                ZIndex = -10
-            };
-            canvas.Children.Add(line);
         }
     }
 }

@@ -22,4 +22,13 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.3.2" />
     <PackageReference Include="ReactiveUI" Version="20.3.1" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Nodes\HostNodeView.axaml.cs">
+      <DependentUpon>HostNodeView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Nodes\UserNodeView.axaml.cs">
+      <DependentUpon>UserNodeView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

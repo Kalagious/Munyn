@@ -9,7 +9,7 @@ using System;
 
 namespace Munyn.Views.Nodes;
 
-public partial class NodeBase : UserControl
+public partial class NodeBaseView : UserControl
 {
     private bool _isDragging = false;
     private Point _startDragPoint;

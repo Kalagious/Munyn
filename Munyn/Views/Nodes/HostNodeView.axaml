@@ -1,0 +1,133 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Munyn.Views.Nodes.HostNode"
+			 xmlns:vm="clr-namespace:Munyn.ViewModels"
+			 x:DataType="vm:HostNodeViewModel"
+			 
+			 Canvas.Left="{Binding X}"
+			 Canvas.Top="{Binding Y}"
+			 PointerPressed="Node_PointerPressed"
+			 PointerMoved="Node_PointerMoved"
+			 PointerReleased="Node_PointerReleased">
+
+
+
+			<UserControl.Resources>
+				<Color x:Key="BodyTextColor">#303040</Color>
+				<SolidColorBrush x:Key="BodyText" Color="{StaticResource BodyTextColor}"/>
+			</UserControl.Resources>
+			
+	<StackPanel MinWidth="200" MaxWidth="400">			
+				<Border BorderThickness="3" CornerRadius="5,5,0,0">
+					<Border.BorderBrush>
+						<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+							<GradientStop Color="#19c8f3" Offset="0.0"/>
+							<GradientStop Color="#6551e5" Offset="1.0"/>
+						</LinearGradientBrush>
+					</Border.BorderBrush>
+					<Border.Background>
+						<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+							<GradientStop Color="#19c8f3" Offset="0.0"/>
+							<GradientStop Color="#6551e5" Offset="1.0"/>
+						</LinearGradientBrush>
+					</Border.Background>
+				<StackPanel Orientation="Horizontal">
+					<Button Command="{Binding EnterContextButtonCommand}" Background="Transparent">
+						<Svg Path="avares://Munyn/Assets/Icons/pc-display.svg" Width="20"/>
+					</Button>
+					<TextBlock Text="{Binding HostName}"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="16" Margin="10"></TextBlock>
+				</StackPanel>
+				</Border>
+
+
+				<!-- INFO PANEL -->
+				<Border BorderBrush="#f7f7f7" BorderThickness="3" CornerRadius="0,0,5,5" >
+					<StackPanel Background="#f7f7f7">
+
+						<StackPanel Margin="10,5,10,5" Orientation="Horizontal">
+							<Svg Path="avares://Munyn/Assets/Icons/structure-diagram-icon.svg"  Width="20"></Svg>
+							<TextBlock Margin="5,0,0,0" Text="IP:" Foreground="{StaticResource BodyTextColor}"/>
+							<TextBlock Text="192.168.1.143" Foreground="{StaticResource BodyTextColor}"/>
+						</StackPanel>
+						
+						<StackPanel Margin="10,5,10,5" Orientation="Horizontal">
+							<Svg Path="avares://Munyn/Assets/Icons/linux-icon.svg"  Width="20"></Svg>
+							<TextBlock Margin="5,0,0,0" Text="OS:" Foreground="{StaticResource BodyTextColor}"/>
+							<TextBlock Text="{Binding HostOS}" Foreground="{StaticResource BodyTextColor}"/>
+						</StackPanel>
+
+						<StackPanel Margin="10,5,10,5" Orientation="Horizontal">
+							<StackPanel Orientation="Horizontal">
+								<Svg Path="avares://Munyn/Assets/Icons/gold-icon.svg" Margin="0,0,0,3" Width="20"></Svg>
+								<TextBlock Margin="5,0,0,0" Text="Assets:" Foreground="{StaticResource BodyTextColor}"/>
+								<TextBlock Text="4" Foreground="{StaticResource BodyTextColor}"/>
+							</StackPanel>
+							<StackPanel Margin="10,0,5,0" Orientation="Horizontal">
+								<Svg Path="avares://Munyn/Assets/Icons/people-fill-magenta.svg"  Width="20"></Svg>
+								<TextBlock Margin="5,0,0,0" Text="Users:" Foreground="{StaticResource BodyTextColor}"/>
+								<TextBlock Text="4" Foreground="{StaticResource BodyTextColor}"/>
+							</StackPanel>
+						</StackPanel>
+						
+						
+						<!-- Services Panel -->
+						<StackPanel>
+							<Border Margin="10,0,10,0" BorderThickness="3" CornerRadius="5,5,0,0">
+								<Border.BorderBrush>
+									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+										<GradientStop Color="#8531c5" Offset="0.0"/>
+										<GradientStop Color="#6323F6" Offset="1.0"/>
+									</LinearGradientBrush>
+								</Border.BorderBrush>
+								<Border.Background>
+									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+										<GradientStop Color="#8531c5" Offset="0.0"/>
+										<GradientStop Color="#6323F6" Offset="1.0"/>
+									</LinearGradientBrush>
+								</Border.Background>
+								<StackPanel Orientation="Horizontal">
+									<Svg Path="avares://Munyn/Assets/Icons/database-fill-gear.svg" Width="20"/>
+									<TextBlock Text="Services"  Foreground="#f2f2f2" FontSize="14" Margin="10,1,0,0"></TextBlock>
+									
+									<TextBlock Text="4" Foreground="#f2f2f2" Margin="4,1,0,0"></TextBlock>
+
+								</StackPanel>
+							</Border>
+
+							<Border Margin="10,0,10,0" BorderBrush="#e0e0e0" BorderThickness="3" CornerRadius="0,0,5,5" MaxHeight="200" >
+								<ScrollViewer>
+									<StackPanel>
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Margin="5,0,0,0" Text="SSH (22)" Foreground="{StaticResource BodyTextColor}"/>
+											<Svg Margin="4,0,0,0" Path="avares://Munyn/Assets/Icons/thunder-icon.svg" Width="10"/>
+
+										</StackPanel>
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Margin="5,0,0,0" Text="Web (80) - https://mailing.htb" Foreground="{StaticResource BodyTextColor}"/>
+											<Svg Margin="4,0,0,0" Path="avares://Munyn/Assets/Icons/thunder-icon.svg" Width="10"/>
+
+										</StackPanel>
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Margin="5,0,0,0" Text="SMB (445)" Foreground="{StaticResource BodyTextColor}"/>
+										</StackPanel>
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Margin="5,0,0,0" Text="FTP (20/21)" Foreground="{StaticResource BodyTextColor}"/>
+										</StackPanel>
+										
+
+									</StackPanel>
+								</ScrollViewer>
+							
+							
+							</Border>
+						</StackPanel>
+					</StackPanel>
+				</Border>
+			</StackPanel>
+		
+
+		
+</UserControl>

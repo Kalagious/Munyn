@@ -9,10 +9,10 @@ using System;
 
 namespace Munyn.Views.Nodes;
 
-public partial class HostNode : NodeBase
+public partial class HostNode : NodeBaseView
 {
 
-
+    
     public HostNode()
     {
         InitializeComponent();

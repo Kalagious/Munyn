@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace Munyn.ViewModels
 {
-    public partial class UserNodeViewModel : NodeBaseViewModel
+    public partial class UserNodeViewModel : ContextBase
     {
         [ObservableProperty]
         private string _Username;

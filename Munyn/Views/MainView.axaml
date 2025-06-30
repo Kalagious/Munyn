@@ -4,9 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Munyn.ViewModels"
 			 xmlns:nodes="clr-namespace:Munyn.Views.Nodes;assembly=Munyn"
+			 xmlns:views="clr-namespace:Munyn.Views;assembly=Munyn"
+			 xmlns:misc="clr-namespace:Munyn.Views.Misc;assembly=Munyn"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Munyn.Views.MainView"
              x:DataType="vm:MainViewModel">
+	
+	
 	<UserControl.DataTemplates>
 		<DataTemplate DataType="vm:HostNodeViewModel">
 			<nodes:HostNode DataContext="{Binding}" ZIndex="10"></nodes:HostNode>
@@ -56,92 +60,121 @@
 		</StackPanel>
 
 
-		<SplitView Grid.Column="1" Name="ItemTray" IsPaneOpen="{Binding IsTrayOpen}" DisplayMode="Inline" OpenPaneLength="100">
-			<SplitView.Pane>
-				<StackPanel Background="#F7F7F7">
-					<StackPanel.Styles>
-						<Style Selector="Button">
-							<Setter Property="Width" Value="70"/>
-							<Setter Property="Height" Value="70"/>
-							<Setter Property="Margin" Value="10"/>
-							<Setter Property="Foreground" Value="White"/>
-							<Setter Property="CornerRadius" Value="5"/>
-							<Setter Property="FontWeight" Value="SemiBold"/>
-							<Setter Property="HorizontalAlignment" Value="Center"/>
-							<Setter Property="Background">
-								<Setter.Value>
-									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
-										<GradientStop Color="#5E60CE" Offset="0.0"/>
-										<GradientStop Color="#64DFDF" Offset="1.0"/>
-									</LinearGradientBrush>
-								</Setter.Value>
-							</Setter>
-						</Style>
+		
 
-					</StackPanel.Styles>
+		<!-- Right Side of Screen-->
+		<Grid Grid.Column="1" RowDefinitions="auto, *">
+			<Grid Grid.Row="0" ColumnDefinitions="*,auto">
+				<Grid.Background>
+					<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+						<GradientStop Color="#FC466B" Offset="0.0"/>
+						<GradientStop Color="#6F00FF" Offset="0.3"/>
+						<GradientStop Color="#08AEEA" Offset="0.6"/>
+						<GradientStop Color="#3F5EFB" Offset="1.0"/>
+					</LinearGradientBrush>
+				</Grid.Background>
+				<StackPanel Grid.Column="0" Orientation="Vertical" >
 					
-					<Button Command="{Binding NewHostDragCommand}">
-						<Svg Path="avares://Munyn/Assets/Icons/pc-display.svg"/>
-					</Button>
-					<Button Command="{Binding NewUserDragCommand}">
-						<Svg Path="avares://Munyn/Assets/Icons/person-bounding-box.svg"/>
-					</Button>
-					<Button>
-						<Svg Path="avares://Munyn/Assets/Icons/database-fill-gear.svg"/>
-					</Button>
-					<Button>
-						<Svg Path="avares://Munyn/Assets/Icons/file-richtext-fill.svg"/>
-					</Button>
+					
+					<TextBlock x:Name="ContextNameTitle" Text="{Binding CurrentContextName}" Margin="10,0,0,0" Foreground="WhiteSmoke" FontSize="24" FontWeight="Bold"/>
+					
+					<ItemsControl x:Name="ContextPath" ItemsSource="{Binding ContextPathList}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<misc:ContextPathEntry></misc:ContextPathEntry>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+						
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<StackPanel Margin="10,0,0,0" Orientation="Horizontal"></StackPanel>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+					</ItemsControl>
+					
+					
 				</StackPanel>
-			</SplitView.Pane>
-
-			<!-- Right Side of Screen-->
-			<Grid RowDefinitions="auto, *">
-				<Grid Grid.Row="0" ColumnDefinitions="*,auto">
-					<Grid.Background>
-						<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
-							<GradientStop Color="#FC466B" Offset="0.0"/>
-							<GradientStop Color="#6F00FF" Offset="0.3"/>
-							<GradientStop Color="#08AEEA" Offset="0.6"/>
-							<GradientStop Color="#3F5EFB" Offset="1.0"/>
-						</LinearGradientBrush>
-					</Grid.Background>
-					<StackPanel Grid.Column="0" Orientation="Vertical" >
-						
-						
-						<TextBlock Text="Context Name" Margin="10,0,0,0" Foreground="WhiteSmoke" FontSize="24" FontWeight="Bold"/>
-						<TextBlock Text="HTB > 10.10.1.1 > Mailing" Margin="10,0,0,0" Foreground="WhiteSmoke" FontSize="12"/>
-					</StackPanel>
-					<!--TopBar Right Grouping-->
-					<StackPanel Grid.Column="1" Orientation="Horizontal" Background="Transparent">
-						<Button>
-							<Svg Path="avares://Munyn/Assets/Icons/pencil-square.svg"/>
-						</Button>
-						<TextBlock Grid.Column="0" Text="FileName.json" FontSize="16" Margin="10,0,15,0" VerticalAlignment="Center"/>
-					</StackPanel>
-				</Grid>
-				<DockPanel Grid.Row="1">
-						<ItemsControl x:Name="HostNodeItemsControl" Grid.Row="1" ItemsSource="{Binding Nodes}">
-
-
-							<ItemsControl.Styles>
-								<Style Selector="ContentPresenter" x:DataType="vm:UserNodeViewModel">
-									<Setter Property="Canvas.Left" Value="{Binding X}"/>
-									<Setter Property="Canvas.Top" Value="{Binding Y}"/>
-								</Style>
-							</ItemsControl.Styles>
-							
-							
-							<ItemsControl.ItemsPanel>
-								<ItemsPanelTemplate>
-									<Canvas x:Name="NodeCanvas"	Background="#303040"/>
-								</ItemsPanelTemplate>
-							</ItemsControl.ItemsPanel>
-						</ItemsControl>
-				</DockPanel>
+				<!--TopBar Right Grouping-->
+				<StackPanel Grid.Column="1" Orientation="Horizontal" Background="Transparent">
+					<Button>
+						<Svg Path="avares://Munyn/Assets/Icons/pencil-square.svg"/>
+					</Button>
+					<TextBlock Grid.Column="0" Text="FileName.json" FontSize="16" Margin="10,0,15,0" VerticalAlignment="Center"/>
+				</StackPanel>
 			</Grid>
 
-		</SplitView>
+
+
+			
+			<Grid Grid.Row="1">
+				<SplitView Name="ItemTray" IsPaneOpen="{Binding IsTrayOpen}" DisplayMode="Inline" OpenPaneLength="100">
+					<SplitView.Pane>
+						
+						<StackPanel Background="#F7F7F7">
+							<StackPanel.Styles>
+								<Style Selector="Button">
+									<Setter Property="Width" Value="70"/>
+									<Setter Property="Height" Value="70"/>
+									<Setter Property="Margin" Value="10"/>
+									<Setter Property="Foreground" Value="White"/>
+									<Setter Property="CornerRadius" Value="5"/>
+									<Setter Property="FontWeight" Value="SemiBold"/>
+									<Setter Property="HorizontalAlignment" Value="Center"/>
+									<Setter Property="Background">
+										<Setter.Value>
+											<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+												<GradientStop Color="#5E60CE" Offset="0.0"/>
+												<GradientStop Color="#64DFDF" Offset="1.0"/>
+											</LinearGradientBrush>
+										</Setter.Value>
+									</Setter>
+								</Style>
+
+							</StackPanel.Styles>
+
+							<Button Command="{Binding NewHostDragCommand}">
+								<Svg Path="avares://Munyn/Assets/Icons/pc-display.svg"/>
+							</Button>
+							<Button Command="{Binding NewUserDragCommand}">
+								<Svg Path="avares://Munyn/Assets/Icons/person-bounding-box.svg"/>
+							</Button>
+							<Button>
+								<Svg Path="avares://Munyn/Assets/Icons/database-fill-gear.svg"/>
+							</Button>
+							<Button>
+								<Svg Path="avares://Munyn/Assets/Icons/file-richtext-fill.svg"/>
+							</Button>
+						</StackPanel>
+					</SplitView.Pane>
+					<Grid>
+						<Button VerticalAlignment="Top" ZIndex="10" Foreground="#f2f2f2" Margin="10" IsVisible="{Binding !IsRootContext}" Command="{Binding BackContextCommand}">
+							<StackPanel Orientation="Horizontal">
+								<Svg Path="avares://Munyn/Assets/Icons/arrow-left-short.svg" Width="25" Margin="-4,-4,0,-4"></Svg>
+								<TextBlock Text="Back"></TextBlock>
+							</StackPanel>
+						</Button>
+					<ItemsControl x:Name="HostNodeItemsControl" Grid.Row="1" ItemsSource="{Binding VisableNodes}">
+
+
+						<ItemsControl.Styles>
+							<Style Selector="ContentPresenter" x:DataType="vm:UserNodeViewModel">
+								<Setter Property="Canvas.Left" Value="{Binding X}"/>
+								<Setter Property="Canvas.Top" Value="{Binding Y}"/>
+							</Style>
+						</ItemsControl.Styles>
+						
+						
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<views:NodeCanvasView Background="#303040"/>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+					</ItemsControl>
+					</Grid>
+					</SplitView>
+			</Grid>
+		</Grid>
+
 
 	</Grid>
  
