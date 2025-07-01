@@ -12,15 +12,105 @@
 			 PointerPressed="Node_PointerPressed"
 			 PointerMoved="Node_PointerMoved"
 			 PointerReleased="Node_PointerReleased">
-	<Design.DataContext>
-		<vm:UserNodeViewModel Username="BillyBob" UserRole="Admin" UserPassword="password123" UserDetails="Test"/>
-	</Design.DataContext>
 
-	<Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5" Background="LightCoral">
-		<StackPanel>
-			<TextBlock Text="{Binding Username}" Foreground="Black" FontWeight="Bold" FontSize="16"/>
-			<TextBlock Text="{Binding UserRole}" Foreground="Gray"/>
-			<TextBlock Text="{Binding UserDetails}" Foreground="Gray"/>
-		</StackPanel>
-	</Border>
+
+
+	<UserControl.Resources>
+		<Color x:Key="BodyTextColor">#303040</Color>
+		<SolidColorBrush x:Key="BodyText" Color="{StaticResource BodyTextColor}"/>
+	</UserControl.Resources>
+
+	<StackPanel MinWidth="200" MaxWidth="400">
+		<Border BorderThickness="3" CornerRadius="5,5,0,0">
+			<Border.BorderBrush>
+				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+					<GradientStop Color="#ef3f79" Offset="0.0"/>
+					<GradientStop Color="#d511d5" Offset="1.0"/>
+				</LinearGradientBrush>
+			</Border.BorderBrush>
+			<Border.Background>
+				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+					<GradientStop Color="#ef3f79" Offset="0.0"/>
+					<GradientStop Color="#d511d5" Offset="1.0"/>
+				</LinearGradientBrush>
+			</Border.Background>
+			<StackPanel Orientation="Horizontal">
+				<Svg Path="avares://Munyn/Assets/Icons/person-bounding-box.svg" Width="25" Margin="10"/>
+				<TextBlock Text="{Binding Username}"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="16" Margin="10"></TextBlock>
+			</StackPanel>
+		</Border>
+
+
+		<!-- INFO PANEL -->
+		<Border BorderBrush="#f7f7f7" BorderThickness="3" CornerRadius="0,0,5,5" >
+			<StackPanel Background="#f7f7f7">
+
+				<StackPanel Margin="10,5,10,5" Orientation="Horizontal">
+					<Svg Path="avares://Munyn/Assets/Icons/key-icon.svg"  Width="20"></Svg>
+					<TextBlock Margin="5,0,0,0" Text="Password: " Foreground="{StaticResource BodyTextColor}"/>
+					<TextBlock Text="munyni5c00l!" Foreground="{StaticResource BodyTextColor}"/>
+				</StackPanel>
+
+				<StackPanel Margin="10,5,10,5" Orientation="Horizontal">
+					<Svg Path="avares://Munyn/Assets/Icons/bash.svg"  Width="20"></Svg>
+					<TextBlock Margin="5,0,0,0" Text="Can Login: " Foreground="{StaticResource BodyTextColor}"/>
+					<Svg Path="avares://Munyn/Assets/Icons/check-mark-circle-icon.svg"  Width="13"></Svg>
+				</StackPanel>
+
+
+				<!-- Services Panel -->
+				<StackPanel>
+					<Border Margin="10,0,10,0" BorderThickness="3" CornerRadius="5,5,0,0">
+						<Border.BorderBrush>
+							<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+								<GradientStop Color="#ef3f79" Offset="0.0"/>
+								<GradientStop Color="#d511d5" Offset="1.0"/>
+							</LinearGradientBrush>
+						</Border.BorderBrush>
+						<Border.Background>
+							<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+								<GradientStop Color="#ef3f79" Offset="0.0"/>
+								<GradientStop Color="#d511d5" Offset="1.0"/>
+							</LinearGradientBrush>
+						</Border.Background>
+						<StackPanel Orientation="Horizontal">
+							<Svg Path="avares://Munyn/Assets/Icons/people-fill.svg" Width="20"/>
+							<TextBlock Text="Groups"  Foreground="#f2f2f2" FontSize="14" Margin="10,1,0,0"></TextBlock>
+
+							<TextBlock Text="3" Foreground="#f2f2f2" Margin="4,1,0,0"></TextBlock>
+
+						</StackPanel>
+					</Border>
+
+					<Border Margin="10,0,10,0" BorderBrush="#e0e0e0" BorderThickness="3" CornerRadius="0,0,5,5" MaxHeight="200" >
+						<ScrollViewer>
+							<StackPanel>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Margin="5,0,0,0" Text="Admins" Foreground="{StaticResource BodyTextColor}"/>
+									<Svg Margin="4,0,0,0" Path="avares://Munyn/Assets/Icons/thunder-icon.svg" Width="10"/>
+
+								</StackPanel>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Margin="5,0,0,0" Text="Svc_Alfresco" Foreground="{StaticResource BodyTextColor}"/>
+									<Svg Margin="4,0,0,0" Path="avares://Munyn/Assets/Icons/thunder-icon.svg" Width="10"/>
+
+								</StackPanel>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Margin="5,0,0,0" Text="wwwdata" Foreground="{StaticResource BodyTextColor}"/>
+								</StackPanel>
+
+
+							</StackPanel>
+						</ScrollViewer>
+
+
+					</Border>
+				</StackPanel>
+
+			</StackPanel>
+		</Border>
+	</StackPanel>
+
+
+
 </UserControl>

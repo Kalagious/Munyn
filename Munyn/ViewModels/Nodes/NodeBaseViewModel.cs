@@ -18,6 +18,7 @@ namespace Munyn.ViewModels
         [ObservableProperty]
         private double _y;
 
+        protected MainViewModel _mainVM;
         public Canvas? parentCanvas;
 
     }

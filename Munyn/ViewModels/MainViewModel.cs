@@ -1,9 +1,10 @@
 ﻿using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
+using System.Collections.Generic;
 using Munyn.Views.Misc;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Munyn.ViewModels;
 
@@ -38,8 +39,18 @@ public partial class MainViewModel : ViewModelBase
         {
             currentContext = currentContext.parentContext;
             RefreshContext();
-            ContextPathList.RemoveAt(ContextPathList.Count - 1);
         }
+    }
+
+    [RelayCommand]
+    private void NewNetworkDrag()
+    {
+        if (nodeCanvas != null)
+        {
+            currentContext.contextNodes.Add(new NetworkNodeViewModel("10.10.14.0/24", 30, 50, currentContext, nodeCanvas, this));
+            RefreshContext();
+        }
+
     }
 
     [RelayCommand]
@@ -63,6 +74,28 @@ public partial class MainViewModel : ViewModelBase
         }
     }
 
+    [RelayCommand]
+    private void NewServiceDrag()
+    {
+        if (nodeCanvas != null)
+        {
+            currentContext.contextNodes.Add(new ServiceNodeViewModel("Apache Webserver", 30, 50, nodeCanvas));
+            RefreshContext();
+        }
+
+    }
+
+    [RelayCommand]
+    private void NewAssetDrag()
+    {
+        if (nodeCanvas != null)
+        {
+            //currentContext.contextNodes.Add(new HostNodeViewModel("Mailing.htb", "(Linux) Ubuntu 20.04", 30, 50, currentContext, nodeCanvas, this));
+            RefreshContext();
+        }
+
+    }
+
     [ObservableProperty]
     private ObservableCollection<ViewModelBase> _visableNodes;
 
@@ -84,25 +117,49 @@ public partial class MainViewModel : ViewModelBase
 
     public void RefreshContext()
     {
+        
         CurrentContextName = currentContext.contextName;
         VisableNodes = currentContext.contextNodes;
 
+        if (currentContext != null)
+        {
+            ContextBase tmpContext = currentContext;
+            ContextPathList.Clear();
+
+            if (tmpContext.parentContext == null)
+                ContextPathList.Add(new ContextPathEntryViewModel(currentContext, this));
+            else
+            {
+                while (tmpContext.parentContext != null) 
+                {
+                    ContextPathList.Add(new ContextPathEntryViewModel(tmpContext, this));
+                    tmpContext = tmpContext.parentContext;
+
+                }
+                ContextPathList.Add(new ContextPathEntryViewModel(rootContext, this));
+            }
+
+            IEnumerable<ContextPathEntryViewModel> reversedPath = ContextPathList.Reverse();
+            ContextPathList = new ObservableCollection<ContextPathEntryViewModel>(reversedPath);
+        }
         if (CurrentContextName == "Root")
             IsRootContext = true;
         else
             IsRootContext = false;
 
+        foreach (NodeBaseViewModel node in VisableNodes) {
+            if (node is HostNodeViewModel)
+            {
+                ((HostNodeViewModel)node).Refresh();
+            }
+        }
+
     }
 
-    public void EnterContext(ContextBase context, bool addpath = true)
+    public void EnterContext(ContextBase context)
     {
-        if (addpath)
-            ContextPathList.Add(new ContextPathEntryViewModel(context, this));
-
         currentContext = context;
         RefreshContext();
-
-
     }
 
 

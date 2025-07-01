@@ -12,12 +12,19 @@
 	
 	
 	<UserControl.DataTemplates>
+		<DataTemplate DataType="vm:NetworkNodeViewModel">
+			<nodes:NetworkNodeView DataContext="{Binding}" ZIndex="10"></nodes:NetworkNodeView>
+		</DataTemplate>
 		<DataTemplate DataType="vm:HostNodeViewModel">
 			<nodes:HostNode DataContext="{Binding}" ZIndex="10"></nodes:HostNode>
 		</DataTemplate>
 		<DataTemplate DataType="vm:UserNodeViewModel">
 			<nodes:UserNode DataContext="{Binding}" ZIndex="10"></nodes:UserNode>
 		</DataTemplate>
+		<DataTemplate DataType="vm:ServiceNodeViewModel">
+			<nodes:ServiceNodeView DataContext="{Binding}" ZIndex="10"></nodes:ServiceNodeView>
+		</DataTemplate>
+		
 	</UserControl.DataTemplates>
 	
 	
@@ -120,29 +127,54 @@
 									<Setter Property="CornerRadius" Value="5"/>
 									<Setter Property="FontWeight" Value="SemiBold"/>
 									<Setter Property="HorizontalAlignment" Value="Center"/>
-									<Setter Property="Background">
-										<Setter.Value>
-											<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
-												<GradientStop Color="#5E60CE" Offset="0.0"/>
-												<GradientStop Color="#64DFDF" Offset="1.0"/>
-											</LinearGradientBrush>
-										</Setter.Value>
-									</Setter>
 								</Style>
 
 							</StackPanel.Styles>
-
+							<Button Command="{Binding NewNetworkDragCommand}">
+								<Svg Path="avares://Munyn/Assets/Icons/neural-network-black-icon.svg"/>
+								<Button.Background>
+									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+										<GradientStop Color="#c531a5" Offset="0.0"/>
+										<GradientStop Color="#4c78ea" Offset="0.5"/>
+										<GradientStop Color="#64DFDF" Offset="1.0"/>
+									</LinearGradientBrush>
+								</Button.Background>
+							</Button>
 							<Button Command="{Binding NewHostDragCommand}">
 								<Svg Path="avares://Munyn/Assets/Icons/pc-display.svg"/>
+								<Button.Background>
+									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+										<GradientStop Color="#5E90CE" Offset="0.0"/>
+										<GradientStop Color="#64DFDF" Offset="1.0"/>
+									</LinearGradientBrush>
+								</Button.Background>
 							</Button>
 							<Button Command="{Binding NewUserDragCommand}">
 								<Svg Path="avares://Munyn/Assets/Icons/person-bounding-box.svg"/>
+								<Button.Background>
+									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+										<GradientStop Color="#ef3f79" Offset="0.0"/>
+										<GradientStop Color="#bf3f79" Offset="1.0"/>
+									</LinearGradientBrush>
+								</Button.Background>
 							</Button>
-							<Button>
+							<Button Command="{Binding NewServiceDragCommand}">
 								<Svg Path="avares://Munyn/Assets/Icons/database-fill-gear.svg"/>
+								<Button.Background>
+									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+										<GradientStop Color="#c531a5" Offset="0.0"/>
+										<GradientStop Color="#9f3fd9" Offset="1.0"/>
+									</LinearGradientBrush>
+								</Button.Background>
 							</Button>
-							<Button>
-								<Svg Path="avares://Munyn/Assets/Icons/file-richtext-fill.svg"/>
+							<Button Command="{Binding NewAssetDragCommand}">
+								<Svg Path="avares://Munyn/Assets/Icons/gold-icon-white.svg"/>
+								<Button.Background>
+									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+										<GradientStop Color="#daa900" Offset="0.0"/>
+										<GradientStop Color="#fa8700" Offset="1.0"/>
+									</LinearGradientBrush>
+								</Button.Background>
 							</Button>
 						</StackPanel>
 					</SplitView.Pane>

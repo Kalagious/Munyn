@@ -24,14 +24,7 @@ namespace Munyn.ViewModels
         [RelayCommand]
         private void EnterContextButton()
         {
-            
-            int contextPathi = _mainVM.ContextPathList.IndexOf(this);
-            int pathLength = _mainVM.ContextPathList.Count;
-            for (int i = contextPathi+1; i < pathLength; i++)
-                _mainVM.ContextPathList.RemoveAt(contextPathi + 1);
-            
-
-            _mainVM.EnterContext(context, false);
+            _mainVM.EnterContext(context);
         }
         public ContextPathEntryViewModel(ContextBase contextTmp, MainViewModel mainVM)
         {
@@ -47,7 +40,12 @@ namespace Munyn.ViewModels
                 IconPath = "avares://Munyn/Assets/Icons/sitemap-icon.svg";
                 ArrowVisible = false;
             }
-                
+            else if (contextTmp is NetworkNodeViewModel)
+            {
+                IconPath = "avares://Munyn/Assets/Icons/neural-network-black-icon.svg";
+                ArrowVisible = true;
+            }
+
         }
 
     }

@@ -10,24 +10,22 @@ using System.Xml.Linq;
 
 namespace Munyn.ViewModels
 {
-    public partial class UserNodeViewModel : NodeBaseViewModel
+    public partial class ServiceNodeViewModel : NodeBaseViewModel
     {
         [ObservableProperty]
-        private string _Username;
+        private string _serviceName;
         [ObservableProperty]
-        private string _UserRole;
+        private string _servicePort;
         [ObservableProperty]
-        private string? _UserPassword;
+        private string? _servicePath;
         [ObservableProperty]
-        private string _UserDetails;
+        private string _serviceDetails;
 
         
 
-        public UserNodeViewModel(string name, string role, string details, float x, float y, Canvas tmpParentCanvas)
+        public ServiceNodeViewModel(string name, float x, float y, Canvas tmpParentCanvas)
         {
-            Username = name;
-            UserRole = role;
-            UserDetails = details;
+            ServiceName = name;
             X = x;
             Y = y;
             parentCanvas = tmpParentCanvas;

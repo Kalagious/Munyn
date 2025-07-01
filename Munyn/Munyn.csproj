@@ -24,8 +24,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\Nodes\NetworkNodeView.axaml.cs">
+      <DependentUpon>NetworkNodeView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Nodes\HostNodeView.axaml.cs">
       <DependentUpon>HostNodeView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Nodes\ServiceNodeView.axaml.cs">
+      <DependentUpon>ServiceNodeView.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Nodes\UserNodeView.axaml.cs">
       <DependentUpon>UserNodeView.axaml</DependentUpon>
