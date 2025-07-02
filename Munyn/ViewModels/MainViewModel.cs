@@ -90,7 +90,15 @@ public partial class MainViewModel : ViewModelBase
     {
         if (nodeCanvas != null)
         {
-            //currentContext.contextNodes.Add(new HostNodeViewModel("Mailing.htb", "(Linux) Ubuntu 20.04", 30, 50, currentContext, nodeCanvas, this));
+
+            NodeBaseViewModel p1 = new NodeBaseViewModel();
+            NodeBaseViewModel p2 = new NodeBaseViewModel();
+            p1.X = 300;
+            p1.Y = 300;
+            p2.X = 800;
+            p2.Y = 500;
+            currentContext.contextNodes.Add(new PathBaseViewModel(p1,p2));
+            currentContext.contextNodes.Add(new AssetNodeViewModel("id_rsa", 30, 50, nodeCanvas));
             RefreshContext();
         }
 
@@ -152,7 +160,12 @@ public partial class MainViewModel : ViewModelBase
             {
                 ((HostNodeViewModel)node).Refresh();
             }
+            if (node is PathBaseViewModel)
+            {
+                ((PathBaseViewModel)node).RecalculatePathData();
+            }
         }
+
 
     }
 

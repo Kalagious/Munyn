@@ -24,7 +24,12 @@
 		<DataTemplate DataType="vm:ServiceNodeViewModel">
 			<nodes:ServiceNodeView DataContext="{Binding}" ZIndex="10"></nodes:ServiceNodeView>
 		</DataTemplate>
-		
+		<DataTemplate DataType="vm:AssetNodeViewModel">
+			<nodes:AssetNodeView DataContext="{Binding}" ZIndex="10"></nodes:AssetNodeView>
+		</DataTemplate>
+		<DataTemplate DataType="vm:PathBaseViewModel">
+			<Path Data="{Binding PathData}" Stroke="#f2f2f2" StrokeThickness="2"/>
+		</DataTemplate>
 	</UserControl.DataTemplates>
 	
 	
@@ -171,7 +176,7 @@
 								<Svg Path="avares://Munyn/Assets/Icons/gold-icon-white.svg"/>
 								<Button.Background>
 									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
-										<GradientStop Color="#daa900" Offset="0.0"/>
+										<GradientStop Color="#eab900" Offset="0.0"/>
 										<GradientStop Color="#fa8700" Offset="1.0"/>
 									</LinearGradientBrush>
 								</Button.Background>
