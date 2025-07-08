@@ -5,6 +5,9 @@ using Avalonia.VisualTree;
 using Avalonia.Markup.Xaml;
 using Munyn.ViewModels;
 using System;
+using DynamicData;
+using Splat;
+using System.Collections.Generic;
 
 
 namespace Munyn.Views.Nodes;
@@ -14,6 +17,7 @@ public partial class NodeBaseView : UserControl
     private bool _isDragging = false;
     private Point _startDragPoint;
 
+
     private Canvas? _rootDrawingCanvas;
 
     public void Node_PointerPressed(object sender, PointerPressedEventArgs e)
@@ -21,12 +25,38 @@ public partial class NodeBaseView : UserControl
         // Only start dragging with the left mouse button
         if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
         {
-            _isDragging = true;
-            // Capture the mouse so we continue receiving events even if the pointer moves outside the control
-            e.Pointer.Capture(this);
-            // Store the starting position of the mouse relative to the HostNode
-            _startDragPoint = e.GetPosition(this);
-            e.Handled = true; // Mark as handled to prevent parent controls from also handling
+            
+           
+                
+            if (DataContext is NodeBaseViewModel nodeVm) // Cast DataContext to its ViewModel
+            {
+                var topLevel = TopLevel.GetTopLevel(this);
+                if (topLevel?.DataContext is MainViewModel mainViewModelFromTopLevel)
+                if (mainViewModelFromTopLevel.PathTool)
+                {
+                    var portElement = sender as Control;
+                    if (portElement != null && nodeVm.parentCanvas != null)
+                    {
+                        // Calculate port position in canvas coordinates
+                        Point portCenterInControl = new Point(portElement.Bounds.Width / 2, portElement.Bounds.Height / 2);
+                        Point portCenterInNode = portElement.TranslatePoint(portCenterInControl, this) ?? portCenterInControl;
+                        Point portCenterInCanvas = this.TranslatePoint(portCenterInNode, nodeVm.parentCanvas) ?? portCenterInNode;
+
+                        // INVOKE THE ACTION on the Node's ViewModel, which the MainViewModel has subscribed to!
+                        nodeVm.OnStartConnectionDragNode?.Invoke(nodeVm, portCenterInCanvas, e);
+                    }
+                }
+                else
+                {
+
+                    _isDragging = true;
+                    // Capture the mouse so we continue receiving events even if the pointer moves outside the control
+                    e.Pointer.Capture(this);
+                    // Store the starting position of the mouse relative to the HostNode
+                    _startDragPoint = e.GetPosition(this);
+                    e.Handled = true; // Mark as handled to prevent parent controls from also 
+                }
+            }
         }
     }
 
@@ -62,6 +92,9 @@ public partial class NodeBaseView : UserControl
             viewModel.Y = newY;
             //System.Diagnostics.Debug.WriteLine($"PointerMoved: newX={newX}, newY={newY}");
 
+            foreach (PathBaseViewModel path in viewModel.connectedPaths)
+                path.RecalculatePathData();
+
             e.Handled = true; // Mark as handled
         }
     }
@@ -69,11 +102,29 @@ public partial class NodeBaseView : UserControl
     public void Node_PointerReleased(object sender, PointerReleasedEventArgs e)
     {
         if (_isDragging)
-        {
+        {       
+
             _isDragging = false;
             e.Pointer.Capture(null); // Release mouse capture
-            e.Handled = true; // Mark as handled
+            
         }
+        else
+        {
+            if (DataContext is NodeBaseViewModel nodeVm) // Cast DataContext to its ViewModel
+            {
+                var portElement = sender as Control;
+                if (portElement != null && nodeVm.parentCanvas != null)
+                {
+                    // Calculate port position in canvas coordinates
+                    Point portCenterInControl = new Point(portElement.Bounds.Width / 2, portElement.Bounds.Height / 2);
+                    Point portCenterInNode = portElement.TranslatePoint(portCenterInControl, this) ?? portCenterInControl;
+                    Point portCenterInCanvas = this.TranslatePoint(portCenterInNode, nodeVm.parentCanvas) ?? portCenterInNode;
+                    nodeVm.OnEndConnectionDragNode?.Invoke(nodeVm, portCenterInCanvas, e);
+                }
+            }
+
+        }
+        e.Handled = true; // Mark as handled
     }
 }
 

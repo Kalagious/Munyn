@@ -1,4 +1,6 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
@@ -18,10 +20,16 @@ namespace Munyn.ViewModels
         [ObservableProperty]
         private double _y;
 
-        protected MainViewModel _mainVM;
+        public MainViewModel _mainVM;
         public Canvas? parentCanvas;
 
+        public List<PathBaseViewModel> connectedPaths = new List<PathBaseViewModel>();
 
+
+        public Action<NodeBaseViewModel, Point, PointerPressedEventArgs> OnStartConnectionDragNode { get; internal set; }
+        public Action<NodeBaseViewModel, Point, PointerReleasedEventArgs> OnEndConnectionDragNode { get; internal set; }
 
     }
+
+
 }

@@ -14,7 +14,7 @@ namespace Munyn.Views;
 
 public partial class MainView : UserControl
 {
-    private Canvas? _nodeCanvas;
+    private Canvas? _NodeCanvasBase;
 
 
 
@@ -49,13 +49,13 @@ public partial class MainView : UserControl
             if (presenter.Panel != null && DataContext is MainViewModel mainVm)
             {
 
-                mainVm.nodeCanvas = (Canvas)presenter.Panel; ;
-                _nodeCanvas = mainVm.nodeCanvas;
+                mainVm.NodeCanvasBase = (Canvas)presenter.Panel; 
+                _NodeCanvasBase = mainVm.NodeCanvasBase;
         
             }
             else
             {
-                System.Diagnostics.Debug.WriteLine("Error: Canvas '_nodeCanvas' not found.");
+                System.Diagnostics.Debug.WriteLine("Error: Canvas '_NodeCanvasBase' not found.");
                 return;
             }
         }

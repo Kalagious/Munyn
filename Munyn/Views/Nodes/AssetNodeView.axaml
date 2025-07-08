@@ -58,7 +58,7 @@
 
 				<StackPanel Margin="10,5,10,5" Orientation="Horizontal">
 					<Svg Path="avares://Munyn/Assets/Icons/file-richtext-fill-black.svg"  Width="20"></Svg>
-					<TextBlock Margin="5,0,0,0" Text="Description: Jeff id_rsa ssh private key. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" TextWrapping="Wrap" Foreground="{StaticResource BodyTextColor}"/>
+					<TextBlock Margin="5,0,0,0" Text="Description: Jeff id_rsa ssh private key. " TextWrapping="Wrap" Foreground="{StaticResource BodyTextColor}"/>
 				</StackPanel>
 			
 

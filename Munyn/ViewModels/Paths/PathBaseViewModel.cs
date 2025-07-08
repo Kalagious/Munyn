@@ -5,98 +5,80 @@ using System.Globalization; // For InvariantCulture
 
 namespace Munyn.ViewModels
 {
-    public partial class PathBaseViewModel : NodeBaseViewModel
+    public partial class PathBaseViewModel : ViewModelBase
     {
-        private NodeBaseViewModel _startNode;
-        private NodeBaseViewModel _endNode;
-
+        public Point StartPoint;
+        public Point EndPoint;
+        public NodeBaseViewModel StartNode;
+        public NodeBaseViewModel EndNode;
+        private MainViewModel _mainVm;
         // PathData property for the curved line
         [ObservableProperty]
         private string _pathData = "M 0,0 C 0,0 0,0 0,0"; // Default empty path
 
         // Properties for XAML binding to draw the line (now primarily for calculating PathData)
-        public double X1 => StartNode?.X ?? 0;
-        public double Y1 => StartNode?.Y ?? 0;
-        public double X2 => EndNode?.X ?? 0;
-        public double Y2 => EndNode?.Y ?? 0;
 
 
-        public NodeBaseViewModel StartNode
+
+
+        public PathBaseViewModel(NodeBaseViewModel startNode, Point endPoint, MainViewModel mainViewModel)
         {
-            get => _startNode;
-            set
-            {
-                if (SetProperty(ref _startNode, value))
-                {
-                    if (_startNode != null)
-                        _startNode.PropertyChanged += OnNodePropertyChanged;
-                    RecalculatePathData(); // Recalculate when node changes
-                }
-            }
-        }
-
-        public NodeBaseViewModel EndNode
-        {
-            get => _endNode;
-            set
-            {
-                if (SetProperty(ref _endNode, value))
-                {
-                    if (_endNode != null)
-                        _endNode.PropertyChanged += OnNodePropertyChanged;
-                    RecalculatePathData(); // Recalculate when node changes
-                }
-            }
-        }
-
-
-
-        public PathBaseViewModel(NodeBaseViewModel startNode, NodeBaseViewModel endNode)
-        {
-            if (startNode == null || endNode == null)
-            {
+            _mainVm = mainViewModel;
+            if (startNode == null || endPoint == null)
+            {   
                 throw new ArgumentNullException("Start and End nodes cannot be null for a connection.");
             }
-            _startNode = startNode;
-            _endNode = endNode;
+            StartNode = startNode;
+            StartPoint = new Point(StartNode.X, StartNode.Y);
+            EndPoint = endPoint;
 
-            _startNode.PropertyChanged += OnNodePropertyChanged;
-            _endNode.PropertyChanged += OnNodePropertyChanged;
+
 
             RecalculatePathData(); // Initial calculation
         }
 
 
-        private void OnNodePropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(NodeBaseViewModel.X) || e.PropertyName == nameof(NodeBaseViewModel.Y))
-            {
-                RecalculatePathData(); // Recalculate when node position changes
-            }
-        }
+
 
         // --- NEW: Method to calculate the curved path data ---
         public void RecalculatePathData()
         {
-            if (StartNode == null || EndNode == null)
+
+            if (StartNode != null)
+                StartPoint = new Point(StartNode.X + _mainVm.FindNodeViewByViewModel(StartNode).Bounds.Width / 2, StartNode.Y);
+
+
+            if (EndNode != null)
+                EndPoint = new Point(EndNode.X + _mainVm.FindNodeViewByViewModel(EndNode).Bounds.Width / 2, EndNode.Y);
+
+            if (StartPoint == null || EndPoint == null)
             {
-                PathData = "M 0,0"; // Empty path if nodes are null
+                PathData = "M 0,0";
                 return;
             }
 
-            // Node coordinates (adjusting to approximate center or connection point of node view)
-            // Assuming node views are around 140x90 based on HostNodeView.axaml
-            double x1 = StartNode.X + 70; // Center X of start node
-            double y1 = StartNode.Y + 45; // Center Y of start node
-            double x2 = EndNode.X + 70;   // Center X of end node
-            double y2 = EndNode.Y + 45;   // Center Y of end node
+
+            bool startNodeTop = false;
+
+            double y1 = StartPoint.Y;
+            double y2 = EndPoint.Y;
+            double x1 = StartPoint.X;
+            double x2 = EndPoint.X;   // Center X of end node
+
+            
+            if (EndNode != null)
+            {
+                y2 += _mainVm.FindNodeViewByViewModel(EndNode).Bounds.Height;
+                startNodeTop = true;
+            }
+            
+
 
             double dx = x2 - x1;
             double dy = y2 - y1;
 
             double normalLength = Math.Sqrt(dx * dx + dy * dy);
 
-            // Handle division by zero / very short lines
             if (normalLength < 1.0)
             {
                 PathData = string.Format(
@@ -123,7 +105,7 @@ namespace Munyn.ViewModels
 
             // Apply the offset to the Y-coordinates to create the S-curve.
             // The direction of the bend depends on whether x1 is less than x2 (moving right) or greater (moving left).
-            if (x1 < x2) // Moving generally right: first bend down, second bend up
+            if (!startNodeTop) // Moving generally right: first bend down, second bend up
             {
                 cp1y = y1 + sBendOffset;
                 cp2y = y2 - sBendOffset;

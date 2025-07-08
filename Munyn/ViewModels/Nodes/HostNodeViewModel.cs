@@ -66,7 +66,7 @@ namespace Munyn.ViewModels
             ServiceCount = GetNodeCountOfType<ServiceNodeViewModel>();
             Services.Clear();
 
-            foreach (NodeBaseViewModel node in contextNodes)
+            foreach (ViewModelBase node in contextNodes)
             {
                 if (node.GetType() == typeof(ServiceNodeViewModel))
                     Services.Add(new ServiceListEntry(((ServiceNodeViewModel)node).ServiceName));
