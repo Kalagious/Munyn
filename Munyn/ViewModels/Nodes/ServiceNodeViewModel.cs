@@ -12,8 +12,7 @@ namespace Munyn.ViewModels
 {
     public partial class ServiceNodeViewModel : NodeBaseViewModel
     {
-        [ObservableProperty]
-        private string _serviceName;
+
         [ObservableProperty]
         private string _servicePort;
         [ObservableProperty]
@@ -25,7 +24,7 @@ namespace Munyn.ViewModels
 
         public ServiceNodeViewModel(string name, float x, float y, Canvas tmpParentCanvas)
         {
-            ServiceName = name;
+            NodeName = name;
             X = x;
             Y = y;
             parentCanvas = tmpParentCanvas;

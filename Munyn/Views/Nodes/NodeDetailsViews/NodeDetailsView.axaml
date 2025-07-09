@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Munyn.Views.Nodes.NodeDetailsViews.HostNodeDetailsView"
+             x:Class="Munyn.Views.Nodes.NodeDetailsViews.NodeDetailsView"
 			 xmlns:vm="clr-namespace:Munyn.ViewModels"
 			 x:DataType="vm:HostNodeViewModel"
 			 
@@ -35,7 +35,7 @@
 						</LinearGradientBrush>
 					</Border.Background>
 					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-						<TextBox Text="{Binding HostName}"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="24" Margin="10" Background="#00000000" BorderThickness="0"></TextBox>
+						<TextBox Text="{Binding NodeName}"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="24" Margin="10" Background="#00000000" BorderThickness="0"></TextBox>
 					</StackPanel>
 				</Border>
 			<StackPanel Spacing="10">

@@ -9,11 +9,11 @@ using System;
 
 namespace Munyn.Views.Nodes.NodeDetailsViews;
 
-public partial class HostNodeDetailsView : NodeBaseView
+public partial class NodeDetailsView : NodeBaseView
 {
 
     
-    public HostNodeDetailsView()
+    public NodeDetailsView()
     {
         InitializeComponent();
 

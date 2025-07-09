@@ -16,15 +16,14 @@ namespace Munyn.ViewModels
     public partial class NetworkNodeViewModel : ContextBase
     {
         
-        [ObservableProperty]
-        private string _NetworkName;
+
 
 
 
 
         public NetworkNodeViewModel(string name, float x, float y, ContextBase parent, Canvas tmpParentCanvas, MainViewModel mainVM)
         {
-            NetworkName = name;
+            NodeName = name;
             contextName = name;
             X = x;
             Y = y;

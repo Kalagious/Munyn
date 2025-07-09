@@ -16,8 +16,6 @@ namespace Munyn.ViewModels
     public partial class LinkNodeViewModel : ContextBase
     {
         public ContextBase targetContext;
-        [ObservableProperty]
-        private string _contextName;
 
         [ObservableProperty]
         private string _iconPath;
@@ -30,7 +28,7 @@ namespace Munyn.ViewModels
 
         public LinkNodeViewModel(string name, float x, float y, ContextBase parent, ContextBase targetContextTmp, Canvas tmpParentCanvas, MainViewModel mainVM)
         {
-            ContextName = name;
+            NodeName = name;
             X = x;
             Y = y;
             parentCanvas = tmpParentCanvas;

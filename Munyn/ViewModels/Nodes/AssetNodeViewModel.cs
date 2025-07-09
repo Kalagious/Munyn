@@ -12,8 +12,6 @@ namespace Munyn.ViewModels
 {
     public partial class AssetNodeViewModel : NodeBaseViewModel
     {
-        [ObservableProperty]
-        private string _assetName;
 
         [ObservableProperty]
         private string? _assetLocation;
@@ -27,7 +25,7 @@ namespace Munyn.ViewModels
 
         public AssetNodeViewModel(string name, float x, float y, Canvas tmpParentCanvas)
         {
-            AssetName = name;
+            NodeName = name;
             X = x;
             Y = y;
             parentCanvas = tmpParentCanvas;

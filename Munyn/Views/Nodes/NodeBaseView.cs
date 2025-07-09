@@ -31,26 +31,26 @@ public partial class NodeBaseView : UserControl
             if (DataContext is NodeBaseViewModel nodeVm) // Cast DataContext to its ViewModel
             {
                 var topLevel = TopLevel.GetTopLevel(this);
-                if (topLevel?.DataContext is MainViewModel mainViewModelFromTopLevel)
-                if (mainViewModelFromTopLevel.PathTool)
-                {
-                    var portElement = sender as Control;
-                    if (portElement != null && nodeVm.parentCanvas != null)
+                    if (topLevel?.DataContext is MainViewModel mainViewModelFromTopLevel)
+                    if (mainViewModelFromTopLevel.PathTool)
                     {
-                        // Calculate port position in canvas coordinates
-                        Point portCenterInControl = new Point(portElement.Bounds.Width / 2, portElement.Bounds.Height / 2);
-                        Point portCenterInNode = portElement.TranslatePoint(portCenterInControl, this) ?? portCenterInControl;
-                        Point portCenterInCanvas = this.TranslatePoint(portCenterInNode, nodeVm.parentCanvas) ?? portCenterInNode;
+                        var portElement = sender as Control;
+                        if (portElement != null && nodeVm.parentCanvas != null)
+                        {
+                            // Calculate port position in canvas coordinates
+                            Point portCenterInControl = new Point(portElement.Bounds.Width / 2, portElement.Bounds.Height / 2);
+                            Point portCenterInNode = portElement.TranslatePoint(portCenterInControl, this) ?? portCenterInControl;
+                            Point portCenterInCanvas = this.TranslatePoint(portCenterInNode, nodeVm.parentCanvas) ?? portCenterInNode;
 
-                        // INVOKE THE ACTION on the Node's ViewModel, which the MainViewModel has subscribed to!
-                        nodeVm.OnStartConnectionDragNode?.Invoke(nodeVm, portCenterInCanvas, e);
+                            // INVOKE THE ACTION on the Node's ViewModel, which the MainViewModel has subscribed to!
+                            nodeVm.OnStartConnectionDragNode?.Invoke(nodeVm, portCenterInCanvas, e);
+                        }
                     }
-                }
-                else
-                { 
-                    e.Pointer.Capture(this);
-                    e.Handled = true; 
-                }
+                    else
+                    { 
+                        e.Pointer.Capture(this);
+                        e.Handled = true; 
+                    }
             }
         }
     }

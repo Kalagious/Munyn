@@ -30,8 +30,6 @@ namespace Munyn.ViewModels
     public partial class HostNodeViewModel : ContextBase
     {
         
-        [ObservableProperty]
-        private string _HostName;
 
         [ObservableProperty]
         private string _HostOS;
@@ -65,14 +63,12 @@ namespace Munyn.ViewModels
 
         public partial class ServiceListEntry : ObservableObject
         {
-            [ObservableProperty]
-            private string _serviceName = "None";
 
-            [ObservableProperty]
-            private string _serviceIconPath = "avares://Munyn/Assets/Icons/thunder-icon.svg";
+            [ObservableProperty] private string _serviceName = "None";
 
-            [ObservableProperty]
-            private bool _isCompromised = false;
+            [ObservableProperty] private string _serviceIconPath = "avares://Munyn/Assets/Icons/thunder-icon.svg";
+
+            [ObservableProperty] private bool _isCompromised = false;
 
             public ServiceListEntry(string name, bool isCompromised = false) { 
                 ServiceName = name;
@@ -89,7 +85,7 @@ namespace Munyn.ViewModels
             foreach (ViewModelBase node in contextNodes)
             {
                 if (node.GetType() == typeof(ServiceNodeViewModel))
-                    Services.Add(new ServiceListEntry(((ServiceNodeViewModel)node).ServiceName));
+                    Services.Add(new ServiceListEntry(((ServiceNodeViewModel)node).NodeName));
                 
             }
 
@@ -97,7 +93,7 @@ namespace Munyn.ViewModels
 
         public HostNodeViewModel(string name, string status, float x, float y, ContextBase parent, Canvas tmpParentCanvas, MainViewModel mainVM)
         {
-            HostName = name;
+            NodeName = name;
             contextName = name;
             HostOS = status;
             X = x;

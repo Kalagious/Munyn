@@ -114,6 +114,7 @@ public partial class MainViewModel : ViewModelBase
         {
             NodeBaseViewModel newNode = new UserNodeViewModel("Jeff", "Admin", "Test details", 30, 50, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
+            newNode.OnClickedNode = OnClickedNode;
 
             currentContext.contextNodes.Add(newNode);
             RefreshContext();

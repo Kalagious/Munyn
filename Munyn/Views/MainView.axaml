@@ -211,7 +211,7 @@
 								</ItemsControl.ItemsPanel>
 							</ItemsControl>
 							<Border Width="300" MinHeight="400" VerticalAlignment="Top" HorizontalAlignment="Right" ZIndex="10" CornerRadius="5" Background="#f2f2f2" Margin="10">
-								<nodedetails:HostNodeDetailsView DataContext="{Binding SelectedNode}" ZIndex="10"></nodedetails:HostNodeDetailsView>
+								<nodedetails:NodeDetailsView DataContext="{Binding SelectedNode}" ZIndex="10"></nodedetails:NodeDetailsView>
 									
 							</Border>
 						</Grid>

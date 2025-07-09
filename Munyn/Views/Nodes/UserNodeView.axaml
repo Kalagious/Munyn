@@ -36,7 +36,7 @@
 			</Border.Background>
 			<StackPanel Orientation="Horizontal">
 				<Svg Path="avares://Munyn/Assets/Icons/person-bounding-box.svg" Width="25" Margin="10"/>
-				<TextBlock Text="{Binding Username}"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="16" Margin="10"></TextBlock>
+				<TextBlock Text="{Binding NodeName}"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="16" Margin="10"></TextBlock>
 			</StackPanel>
 		</Border>
 

@@ -12,8 +12,7 @@ namespace Munyn.ViewModels
 {
     public partial class UserNodeViewModel : NodeBaseViewModel
     {
-        [ObservableProperty]
-        private string _Username;
+
         [ObservableProperty]
         private string _UserRole;
         [ObservableProperty]
@@ -25,7 +24,7 @@ namespace Munyn.ViewModels
 
         public UserNodeViewModel(string name, string role, string details, float x, float y, Canvas tmpParentCanvas)
         {
-            Username = name;
+            NodeName = name;
             UserRole = role;
             UserDetails = details;
             X = x;
