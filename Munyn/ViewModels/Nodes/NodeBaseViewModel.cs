@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,12 @@ namespace Munyn.ViewModels
         [ObservableProperty]
         private double _y;
 
+        [ObservableProperty]
+        private bool _editName = false;
+
+        [RelayCommand]
+        private void ToggleEditName() { EditName = !EditName; }
+
         public MainViewModel _mainVM;
         public Canvas? parentCanvas;
 
@@ -27,7 +34,8 @@ namespace Munyn.ViewModels
 
 
         public Action<NodeBaseViewModel, Point, PointerPressedEventArgs> OnStartConnectionDragNode { get; internal set; }
-        public Action<NodeBaseViewModel, Point, PointerReleasedEventArgs> OnEndConnectionDragNode { get; internal set; }
+        public Action<NodeBaseViewModel, PointerReleasedEventArgs> OnClickedNode { get; internal set; }
+
 
     }
 

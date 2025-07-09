@@ -8,6 +8,7 @@ using System;
 using DynamicData;
 using Splat;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 
 namespace Munyn.Views.Nodes;
@@ -16,7 +17,7 @@ public partial class NodeBaseView : UserControl
 {
     private bool _isDragging = false;
     private Point _startDragPoint;
-
+    private const double DragThreshold = 5.0;
 
     private Canvas? _rootDrawingCanvas;
 
@@ -25,9 +26,8 @@ public partial class NodeBaseView : UserControl
         // Only start dragging with the left mouse button
         if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
         {
-            
-           
-                
+            _startDragPoint = e.GetPosition(this);
+
             if (DataContext is NodeBaseViewModel nodeVm) // Cast DataContext to its ViewModel
             {
                 var topLevel = TopLevel.GetTopLevel(this);
@@ -47,14 +47,9 @@ public partial class NodeBaseView : UserControl
                     }
                 }
                 else
-                {
-
-                    _isDragging = true;
-                    // Capture the mouse so we continue receiving events even if the pointer moves outside the control
+                { 
                     e.Pointer.Capture(this);
-                    // Store the starting position of the mouse relative to the HostNode
-                    _startDragPoint = e.GetPosition(this);
-                    e.Handled = true; // Mark as handled to prevent parent controls from also 
+                    e.Handled = true; 
                 }
             }
         }
@@ -62,6 +57,20 @@ public partial class NodeBaseView : UserControl
 
     public void Node_PointerMoved(object sender, PointerEventArgs e)
     {
+        Point currentCanvasPosition = e.GetPosition(_rootDrawingCanvas);
+
+
+        if (!_isDragging && e.Pointer.Captured == (this))
+        {
+            double deltaX = currentCanvasPosition.X - _startDragPoint.X;
+            double deltaY = currentCanvasPosition.Y - _startDragPoint.Y;
+            double distance = Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+
+            if (distance > DragThreshold)
+                _isDragging = true;
+
+        }
+
         if (_isDragging && DataContext is NodeBaseViewModel viewModel)
         {
             // Get the current position of the mouse relative to the Canvas
@@ -73,7 +82,6 @@ public partial class NodeBaseView : UserControl
                 if (_rootDrawingCanvas == null) return;
             }
 
-            Point currentCanvasPosition = e.GetPosition(_rootDrawingCanvas);
 
             // Calculate the new X and Y based on the mouse movement and initial click offset
             // Current mouse position on canvas - initial click offset relative to node
@@ -101,29 +109,14 @@ public partial class NodeBaseView : UserControl
 
     public void Node_PointerReleased(object sender, PointerReleasedEventArgs e)
     {
-        if (_isDragging)
-        {       
-
-            _isDragging = false;
-            e.Pointer.Capture(null); // Release mouse capture
-            
-        }
-        else
-        {
+        if (!_isDragging)
             if (DataContext is NodeBaseViewModel nodeVm) // Cast DataContext to its ViewModel
-            {
-                var portElement = sender as Control;
-                if (portElement != null && nodeVm.parentCanvas != null)
-                {
-                    // Calculate port position in canvas coordinates
-                    Point portCenterInControl = new Point(portElement.Bounds.Width / 2, portElement.Bounds.Height / 2);
-                    Point portCenterInNode = portElement.TranslatePoint(portCenterInControl, this) ?? portCenterInControl;
-                    Point portCenterInCanvas = this.TranslatePoint(portCenterInNode, nodeVm.parentCanvas) ?? portCenterInNode;
-                    nodeVm.OnEndConnectionDragNode?.Invoke(nodeVm, portCenterInCanvas, e);
-                }
-            }
+                nodeVm.OnClickedNode?.Invoke(nodeVm, e);
 
-        }
+
+        _isDragging = false;
+        e.Pointer.Capture(null); // Release mouse capture
+
         e.Handled = true; // Mark as handled
     }
 }

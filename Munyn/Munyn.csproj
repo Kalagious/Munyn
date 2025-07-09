@@ -41,6 +41,9 @@
       <SubType>Code</SubType>
       <DependentUpon>AssetNodeView.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Nodes\NodeDetailsViews\HostNodeDetailsView.axaml.cs">
+      <DependentUpon>HostNodeDetailsView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Nodes\ServiceNodeView.axaml.cs">
       <DependentUpon>ServiceNodeView.axaml</DependentUpon>
     </Compile>

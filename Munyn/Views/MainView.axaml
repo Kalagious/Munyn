@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Munyn.ViewModels"
 			 xmlns:nodes="clr-namespace:Munyn.Views.Nodes;assembly=Munyn"
+			 xmlns:nodedetails="clr-namespace:Munyn.Views.Nodes.NodeDetailsViews;assembly=Munyn"
 			 xmlns:views="clr-namespace:Munyn.Views;assembly=Munyn"
 			 xmlns:misc="clr-namespace:Munyn.Views.Misc;assembly=Munyn"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -185,31 +186,35 @@
 							</Button>
 						</StackPanel>
 					</SplitView.Pane>
-					<Grid>
-						<Button VerticalAlignment="Top" ZIndex="10" Foreground="#f2f2f2" Margin="10" IsVisible="{Binding !IsRootContext}" Command="{Binding BackContextCommand}">
-							<StackPanel Orientation="Horizontal">
-								<Svg Path="avares://Munyn/Assets/Icons/arrow-left-short.svg" Width="25" Margin="-4,-4,0,-4"></Svg>
-								<TextBlock Text="Back"></TextBlock>
-							</StackPanel>
-						</Button>
-					<ItemsControl x:Name="HostNodeItemsControl" Grid.Row="1" ItemsSource="{Binding VisableNodes}">
+						<Grid>
+							<Button VerticalAlignment="Top" ZIndex="10" Foreground="#f2f2f2" Margin="10" IsVisible="{Binding !IsRootContext}" Command="{Binding BackContextCommand}">
+								<StackPanel Orientation="Horizontal">
+									<Svg Path="avares://Munyn/Assets/Icons/arrow-left-short.svg" Width="25" Margin="-4,-4,0,-4"></Svg>
+									<TextBlock Text="Back"></TextBlock>
+								</StackPanel>
+							</Button>
+							<ItemsControl x:Name="HostNodeItemsControl" Grid.Row="1" ItemsSource="{Binding VisableNodes}">
 
 
-						<ItemsControl.Styles>
-							<Style Selector="ContentPresenter" x:DataType="vm:UserNodeViewModel">
-								<Setter Property="Canvas.Left" Value="{Binding X}"/>
-								<Setter Property="Canvas.Top" Value="{Binding Y}"/>
-							</Style>
-						</ItemsControl.Styles>
-						
-						
-						<ItemsControl.ItemsPanel>
-							<ItemsPanelTemplate>
-								<views:NodeCanvasBaseView x:Name="CanvasView" Background="#303040"/>
-							</ItemsPanelTemplate>
-						</ItemsControl.ItemsPanel>
-					</ItemsControl>
-					</Grid>
+								<ItemsControl.Styles>
+									<Style Selector="ContentPresenter" x:DataType="vm:UserNodeViewModel">
+										<Setter Property="Canvas.Left" Value="{Binding X}"/>
+										<Setter Property="Canvas.Top" Value="{Binding Y}"/>
+									</Style>
+								</ItemsControl.Styles>
+								
+								
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<views:NodeCanvasBaseView x:Name="CanvasView" Background="#303040"/>
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+							</ItemsControl>
+							<Border Width="300" MinHeight="400" VerticalAlignment="Top" HorizontalAlignment="Right" ZIndex="10" CornerRadius="5" Background="#f2f2f2" Margin="10">
+								<nodedetails:HostNodeDetailsView DataContext="{Binding SelectedNode}" ZIndex="10"></nodedetails:HostNodeDetailsView>
+									
+							</Border>
+						</Grid>
 					</SplitView>
 			</Grid>
 		</Grid>

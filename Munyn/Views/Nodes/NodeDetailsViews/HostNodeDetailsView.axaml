@@ -1,0 +1,177 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Munyn.Views.Nodes.NodeDetailsViews.HostNodeDetailsView"
+			 xmlns:vm="clr-namespace:Munyn.ViewModels"
+			 x:DataType="vm:HostNodeViewModel"
+			 
+			 Canvas.Left="{Binding X}"
+			 Canvas.Top="{Binding Y}"
+			 PointerPressed="Node_PointerPressed"
+			 PointerMoved="Node_PointerMoved"
+			 PointerReleased="Node_PointerReleased">
+
+
+
+			<UserControl.Resources>
+				<Color x:Key="BodyTextColor">#303040</Color>
+				<SolidColorBrush x:Key="BodyText" Color="{StaticResource BodyTextColor}"/>
+			</UserControl.Resources>
+			
+		<StackPanel MinWidth="200" MaxWidth="400">			
+				<Border BorderThickness="3" CornerRadius="5,5,0,0">
+					<Border.BorderBrush>
+						<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+							<GradientStop Color="#19c8f3" Offset="0.0"/>
+							<GradientStop Color="#6551e5" Offset="1.0"/>
+						</LinearGradientBrush>
+					</Border.BorderBrush>
+					<Border.Background>
+						<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+							<GradientStop Color="#19c8f3" Offset="0.0"/>
+							<GradientStop Color="#6551e5" Offset="1.0"/>
+						</LinearGradientBrush>
+					</Border.Background>
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+						<TextBox Text="{Binding HostName}"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="24" Margin="10" Background="#00000000" BorderThickness="0"></TextBox>
+					</StackPanel>
+				</Border>
+			<StackPanel Spacing="10">
+
+				<StackPanel>
+					<Border Margin="10,20,10,0" BorderThickness="3" CornerRadius="5,5,0,0">
+						<Border.BorderBrush>
+							<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+								<GradientStop Color="#c531a5" Offset="0.0"/>
+								<GradientStop Color="#4c78ea" Offset="0.5"/>
+								<GradientStop Color="#64DFDF" Offset="1.0"/>
+							</LinearGradientBrush>
+						</Border.BorderBrush>
+						<Border.Background>
+							<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+								<GradientStop Color="#c531a5" Offset="0.0"/>
+								<GradientStop Color="#4c78ea" Offset="0.5"/>
+								<GradientStop Color="#64DFDF" Offset="1.0"/>
+							</LinearGradientBrush>
+						</Border.Background>
+						<StackPanel Orientation="Horizontal">
+							<Svg Path="avares://Munyn/Assets/Icons/database-fill-gear.svg" Width="20"/>
+							<TextBlock Text="Interfaces"  Foreground="#f2f2f2" FontSize="14" Margin="10,1,0,0"></TextBlock>
+
+							<TextBlock Text="{Binding ServiceCount}" Foreground="#f2f2f2" Margin="4,1,0,0"></TextBlock>
+
+						</StackPanel>
+					</Border>
+
+					<Border Margin="10,0,10,0" BorderBrush="#e0e0e0" Background="#e0e0e0" BorderThickness="3" CornerRadius="0,0,5,5" MaxHeight="200" >
+						<ScrollViewer>
+							<ItemsControl x:Name="InterfaceList" ItemsSource="{Binding NetInterfaces}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Margin="5,0,0,0" MinWidth="35" Text="{Binding Inf}" Foreground="{StaticResource BodyTextColor}"/>
+											<TextBlock Margin="5,0,0,0" Text=":" Foreground="{StaticResource BodyTextColor}"/>
+											<TextBlock Margin="5,0,0,0" Text="{Binding Ip}" Foreground="{StaticResource BodyTextColor}"/>
+										</StackPanel>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<StackPanel MinHeight="20"></StackPanel>
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+							</ItemsControl>
+						</ScrollViewer>
+
+
+					</Border>
+				</StackPanel>
+
+				<!-- Operating System (can be edited) -->
+				<StackPanel Orientation="Horizontal" Spacing="5">
+					<TextBlock Text="OS:" FontWeight="SemiBold" Width="100" Foreground="{StaticResource BodyTextColor}"/>
+					<TextBox Text="{Binding HostOS}" Watermark="e.g., Windows Server 2022" Width="200"/>
+				</StackPanel>
+
+				<StackPanel>
+					<Border Margin="10,0,10,0" BorderThickness="3" CornerRadius="5,5,0,0">
+						<Border.BorderBrush>
+							<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+								<GradientStop Color="#8531c5" Offset="0.0"/>
+								<GradientStop Color="#6323F6" Offset="1.0"/>
+							</LinearGradientBrush>
+						</Border.BorderBrush>
+						<Border.Background>
+							<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+								<GradientStop Color="#8531c5" Offset="0.0"/>
+								<GradientStop Color="#6323F6" Offset="1.0"/>
+							</LinearGradientBrush>
+						</Border.Background>
+						<StackPanel Orientation="Horizontal">
+							<Svg Path="avares://Munyn/Assets/Icons/database-fill-gear.svg" Width="20"/>
+							<TextBlock Text="Services"  Foreground="#f2f2f2" FontSize="14" Margin="10,1,0,0"></TextBlock>
+
+							<TextBlock Text="{Binding ServiceCount}" Foreground="#f2f2f2" Margin="4,1,0,0"></TextBlock>
+
+						</StackPanel>
+					</Border>
+
+					<Border Margin="10,0,10,0" BorderBrush="#e0e0e0" Background="#e0e0e0" BorderThickness="3" CornerRadius="0,0,5,5" MaxHeight="200" >
+						<ScrollViewer>
+							<ItemsControl x:Name="ServiceList" ItemsSource="{Binding Services}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Margin="5,0,0,0" Text="{Binding ServiceName}" Foreground="{StaticResource BodyTextColor}"/>
+											<Svg Margin="4,0,0,0" Path="avares://Munyn/Assets/Icons/thunder-icon.svg" Width="10" IsVisible="{Binding IsCompromised}"/>
+										</StackPanel>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<StackPanel MinHeight="20"></StackPanel>
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+							</ItemsControl>
+						</ScrollViewer>
+
+
+					</Border>
+				</StackPanel>
+				<!-- CPU Cores (can be edited) -->
+				<StackPanel Orientation="Horizontal" Spacing="5">
+					<TextBlock Text="CPU Cores:" FontWeight="SemiBold" Width="100"/>
+					<TextBox Text="{Binding CpuCores}" Watermark="e.g., 8" Width="200"/>
+				</StackPanel>
+
+				<!-- RAM (GB) (can be edited) -->
+				<StackPanel Orientation="Horizontal" Spacing="5">
+					<TextBlock Text="RAM (GB):" FontWeight="SemiBold" Width="100"/>
+					<TextBox Text="{Binding RamGb}" Watermark="e.g., 16" Width="200"/>
+				</StackPanel>
+
+				<!-- Status (can be edited, perhaps a ComboBox in a real app) -->
+				<StackPanel Orientation="Horizontal" Spacing="5">
+					<TextBlock Text="Status:" FontWeight="SemiBold" Width="100"/>
+					<TextBox Text="{Binding Status}" Watermark="e.g., Online, Offline" Width="200"/>
+				</StackPanel>
+
+				<!-- Add more fields as needed for HostNodeViewModel -->
+
+				<!-- Buttons for Save/Cancel (these will trigger commands on MainWindowViewModel) -->
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Margin="0,15,0,0">
+					<!-- These buttons will need to bind to commands on the PARENT DataContext (MainWindowViewModel) -->
+					<!-- We'll add these commands to MainWindowViewModel -->
+					<Button Content="Save Changes" Command="{Binding SaveHostNodeDetailsCommand}"/>
+					<Button Content="Cancel" Command="{Binding CancelHostNodeDetailsCommand}"/>
+				</StackPanel>
+			</StackPanel>
+		</StackPanel>
+		
+
+		
+</UserControl>

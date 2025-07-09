@@ -42,6 +42,9 @@ public partial class MainViewModel : ViewModelBase
     [ObservableProperty]
     private string _currentContextName = "Null";
 
+    [ObservableProperty]
+    private NodeBaseViewModel _selectedNode;
+
     [RelayCommand]
     private void ToggleTray()
     {
@@ -70,7 +73,7 @@ public partial class MainViewModel : ViewModelBase
         if (isDrawingPath)
         {
             currentContext.contextNodes.Remove(_currentPath);
-                isDrawingPath = false;
+            isDrawingPath = false;
             
         }
     }
@@ -96,7 +99,9 @@ public partial class MainViewModel : ViewModelBase
         {
             NodeBaseViewModel newNode = new HostNodeViewModel("Mailing.htb", "(Linux) Ubuntu 20.04", 30, 50, currentContext, NodeCanvasBase, this);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
+            newNode.OnClickedNode = OnClickedNode;
             currentContext.contextNodes.Add(newNode);
+
             RefreshContext();
         }
         
@@ -122,6 +127,7 @@ public partial class MainViewModel : ViewModelBase
         {
             NodeBaseViewModel newNode = new ServiceNodeViewModel("Apache Tomcat", 30, 50, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
+            
 
             currentContext.contextNodes.Add(newNode);
             RefreshContext();
@@ -240,6 +246,12 @@ public partial class MainViewModel : ViewModelBase
             _currentPath.RecalculatePathData();
         }
     }
+
+    public void OnClickedNode(NodeBaseViewModel node, PointerReleasedEventArgs e)
+    {
+        SelectedNode = node;
+    }
+
 
     public void OnEndConnectionDragFromNode(PointerReleasedEventArgs e)
     {
