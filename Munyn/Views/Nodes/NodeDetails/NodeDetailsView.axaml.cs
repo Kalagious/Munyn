@@ -7,7 +7,7 @@ using Munyn.ViewModels;
 using Munyn.Views.Nodes;
 using System;
 
-namespace Munyn.Views.Nodes.NodeDetailsViews;
+namespace Munyn.Views.Nodes.NodeDetails;
 
 public partial class NodeDetailsView : NodeBaseView
 {

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Munyn.ViewModels"
 			 xmlns:nodes="clr-namespace:Munyn.Views.Nodes;assembly=Munyn"
-			 xmlns:nodedetails="clr-namespace:Munyn.Views.Nodes.NodeDetailsViews;assembly=Munyn"
+			 xmlns:nodedetails="clr-namespace:Munyn.Views.Nodes.NodeDetails;assembly=Munyn"
 			 xmlns:views="clr-namespace:Munyn.Views;assembly=Munyn"
 			 xmlns:misc="clr-namespace:Munyn.Views.Misc;assembly=Munyn"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -210,7 +210,7 @@
 									</ItemsPanelTemplate>
 								</ItemsControl.ItemsPanel>
 							</ItemsControl>
-							<Border Width="300" MinHeight="400" VerticalAlignment="Top" HorizontalAlignment="Right" ZIndex="10" CornerRadius="5" Background="#f2f2f2" Margin="10">
+							<Border Width="300" VerticalAlignment="Top" HorizontalAlignment="Right" ZIndex="10" CornerRadius="5" Background="#f2f2f2" Margin="10">
 								<nodedetails:NodeDetailsView DataContext="{Binding SelectedNode}" ZIndex="10"></nodedetails:NodeDetailsView>
 									
 							</Border>

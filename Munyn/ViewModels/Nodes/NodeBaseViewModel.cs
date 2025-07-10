@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Munyn.ViewModels.Nodes.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,10 +19,11 @@ namespace Munyn.ViewModels
     {
         [ObservableProperty]
         private string? _nodeName;
-        [ObservableProperty]
-        private string? _nodeDescription;
+
         [ObservableProperty]
         ObservableCollection<NodePropertyBasic> _properties = new ObservableCollection<NodePropertyBasic>();
+        [ObservableProperty]
+        ObservableCollection<NodePropertyBasic> _propertiesInNodeView = new ObservableCollection<NodePropertyBasic>();
 
         [ObservableProperty]
         private double _x;
@@ -39,16 +41,30 @@ namespace Munyn.ViewModels
 
         public List<PathBaseViewModel> connectedPaths = new List<PathBaseViewModel>();
 
-        public partial class NodePropertyBasic : ObservableObject
-        {
-            [ObservableProperty] private int _propertyIndex;
-            [ObservableProperty] private string? _propertyName;
-            [ObservableProperty] private string? _propertyDetails;
-            [ObservableProperty] private string? _propertyIcon;
-        }
+        
 
         public Action<NodeBaseViewModel, Point, PointerPressedEventArgs> OnStartConnectionDragNode { get; internal set; }
         public Action<NodeBaseViewModel, PointerReleasedEventArgs> OnClickedNode { get; internal set; }
+
+        [RelayCommand]
+        private void AddBlankProperty() {
+        
+                AddNodeProperty(new NodePropertyBasic("New Property", false, false, true, -1));
+        }
+
+        public void AddNodeProperty(NodePropertyBasic property)
+        {
+            if (property == null) throw new ArgumentNullException(nameof(property));
+            
+            Properties.Add(property);
+        }
+
+        public NodePropertyBasic GetNodePropertyFromName(string name)
+        {
+            foreach (var property in Properties)
+                if (property.PropertyName == name) return property;
+            return null;
+        }
 
 
     }

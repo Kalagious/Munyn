@@ -1,0 +1,81 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Munyn.Views.Nodes.NodeDetails.NodeDetailsView"
+			 xmlns:vm="clr-namespace:Munyn.ViewModels"
+			 x:DataType="vm:HostNodeViewModel"
+			 xmlns:nodedetails="clr-namespace:Munyn.Views.Nodes.NodeDetails;assembly=Munyn"
+			 xmlns:properties="clr-namespace:Munyn.ViewModels.Nodes.Properties;assembly=Munyn"
+
+			 Canvas.Left="{Binding X}"
+			 Canvas.Top="{Binding Y}"
+			 PointerPressed="Node_PointerPressed"
+			 PointerMoved="Node_PointerMoved"
+			 PointerReleased="Node_PointerReleased">
+
+
+
+			<UserControl.Resources>
+				<Color x:Key="BodyTextColor">#303040</Color>
+				<SolidColorBrush x:Key="BodyText" Color="{StaticResource BodyTextColor}"/>
+			</UserControl.Resources>
+			
+		<StackPanel MinWidth="200" MaxWidth="400" MaxHeight="700">			
+				<Border BorderThickness="3" CornerRadius="5,5,0,0">
+					<Border.BorderBrush>
+						<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+							<GradientStop Color="#19c8f3" Offset="0.0"/>
+							<GradientStop Color="#6551e5" Offset="1.0"/>
+						</LinearGradientBrush>
+					</Border.BorderBrush>
+					<Border.Background>
+						<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+							<GradientStop Color="#19c8f3" Offset="0.0"/>
+							<GradientStop Color="#6551e5" Offset="1.0"/>
+						</LinearGradientBrush>
+					</Border.Background>
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+						<TextBox Text="{Binding NodeName}"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="24" Margin="10" Background="#00000000" BorderThickness="0"></TextBox>
+					</StackPanel>
+				</Border>
+
+			<Border BorderBrush="#f7f7f7" BorderThickness="3" CornerRadius="0,0,5,5" >
+				<Border Margin="5" BorderBrush="#c2c2c2" CornerRadius="5" BorderThickness="1">
+					<ScrollViewer>
+						<StackPanel>
+							<TextBlock Margin="7,3,0,3" Text="Node Properties:" FontSize="16" FontWeight="Bold" Foreground="{StaticResource BodyTextColor}"></TextBlock>
+							<ItemsControl x:Name="ContextPath" ItemsSource="{Binding Properties}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate DataType="properties:NodePropertyBasic">
+										<nodedetails:NodeDetailsViewProperty DataContext="{Binding}"/> 
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<StackPanel></StackPanel>
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+							</ItemsControl>
+							<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10" Command="{Binding AddBlankPropertyCommand}">
+								<Button.Background>
+									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+										<GradientStop Color="#19c8f3" Offset="0.0"/>
+										<GradientStop Color="#6551e5" Offset="1.0"/>
+									</LinearGradientBrush>
+								</Button.Background>
+								<TextBlock Text="Add Property"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="12" Margin="5"></TextBlock>
+							</Button>
+						</StackPanel>
+					</ScrollViewer>
+				</Border>
+				
+
+			</Border>				
+		</StackPanel>
+		
+
+		
+</UserControl>

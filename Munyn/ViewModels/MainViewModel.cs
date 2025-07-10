@@ -97,7 +97,7 @@ public partial class MainViewModel : ViewModelBase
     {
         if (NodeCanvasBase != null)
         {
-            NodeBaseViewModel newNode = new HostNodeViewModel("Mailing.htb", "(Linux) Ubuntu 20.04", 30, 50, currentContext, NodeCanvasBase, this);
+            NodeBaseViewModel newNode = new HostNodeViewModel("Mailing.htb", 30, 50, currentContext, NodeCanvasBase, this);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
             currentContext.contextNodes.Add(newNode);

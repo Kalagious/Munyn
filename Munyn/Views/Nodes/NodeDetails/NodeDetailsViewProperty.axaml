@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Munyn.Views.Nodes.NodeDetails.NodeDetailsViewProperty">
+
+
+		<StackPanel>
+			<Border Height="1" Background="LightGray" Margin="15,5,15,5"/>
+			<StackPanel Orientation="Horizontal">
+				<TextBox Margin="15,0,0,0" IsVisible="{Binding !IsDefault}" Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" BorderThickness="0"></TextBox>
+				<TextBlock Margin="20,5,0,5" IsVisible="{Binding IsDefault}" Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center"></TextBlock> 
+				<TextBlock Text=":" Foreground="Black" VerticalAlignment="Center"></TextBlock>
+
+				<TextBox Margin="0,0,0,0" Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" IsVisible="{Binding IsEditable}"></TextBox>
+				<TextBlock Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" IsVisible="{Binding !IsEditable}"></TextBlock>
+
+			</StackPanel>
+			
+		</StackPanel>
+
+</UserControl>
