@@ -210,11 +210,23 @@ public partial class MainViewModel : ViewModelBase
             }
             if (node is PathBaseViewModel)
             {
-                ((PathBaseViewModel)node).RecalculatePathData();
+                //((PathBaseViewModel)node).RecalculatePathData(); // Original synchronous call
             }
         }
 
-
+        // After updating VisableNodes and allowing the UI to potentially process it,
+        // schedule a subsequent operation to recalculate paths.
+        // This gives the layout system a chance to measure and arrange node views.
+        Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+        {
+            foreach (ViewModelBase node in VisableNodes)
+            {
+                if (node is PathBaseViewModel pathVM)
+                {
+                    pathVM.RecalculatePathData();
+                }
+            }
+        }, Avalonia.Threading.DispatcherPriority.Background); // Use Background priority to run after layout
     }
 
     private void OnStartConnectionDragFromNode(NodeBaseViewModel sourceNode, Avalonia.Point portCanvasCoordinates, PointerPressedEventArgs e)
