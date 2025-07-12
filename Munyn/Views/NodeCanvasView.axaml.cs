@@ -67,7 +67,7 @@ public partial class NodeCanvasBaseView : Canvas // Note: XAML root is UserContr
 
             _isPanning = true;
             _panLastPoint = e.GetPosition(_canvasHost); // Use position relative to CanvasHost for panning
-            NodeCanvasBase?.CapturePointer(e.Pointer);
+            e.Pointer.Capture(_canvasHost);
             e.Handled = true;
         }
     }
@@ -99,7 +99,7 @@ public partial class NodeCanvasBaseView : Canvas // Note: XAML root is UserContr
 
     private void OnPointerMoved(object? sender, PointerEventArgs e)
     {
-        if (_isPanning && NodeCanvasBase?.IsPointerCaptured(e.Pointer) == true)
+        if (_isPanning && e.Pointer.Captured == _canvasHost)
         {
             if (_canvasHost == null) return;
 
@@ -121,10 +121,10 @@ public partial class NodeCanvasBaseView : Canvas // Note: XAML root is UserContr
 
     private void OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
-        if (_isPanning && NodeCanvasBase?.IsPointerCaptured(e.Pointer) == true)
+        if (_isPanning && e.Pointer.Captured == _canvasHost)
         {
             _isPanning = false;
-            NodeCanvasBase.ReleasePointerCapture(e.Pointer);
+            e.Pointer.Capture(null);
             e.Handled = true;
         }
         else

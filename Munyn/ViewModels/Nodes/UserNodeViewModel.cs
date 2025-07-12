@@ -22,13 +22,14 @@ namespace Munyn.ViewModels
 
         
 
-        public UserNodeViewModel(string name, string role, string details, float x, float y, Canvas tmpParentCanvas)
+        public UserNodeViewModel(string name, float x, float y, Canvas tmpParentCanvas)
         {
             NodeName = name;
-            UserRole = role;
-            UserDetails = details;
             X = x;
             Y = y;
+
+            NodeTheme = makeGradient("#ef3f79", "#d511d5");
+
             parentCanvas = tmpParentCanvas;
         }
 

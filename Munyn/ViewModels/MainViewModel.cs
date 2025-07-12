@@ -112,7 +112,7 @@ public partial class MainViewModel : ViewModelBase
     {
         if (NodeCanvasBase != null)
         {
-            NodeBaseViewModel newNode = new UserNodeViewModel("Jeff", "Admin", "Test details", 30, 50, NodeCanvasBase);
+            NodeBaseViewModel newNode = new UserNodeViewModel("Jeff",  30, 50, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
 
@@ -128,7 +128,8 @@ public partial class MainViewModel : ViewModelBase
         {
             NodeBaseViewModel newNode = new ServiceNodeViewModel("Apache Tomcat", 30, 50, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
-            
+            newNode.OnClickedNode = OnClickedNode;
+
 
             currentContext.contextNodes.Add(newNode);
             RefreshContext();
@@ -144,6 +145,7 @@ public partial class MainViewModel : ViewModelBase
 
             NodeBaseViewModel newNode = new AssetNodeViewModel("id_rsa", 30, 50, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
+            newNode.OnClickedNode = OnClickedNode;
 
             currentContext.contextNodes.Add(newNode);
             RefreshContext();

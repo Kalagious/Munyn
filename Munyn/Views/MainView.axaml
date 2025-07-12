@@ -17,7 +17,7 @@
 			<nodes:NetworkNodeView DataContext="{Binding}" ZIndex="10"></nodes:NetworkNodeView>
 		</DataTemplate>
 		<DataTemplate DataType="vm:HostNodeViewModel">
-			<nodes:HostNode DataContext="{Binding}" ZIndex="10"></nodes:HostNode>
+			<nodes:NodeView DataContext="{Binding}" ZIndex="10"></nodes:NodeView>
 		</DataTemplate>
 		<DataTemplate DataType="vm:UserNodeViewModel">
 			<nodes:UserNode DataContext="{Binding}" ZIndex="10"></nodes:UserNode>
@@ -197,7 +197,7 @@
 
 
 								<ItemsControl.Styles>
-									<Style Selector="ContentPresenter" x:DataType="vm:UserNodeViewModel">
+									<Style Selector="ContentPresenter" x:DataType="vm:NodeBaseViewModel">
 										<Setter Property="Canvas.Left" Value="{Binding X}"/>
 										<Setter Property="Canvas.Top" Value="{Binding Y}"/>
 									</Style>

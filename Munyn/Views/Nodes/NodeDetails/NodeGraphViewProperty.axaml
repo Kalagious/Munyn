@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Munyn.Views.Nodes.NodeDetails.NodeGraphViewProperty">
+
+
+		<StackPanel>
+			<Border Height="1" Background="LightGray" Margin="15,5,15,5"/>
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Margin="20,5,0,5" Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center"></TextBlock> 
+				<TextBlock Text=":" Foreground="Black" VerticalAlignment="Center"></TextBlock>
+
+				<TextBlock Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent"></TextBlock>
+
+			</StackPanel>
+			
+		</StackPanel>
+
+</UserControl>

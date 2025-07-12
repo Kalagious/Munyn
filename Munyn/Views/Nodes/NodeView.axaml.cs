@@ -1,4 +1,4 @@
-﻿using Avalonia;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Munyn.ViewModels;
@@ -8,7 +8,7 @@ using System;
 
 namespace Munyn.Views.Nodes;
 
-public partial class NodeBaseView : UserControl
+public partial class NodeView : UserControl
 {
     private bool _isDragging = false;
     private Point _startDragPoint;
@@ -26,7 +26,7 @@ public partial class NodeBaseView : UserControl
             if (DataContext is NodeBaseViewModel nodeVm) // Cast DataContext to its ViewModel
             {
                 var topLevel = TopLevel.GetTopLevel(this);
-                    if (topLevel?.DataContext is MainViewModel mainViewModelFromTopLevel)
+                if (topLevel?.DataContext is MainViewModel mainViewModelFromTopLevel)
                     if (mainViewModelFromTopLevel.PathTool)
                     {
                         var portElement = sender as Control;
@@ -42,9 +42,9 @@ public partial class NodeBaseView : UserControl
                         }
                     }
                     else
-                    { 
+                    {
                         e.Pointer.Capture(this);
-                        e.Handled = true; 
+                        e.Handled = true;
                     }
             }
         }
@@ -73,10 +73,11 @@ public partial class NodeBaseView : UserControl
             Point initialPointerPosOnCanvasAtPress = new Point(viewModel.X + _startDragPoint.X, viewModel.Y + _startDragPoint.Y);
 
             // Calculate distance moved on the canvas
-            if ((currentPointerPosOnCanvas - initialPointerPosOnCanvasAtPress).Length > DragThreshold)
-            {
+            Point delta = currentPointerPosOnCanvas - initialPointerPosOnCanvasAtPress;
+            double distance = Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y);
+            if (distance > DragThreshold)
                 _isDragging = true;
-            }
+
         }
 
         if (_isDragging && e.Pointer.Captured == this) // Ensure pointer is still captured by this control

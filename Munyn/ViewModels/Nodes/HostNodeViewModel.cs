@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Shapes;
 using Avalonia.Data;
+using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DynamicData;
@@ -60,6 +61,7 @@ namespace Munyn.ViewModels
             // AddNodeProperty(new Nodes.Properties.NodePropertyList("Network Interfaces", true));
             // AddNodeProperty(new Nodes.Properties.NodePropertyList("Services", true));
 
+            NodeTheme = makeGradient("#19c8f3", "#6551e5");
             _mainVM = mainVM;
             parentContext = parent;
         }

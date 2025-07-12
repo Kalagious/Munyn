@@ -28,6 +28,10 @@ namespace Munyn.ViewModels
             NodeName = name;
             X = x;
             Y = y;
+
+            NodeTheme = makeGradient("#eab900", "#fa8700");
+
+
             parentCanvas = tmpParentCanvas;
         }
 

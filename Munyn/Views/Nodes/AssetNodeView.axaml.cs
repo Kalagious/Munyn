@@ -9,7 +9,7 @@ using System;
 
 namespace Munyn.Views.Nodes;
 
-public partial class AssetNodeView : NodeBaseView
+public partial class AssetNodeView : NodeView
 {
 
 

@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Munyn.ViewModels.Nodes.Properties;
@@ -41,7 +42,8 @@ namespace Munyn.ViewModels
 
         public List<PathBaseViewModel> connectedPaths = new List<PathBaseViewModel>();
 
-        
+        [ObservableProperty]
+        IBrush _nodeTheme;
 
         public Action<NodeBaseViewModel, Point, PointerPressedEventArgs> OnStartConnectionDragNode { get; internal set; }
         public Action<NodeBaseViewModel, PointerReleasedEventArgs> OnClickedNode { get; internal set; }
@@ -66,7 +68,15 @@ namespace Munyn.ViewModels
             return null;
         }
 
-
+        public LinearGradientBrush makeGradient(string color1, string color2)
+        {
+            LinearGradientBrush nodeGradient = new LinearGradientBrush();
+            nodeGradient.GradientStops.Add(new GradientStop(Color.Parse(color1), 0.0));
+            nodeGradient.GradientStops.Add(new GradientStop(Color.Parse(color2), 1.0));
+            nodeGradient.StartPoint = new RelativePoint(0, 0, RelativeUnit.Relative);
+            nodeGradient.EndPoint = new RelativePoint(1, 1, RelativeUnit.Relative);
+            return nodeGradient;
+        }
     }
 
 
