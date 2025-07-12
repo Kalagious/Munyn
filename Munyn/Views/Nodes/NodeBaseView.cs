@@ -52,46 +52,67 @@ public partial class NodeBaseView : UserControl
 
     public void Node_PointerMoved(object sender, PointerEventArgs e)
     {
-        Point currentCanvasPosition = e.GetPosition(_rootDrawingCanvas);
+        if (DataContext is not NodeBaseViewModel viewModel) return;
 
-
-        if (!_isDragging && e.Pointer.Captured == (this))
+        if (_rootDrawingCanvas == null)
         {
-            double deltaX = currentCanvasPosition.X - _startDragPoint.X;
-            double deltaY = currentCanvasPosition.Y - _startDragPoint.Y;
-            double distance = Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
-
-            if (distance > DragThreshold)
-                _isDragging = true;
-
+            _rootDrawingCanvas = viewModel.parentCanvas;
+            if (_rootDrawingCanvas == null)
+            {
+                // Cannot perform drag operations without the root canvas
+                return;
+            }
         }
 
-        if (_isDragging && DataContext is NodeBaseViewModel viewModel)
+        Point currentPointerPosOnCanvas = e.GetPosition(_rootDrawingCanvas);
+
+        if (!_isDragging && e.Pointer.Captured == this)
         {
-            // Get the current position of the mouse relative to the Canvas
-            // Find the parent Canvas
+            // _startDragPoint is the offset within the node where the pointer was pressed.
+            // viewModel.X and viewModel.Y is the node's current top-left position on the canvas.
+            Point initialPointerPosOnCanvasAtPress = new Point(viewModel.X + _startDragPoint.X, viewModel.Y + _startDragPoint.Y);
 
             // Calculate distance moved on the canvas
             if ((currentPointerPosOnCanvas - initialPointerPosOnCanvasAtPress).Length > DragThreshold)
             {
-                _rootDrawingCanvas = viewModel.parentCanvas;
-                if (_rootDrawingCanvas == null) return;
+                _isDragging = true;
             }
+        }
 
+        if (_isDragging && e.Pointer.Captured == this) // Ensure pointer is still captured by this control
+        {
+            // currentPointerPosOnCanvas is already up-to-date and relative to _rootDrawingCanvas.
+            // _startDragPoint is the click offset within the node.
+            double newX = currentPointerPosOnCanvas.X - _startDragPoint.X;
+            double newY = currentPointerPosOnCanvas.Y - _startDragPoint.Y;
 
-            // Calculate the new X and Y based on the mouse movement and initial click offset
-            // Current mouse position on canvas - initial click offset relative to node
-            double newX = currentCanvasPosition.X - _startDragPoint.X;
-            double newY = currentCanvasPosition.Y - _startDragPoint.Y;
-
-            // Optional: Clamp values to stay within canvas bounds (adjust as needed)
+            // Clamping: Ensure node stays within canvas bounds
             newX = Math.Max(0, newX);
             newY = Math.Max(0, newY);
-            newX = Math.Min(_rootDrawingCanvas.Bounds.Width - Bounds.Width, newX);
-            newY = Math.Min(_rootDrawingCanvas.Bounds.Height - Bounds.Height, newY);
 
+            // Use this.Bounds for the node's own dimensions.
+            // Ensure Bounds are valid before using them in Min function.
+            double nodeWidth = this.Bounds.Width;
+            double nodeHeight = this.Bounds.Height;
 
-            // Update the ViewModel properties
+            if (nodeWidth > 0)
+            {
+                newX = Math.Min(_rootDrawingCanvas.Bounds.Width - nodeWidth, newX);
+            }
+            else // Fallback if nodeWidth is not positive (e.g. not laid out yet)
+            {
+                newX = Math.Min(_rootDrawingCanvas.Bounds.Width, newX);
+            }
+
+            if (nodeHeight > 0)
+            {
+                newY = Math.Min(_rootDrawingCanvas.Bounds.Height - nodeHeight, newY);
+            }
+            else // Fallback if nodeHeight is not positive
+            {
+                newY = Math.Min(_rootDrawingCanvas.Bounds.Height, newY);
+            }
+
             viewModel.X = newX;
             viewModel.Y = newY;
             //System.Diagnostics.Debug.WriteLine($"PointerMoved: newX={newX}, newY={newY}");

@@ -9,14 +9,20 @@ using Munyn.ViewModels;
 
 namespace Munyn.Views;
 
-public partial class NodeCanvasBaseView : Canvas
+public partial class NodeCanvasBaseView : Canvas // Note: XAML root is UserControl, but this class is Canvas. Consider aligning.
 {
-    private readonly ScaleTransform _zoom = new();
-    private readonly TranslateTransform _pan = new();
+    private readonly ScaleTransform _zoom = new(1, 1);
+    private readonly TranslateTransform _pan = new(0, 0);
     private readonly TransformGroup _transform = new();
 
-    private Point _lastDrag;
-    private bool _isDragging;
+    // For Panning
+    private bool _isPanning;
+    private Point _panLastPoint;
+
+    // For Zooming
+    private const double ZoomSpeed = 1.1;
+    private readonly Grid _canvasHost; // Reference to the clipping Grid
+
     public Action<PointerEventArgs> MainViewModelHandleMouseMoved { get; internal set; }
     public Action<PointerReleasedEventArgs> MainViewModelHandleMouseReleased { get; internal set; }
 
@@ -25,8 +31,18 @@ public partial class NodeCanvasBaseView : Canvas
     {
         InitializeComponent();
 
-        NodeCanvasBase.PointerMoved += OnPointerMoved;
-        NodeCanvasBase.PointerReleased += OnPointerReleased;
+        _transform.Children.Add(_pan);
+        _transform.Children.Add(_zoom);
+        NodeCanvasBase.RenderTransform = _transform;
+
+        // Get reference to CanvasHost
+        _canvasHost = this.FindControl<Grid>("CanvasHost") ?? throw new Exception("CanvasHost not found");
+
+
+        NodeCanvasBase.PointerWheelChanged += NodeCanvasBase_PointerWheelChanged;
+        NodeCanvasBase.PointerPressed += NodeCanvasBase_PointerPressed;
+        NodeCanvasBase.PointerMoved += OnPointerMoved; // Existing handler, will be modified
+        NodeCanvasBase.PointerReleased += OnPointerReleased; // Existing handler, will be modified
         
         this.AttachedToVisualTree += OnAttachedToVisualTree;
     }
@@ -34,16 +50,12 @@ public partial class NodeCanvasBaseView : Canvas
 
     private void OnAttachedToVisualTree(object? sender, Avalonia.VisualTreeAttachmentEventArgs e)
     {
-        // Get a reference to the MainWindowViewModel from the DataContext
         if (this.DataContext is MainViewModel mainViewModel)
         {
             MainViewModelHandleMouseMoved = mainViewModel.HandlePointerMoved;
             MainViewModelHandleMouseReleased = mainViewModel.OnEndConnectionDragFromNode;
-
             mainViewModel.NodeCanvasBase = NodeCanvasBase;
         }
-
-        // Attach to LayoutUpdated to wait for the layout pass
         NodeCanvasBase.LayoutUpdated += OnLayoutUpdated;
     }
 
