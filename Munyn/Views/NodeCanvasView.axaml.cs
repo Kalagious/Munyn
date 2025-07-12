@@ -47,14 +47,151 @@ public partial class NodeCanvasBaseView : Canvas
         NodeCanvasBase.LayoutUpdated += OnLayoutUpdated;
     }
 
+    private void NodeCanvasBase_PointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (e.GetCurrentPoint(this).Properties.IsRightButtonPressed)
+        {
+            if (_canvasHost == null) return;
+
+            _isPanning = true;
+            _panLastPoint = e.GetPosition(_canvasHost); // Use position relative to CanvasHost for panning
+            NodeCanvasBase?.CapturePointer(e.Pointer);
+            e.Handled = true;
+        }
+    }
+
+    private void NodeCanvasBase_PointerWheelChanged(object? sender, PointerWheelEventArgs e)
+    {
+        if (_canvasHost == null || NodeCanvasBase == null) return;
+
+        var point = e.GetPosition(NodeCanvasBase); // Mouse position relative to the NodeCanvasBase
+        var pointToHost = e.GetPosition(_canvasHost); // Mouse position relative to the CanvasHost (viewport)
+
+        double scale = e.Delta.Y > 0 ? ZoomSpeed : 1 / ZoomSpeed;
+
+        double oldScaleX = _zoom.ScaleX;
+        double oldScaleY = _zoom.ScaleY;
+
+        _zoom.ScaleX *= scale;
+        _zoom.ScaleY *= scale;
+
+        // Adjust pan to keep the point under the mouse stationary relative to the viewport
+        // The pan adjustment is the difference in the mouse position's mapping to canvas coordinates
+        // before and after the zoom, scaled by the new zoom level.
+        _pan.X = pointToHost.X - (point.X * _zoom.ScaleX);
+        _pan.Y = pointToHost.Y - (point.Y * _zoom.ScaleY);
+
+        ConstrainView(); // To be implemented in Step 4
+        e.Handled = true;
+    }
+
     private void OnPointerMoved(object? sender, PointerEventArgs e)
     {
-        MainViewModelHandleMouseMoved(e);
+        if (_isPanning && NodeCanvasBase?.IsPointerCaptured(e.Pointer) == true)
+        {
+            if (_canvasHost == null) return;
+
+            var currentPoint = e.GetPosition(_canvasHost);
+            var delta = currentPoint - _panLastPoint;
+            _panLastPoint = currentPoint;
+
+            _pan.X += delta.X;
+            _pan.Y += delta.Y;
+
+            ConstrainView(); // To be implemented in Step 4
+            e.Handled = true;
+        }
+        else
+        {
+            MainViewModelHandleMouseMoved?.Invoke(e);
+        }
     }
 
     private void OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
-        MainViewModelHandleMouseReleased(e);
+        if (_isPanning && NodeCanvasBase?.IsPointerCaptured(e.Pointer) == true)
+        {
+            _isPanning = false;
+            NodeCanvasBase.ReleasePointerCapture(e.Pointer);
+            e.Handled = true;
+        }
+        else
+        {
+            MainViewModelHandleMouseReleased?.Invoke(e);
+        }
+    }
+
+    private void ConstrainView()
+    {
+        if (NodeCanvasBase == null || _canvasHost == null || _canvasHost.Bounds.Width <= 0 || _canvasHost.Bounds.Height <= 0)
+        {
+            return; // Not ready to constrain yet
+        }
+
+        var canvasHostBounds = _canvasHost.Bounds;
+        // NodeCanvasBase.Bounds is the original, untransformed size (e.g., 3000x3000)
+        var nodeCanvasOriginalBounds = NodeCanvasBase.Bounds;
+
+        if (nodeCanvasOriginalBounds.Width <= 0 || nodeCanvasOriginalBounds.Height <= 0)
+        {
+            return; // Original canvas size is not valid
+        }
+
+        // 1. Zoom Constraints: Prevent zooming out too much
+        double minScaleX = canvasHostBounds.Width / nodeCanvasOriginalBounds.Width;
+        if (_zoom.ScaleX < minScaleX)
+        {
+            _zoom.ScaleX = minScaleX;
+        }
+
+        double minScaleY = canvasHostBounds.Height / nodeCanvasOriginalBounds.Height;
+        if (_zoom.ScaleY < minScaleY)
+        {
+            _zoom.ScaleY = minScaleY;
+        }
+
+        // Optional: Max zoom constraint (e.g., _zoom.ScaleX > 2.0) can be added here if needed.
+
+        // Calculate effective width and height of the NodeCanvasBase after zoom
+        double effectiveWidth = nodeCanvasOriginalBounds.Width * _zoom.ScaleX;
+        double effectiveHeight = nodeCanvasOriginalBounds.Height * _zoom.ScaleY;
+
+        // 2. Pan Constraints
+        // Left edge: _pan.X cannot be positive (content shifted right, showing background on the left)
+        if (_pan.X > 0)
+        {
+            _pan.X = 0;
+        }
+
+        // Top edge: _pan.Y cannot be positive (content shifted down, showing background on the top)
+        if (_pan.Y > 0)
+        {
+            _pan.Y = 0;
+        }
+
+        // Right edge: The right side of the canvas (_pan.X + effectiveWidth) should not be less than the host width.
+        // This means _pan.X should not be less than canvasHostBounds.Width - effectiveWidth.
+        double minPanX = canvasHostBounds.Width - effectiveWidth;
+        if (effectiveWidth <= canvasHostBounds.Width) // If canvas is narrower than or same width as host
+        {
+            _pan.X = 0; // Center it or align left
+        }
+        else if (_pan.X < minPanX)
+        {
+            _pan.X = minPanX;
+        }
+
+        // Bottom edge: The bottom side of the canvas (_pan.Y + effectiveHeight) should not be less than the host height.
+        // This means _pan.Y should not be less than canvasHostBounds.Height - effectiveHeight.
+        double minPanY = canvasHostBounds.Height - effectiveHeight;
+        if (effectiveHeight <= canvasHostBounds.Height) // If canvas is shorter than or same height as host
+        {
+            _pan.Y = 0; // Center it or align top
+        }
+        else if (_pan.Y < minPanY)
+        {
+            _pan.Y = minPanY;
+        }
     }
 
 

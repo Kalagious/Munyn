@@ -1,14 +1,9 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.VisualTree;
-using Avalonia.Markup.Xaml;
 using Munyn.ViewModels;
 using System;
-using DynamicData;
-using Splat;
-using System.Collections.Generic;
-using System.Diagnostics;
+
 
 
 namespace Munyn.Views.Nodes;
@@ -76,7 +71,8 @@ public partial class NodeBaseView : UserControl
             // Get the current position of the mouse relative to the Canvas
             // Find the parent Canvas
 
-            if (_rootDrawingCanvas == null)
+            // Calculate distance moved on the canvas
+            if ((currentPointerPosOnCanvas - initialPointerPosOnCanvasAtPress).Length > DragThreshold)
             {
                 _rootDrawingCanvas = viewModel.parentCanvas;
                 if (_rootDrawingCanvas == null) return;
