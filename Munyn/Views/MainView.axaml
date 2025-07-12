@@ -12,26 +12,7 @@
              x:DataType="vm:MainViewModel">
 	
 	
-	<UserControl.DataTemplates>
-		<DataTemplate DataType="vm:NetworkNodeViewModel">
-			<nodes:NetworkNodeView DataContext="{Binding}" ZIndex="10"></nodes:NetworkNodeView>
-		</DataTemplate>
-		<DataTemplate DataType="vm:HostNodeViewModel">
-			<nodes:NodeView DataContext="{Binding}" ZIndex="10"></nodes:NodeView>
-		</DataTemplate>
-		<DataTemplate DataType="vm:UserNodeViewModel">
-			<nodes:UserNode DataContext="{Binding}" ZIndex="10"></nodes:UserNode>
-		</DataTemplate>
-		<DataTemplate DataType="vm:ServiceNodeViewModel">
-			<nodes:ServiceNodeView DataContext="{Binding}" ZIndex="10"></nodes:ServiceNodeView>
-		</DataTemplate>
-		<DataTemplate DataType="vm:AssetNodeViewModel">
-			<nodes:AssetNodeView DataContext="{Binding}" ZIndex="10"></nodes:AssetNodeView>
-		</DataTemplate>
-		<DataTemplate DataType="vm:PathBaseViewModel">
-			<Path Data="{Binding PathData}" Stroke="#f2f2f2" StrokeThickness="2" ZIndex="-1"/>
-		</DataTemplate>
-	</UserControl.DataTemplates>
+	
 	
 	
 	
@@ -202,7 +183,11 @@
 										<Setter Property="Canvas.Top" Value="{Binding Y}"/>
 									</Style>
 								</ItemsControl.Styles>
-								
+								<ItemsControl.ItemTemplate>
+									<DataTemplate DataType="vm:NodeBaseViewModel">
+										<nodes:NodeView DataContext="{Binding}"/>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
 								
 								<ItemsControl.ItemsPanel>
 									<ItemsPanelTemplate>

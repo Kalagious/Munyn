@@ -27,6 +27,9 @@ namespace Munyn.ViewModels
         ObservableCollection<NodePropertyBasic> _propertiesInNodeView = new ObservableCollection<NodePropertyBasic>();
 
         [ObservableProperty]
+        private bool _isContext = false;
+
+        [ObservableProperty]
         private double _x;
         [ObservableProperty]
         private double _y;
@@ -59,6 +62,7 @@ namespace Munyn.ViewModels
             if (property == null) throw new ArgumentNullException(nameof(property));
             
             Properties.Add(property);
+            GetGraphViewProperties();
         }
 
         public NodePropertyBasic GetNodePropertyFromName(string name)
@@ -66,6 +70,18 @@ namespace Munyn.ViewModels
             foreach (var property in Properties)
                 if (property.PropertyName == name) return property;
             return null;
+        }
+
+        public void GetGraphViewProperties()
+        {
+            PropertiesInNodeView.Clear();
+            foreach (NodePropertyBasic property in Properties)
+            {
+                if (property.IsVisableOnGraphNode)
+                {
+                    PropertiesInNodeView.Add(property);
+                }
+            }
         }
 
         public LinearGradientBrush makeGradient(string color1, string color2)
@@ -78,6 +94,4 @@ namespace Munyn.ViewModels
             return nodeGradient;
         }
     }
-
-
 }

@@ -16,6 +16,11 @@ public partial class NodeView : UserControl
 
     private Canvas? _rootDrawingCanvas;
 
+
+    public NodeView()
+    {
+        InitializeComponent();
+    }
     public void Node_PointerPressed(object sender, PointerPressedEventArgs e)
     {
         // Only start dragging with the left mouse button

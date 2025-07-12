@@ -14,7 +14,7 @@ namespace Munyn.ViewModels
         public ObservableCollection<ViewModelBase>? contextNodes;
         public String? contextName;
         public ContextBase? parentContext;
-
+        
 
         [RelayCommand]
         private void EnterContextButton()
@@ -27,6 +27,7 @@ namespace Munyn.ViewModels
         public ContextBase()
         {
             contextNodes = new ObservableCollection<ViewModelBase>();
+            IsContext = true;  
         }
 
         public int GetNodeCountOfType<T>()
