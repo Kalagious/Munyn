@@ -377,7 +377,23 @@ public partial class MainViewModel : ViewModelBase
     private void BuildDtoFromContext(ContextBase context, ContextDto dto)
     {
         dto.Id = context.Id.ToString();
-        dto.ContextName = context.contextName;
+        dto.NodeName = context.contextName;
+        dto.NodeType = context.GetType().Name;
+        dto.X = context.X;
+        dto.Y = context.Y;
+        dto.Properties = context.Properties.Select(p => new NodePropertyDto
+        {
+            PropertyName = p.PropertyName,
+            IsVisableOnGraphNode = p.IsVisableOnGraphNode,
+            Value = p.PropertyValue
+        }).ToList();
+
+        if (context.NodeTheme is LinearGradientBrush contextBrush)
+        {
+            dto.ThemeColor1 = contextBrush.GradientStops[0].Color.ToString();
+            dto.ThemeColor2 = contextBrush.GradientStops[1].Color.ToString();
+        }
+
         dto.Nodes = new List<NodeDto>();
         dto.Paths = new List<PathDto>();
         dto.ChildrenContexts = new List<ContextDto>();
@@ -456,7 +472,30 @@ public partial class MainViewModel : ViewModelBase
     private void BuildContextFromDto(ContextDto dto, ContextBase context, Dictionary<string, NodeBaseViewModel> nodeMap)
     {
         context.Id = Guid.Parse(dto.Id);
-        context.contextName = dto.ContextName;
+        context.contextName = dto.NodeName;
+        context.X = dto.X;
+        context.Y = dto.Y;
+
+        foreach (var propDto in dto.Properties)
+        {
+            var existingProp = context.GetNodePropertyFromName(propDto.PropertyName);
+            if (existingProp != null)
+            {
+                existingProp.PropertyValue = propDto.Value;
+            }
+            else
+            {
+                var newProp = new NodePropertyBasic(propDto.PropertyName, propDto.IsVisableOnGraphNode);
+                newProp.PropertyValue = propDto.Value;
+                context.AddNodeProperty(newProp);
+            }
+        }
+
+        if (!string.IsNullOrEmpty(dto.ThemeColor1) && !string.IsNullOrEmpty(dto.ThemeColor2))
+        {
+            context.NodeTheme = context.makeGradient(dto.ThemeColor1, dto.ThemeColor2);
+        }
+
         nodeMap[dto.Id] = context;
 
         foreach (var nodeDto in dto.Nodes)
@@ -489,9 +528,17 @@ public partial class MainViewModel : ViewModelBase
 
                 foreach (var propDto in nodeDto.Properties)
                 {
-                    var prop = new NodePropertyBasic(propDto.PropertyName, propDto.IsVisableOnGraphNode);
-                    prop.PropertyValue = propDto.Value;
-                    newNode.AddNodeProperty(prop);
+                    var existingProp = newNode.GetNodePropertyFromName(propDto.PropertyName);
+                    if (existingProp != null)
+                    {
+                        existingProp.PropertyValue = propDto.Value;
+                    }
+                    else
+                    {
+                        var newProp = new NodePropertyBasic(propDto.PropertyName, propDto.IsVisableOnGraphNode);
+                        newProp.PropertyValue = propDto.Value;
+                        newNode.AddNodeProperty(newProp);
+                    }
                 }
 
                 if (!string.IsNullOrEmpty(nodeDto.ThemeColor1) && !string.IsNullOrEmpty(nodeDto.ThemeColor2))
