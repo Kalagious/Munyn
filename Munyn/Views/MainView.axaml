@@ -181,7 +181,7 @@
 									<TextBlock Text="Back"></TextBlock>
 								</StackPanel>
 							</Button>
-							<ItemsControl x:Name="HostNodeItemsControl" Grid.Row="1" ItemsSource="{Binding VisableNodes}">
+							<ItemsControl x:Name="HostNodeItemsControl" Grid.Row="1" ItemsSource="{Binding VisableNodes}" Background="Transparent">
 
 
 								<ItemsControl.Styles>

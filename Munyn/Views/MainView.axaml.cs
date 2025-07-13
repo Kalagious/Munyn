@@ -23,7 +23,6 @@ public partial class MainView : UserControl
     {
         InitializeComponent();
         this.Loaded += OnLoaded;
-        this.PointerPressed += MainView_PointerPressed;
         
     }
 
@@ -60,11 +59,6 @@ public partial class MainView : UserControl
                 return;
             }
         }
-    }
-
-    private void MainView_PointerPressed(object? sender, PointerPressedEventArgs e)
-    {
-        e.Pointer.Capture(_NodeCanvasBase);
     }
 
 }
