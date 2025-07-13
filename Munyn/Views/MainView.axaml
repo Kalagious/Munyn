@@ -52,11 +52,11 @@
 			
 			<Button>Munyn</Button>
 			<Button Command="{Binding ToggleTrayCommand}">
-				<Svg Path="avares://Munyn/Assets/Icons/window-stack.svg"/>
+				<PathIcon Data="{StaticResource window-stack}" Foreground="#f2f2f2"/>
 			</Button>
 			<Border CornerRadius="3" BorderThickness="3" BorderBrush="{Binding PathToolBorderColor}" Margin="10">
 				<Button Command="{Binding TogglePathToolCommand}" Margin="0">
-					<Svg Path="avares://Munyn/Assets/Icons/bezier2.svg"/>
+					<PathIcon Data="{StaticResource bezier2}" Foreground="#f2f2f2"/>
 				</Button>
 			</Border>
 
@@ -100,7 +100,7 @@
 				<!--TopBar Right Grouping-->
 				<StackPanel Grid.Column="1" Orientation="Horizontal" Background="Transparent">
 					<Button>
-						<Svg Path="avares://Munyn/Assets/Icons/pencil-square.svg"/>
+						<PathIcon Data="{StaticResource pencil-square}" Foreground="#f2f2f2"/>
 					</Button>
 					<TextBlock Grid.Column="0" Text="FileName.json" FontSize="16" Margin="10,0,15,0" VerticalAlignment="Center"/>
 				</StackPanel>
@@ -127,7 +127,7 @@
 
 							</StackPanel.Styles>
 							<Button Command="{Binding NewNetworkDragCommand}">
-								<Svg Path="avares://Munyn/Assets/Icons/neural-network-black-icon.svg"/>
+								<PathIcon Data="{StaticResource neural-network-black-icon}" Foreground="#f2f2f2"/>
 								<Button.Background>
 									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
 										<GradientStop Color="#c531a5" Offset="0.0"/>
@@ -137,7 +137,7 @@
 								</Button.Background>
 							</Button>
 							<Button Command="{Binding NewHostDragCommand}">
-								<Svg Path="avares://Munyn/Assets/Icons/pc-display.svg"/>
+								<PathIcon Data="{StaticResource pc-display}" Foreground="#f2f2f2"/>
 								<Button.Background>
 									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
 										<GradientStop Color="#5E90CE" Offset="0.0"/>
@@ -146,7 +146,7 @@
 								</Button.Background>
 							</Button>
 							<Button Command="{Binding NewUserDragCommand}">
-								<Svg Path="avares://Munyn/Assets/Icons/person-bounding-box.svg"/>
+								<PathIcon Data="{StaticResource person-bounding-box}" Foreground="#f2f2f2"/>
 								<Button.Background>
 									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
 										<GradientStop Color="#ef3f79" Offset="0.0"/>
@@ -155,7 +155,7 @@
 								</Button.Background>
 							</Button>
 							<Button Command="{Binding NewServiceDragCommand}">
-								<Svg Path="avares://Munyn/Assets/Icons/database-fill-gear.svg"/>
+								<PathIcon Data="{StaticResource database-fill-gear}" Foreground="#f2f2f2"/>
 								<Button.Background>
 									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
 										<GradientStop Color="#c531a5" Offset="0.0"/>
@@ -164,7 +164,7 @@
 								</Button.Background>
 							</Button>
 							<Button Command="{Binding NewAssetDragCommand}">
-								<Svg Path="avares://Munyn/Assets/Icons/gold-icon-white.svg"/>
+								<PathIcon Data="{StaticResource gold-icon-white}" Foreground="#f2f2f2"/>
 								<Button.Background>
 									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
 										<GradientStop Color="#eab900" Offset="0.0"/>
@@ -177,7 +177,7 @@
 						<Grid>
 							<Button VerticalAlignment="Top" ZIndex="10" Foreground="#f2f2f2" Margin="10" IsVisible="{Binding !IsRootContext}" Command="{Binding BackContextCommand}">
 								<StackPanel Orientation="Horizontal">
-									<Svg Path="avares://Munyn/Assets/Icons/arrow-left-short.svg" Width="25" Margin="-4,-4,0,-4"></Svg>
+									<PathIcon Data="{StaticResource arrow-left-short}" Width="25" Margin="-4,-4,0,-4" Foreground="#f2f2f2"/>
 									<TextBlock Text="Back"></TextBlock>
 								</StackPanel>
 							</Button>
