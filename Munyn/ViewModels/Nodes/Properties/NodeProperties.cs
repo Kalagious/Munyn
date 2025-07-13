@@ -12,6 +12,7 @@ namespace Munyn.ViewModels.Nodes.Properties
     {
 
         [ObservableProperty] private string? _propertyName;
+        [ObservableProperty] private string? _value;
         [ObservableProperty] private string? _propertyValue;
         [ObservableProperty] private string? _propertyIcon;
         [ObservableProperty] private bool _isDefault;
