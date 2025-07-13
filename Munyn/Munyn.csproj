@@ -25,33 +25,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaXaml Update="Views\Nodes\AssetNodeView.axaml">
-      <SubType>Designer</SubType>
-    </AvaloniaXaml>
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Views\Nodes\NetworkNodeView.axaml.cs">
       <DependentUpon>NetworkNodeView.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\Nodes\HostNodeView.axaml.cs">
-      <DependentUpon>HostNodeView.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\Nodes\AssetNodeView.axaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>AssetNodeView.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Nodes\NodeDetails\NodeDetailsView.axaml.cs">
       <DependentUpon>NodeDetailsView.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Nodes\NodeDetails\NodeGraphViewProperty.axaml.cs">
       <DependentUpon>NodeGraphViewProperty.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\Nodes\ServiceNodeView.axaml.cs">
-      <DependentUpon>ServiceNodeView.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\Nodes\UserNodeView.axaml.cs">
-      <DependentUpon>UserNodeView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

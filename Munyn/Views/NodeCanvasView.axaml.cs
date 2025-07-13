@@ -22,6 +22,7 @@ public partial class NodeCanvasBaseView : Canvas // Note: XAML root is UserContr
     // For Zooming
     private const double ZoomSpeed = 1.1;
     private readonly Grid _canvasHost; // Reference to the clipping Grid
+    private readonly Canvas _nodeCanvasBase;
 
     public Action<PointerEventArgs> MainViewModelHandleMouseMoved { get; internal set; }
     public Action<PointerReleasedEventArgs> MainViewModelHandleMouseReleased { get; internal set; }
@@ -37,12 +38,13 @@ public partial class NodeCanvasBaseView : Canvas // Note: XAML root is UserContr
 
         // Get reference to CanvasHost
         _canvasHost = this.FindControl<Grid>("CanvasHost") ?? throw new Exception("CanvasHost not found");
+        _nodeCanvasBase = this.FindControl<Canvas>("NodeCanvasBase") ?? throw new Exception("NodeCanvasBase not found");
 
 
-        NodeCanvasBase.PointerWheelChanged += NodeCanvasBase_PointerWheelChanged;
-        NodeCanvasBase.PointerPressed += NodeCanvasBase_PointerPressed;
-        NodeCanvasBase.PointerMoved += OnPointerMoved; // Existing handler, will be modified
-        NodeCanvasBase.PointerReleased += OnPointerReleased; // Existing handler, will be modified
+        _nodeCanvasBase.PointerWheelChanged += NodeCanvasBase_PointerWheelChanged;
+        _nodeCanvasBase.PointerPressed += NodeCanvasBase_PointerPressed;
+        _nodeCanvasBase.PointerMoved += OnPointerMoved; // Existing handler, will be modified
+        _nodeCanvasBase.PointerReleased += OnPointerReleased; // Existing handler, will be modified
         
         this.AttachedToVisualTree += OnAttachedToVisualTree;
     }
@@ -54,7 +56,7 @@ public partial class NodeCanvasBaseView : Canvas // Note: XAML root is UserContr
         {
             MainViewModelHandleMouseMoved = mainViewModel.HandlePointerMoved;
             MainViewModelHandleMouseReleased = mainViewModel.OnEndConnectionDragFromNode;
-            mainViewModel.NodeCanvasBase = NodeCanvasBase;
+            mainViewModel.NodeCanvasBase = _nodeCanvasBase;
         }
         NodeCanvasBase.LayoutUpdated += OnLayoutUpdated;
     }

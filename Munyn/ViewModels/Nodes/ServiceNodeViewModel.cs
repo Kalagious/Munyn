@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -27,6 +28,11 @@ namespace Munyn.ViewModels
             NodeName = name;
             X = x;
             Y = y;
+
+            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Location", true, true));
+            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Version", true, true, false));
+            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Description", true, true));
+
 
             NodeTheme = makeGradient("#b613d0", "#6524f3");
 

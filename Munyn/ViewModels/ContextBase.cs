@@ -19,6 +19,7 @@ namespace Munyn.ViewModels
         [RelayCommand]
         private void EnterContextButton()
         {
+            contextName = NodeName;
             _mainVM.EnterContext(this);
         }
 

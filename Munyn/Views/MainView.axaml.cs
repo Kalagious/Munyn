@@ -23,7 +23,7 @@ public partial class MainView : UserControl
     {
         InitializeComponent();
         this.Loaded += OnLoaded;
-
+        this.PointerPressed += MainView_PointerPressed;
         
     }
 
@@ -51,6 +51,7 @@ public partial class MainView : UserControl
 
                 mainVm.NodeCanvasBase = (Canvas)presenter.Panel; 
                 _NodeCanvasBase = mainVm.NodeCanvasBase;
+
         
             }
             else
@@ -60,5 +61,10 @@ public partial class MainView : UserControl
             }
         }
     }
+
+    private void MainView_PointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        e.Pointer.Capture(_NodeCanvasBase);
+    }
+
 }
-    

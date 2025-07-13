@@ -53,14 +53,14 @@ namespace Munyn.ViewModels
             Y = y;
             parentCanvas = tmpParentCanvas;
             contextNodes = new ObservableCollection<ViewModelBase>();
-            Properties = new ObservableCollection<Nodes.Properties.NodePropertyBasic>();
 
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Os", true, true));
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic("User Count", true, true, false));
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Service Count", true, false, false));
+            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Description", true, true));
             // AddNodeProperty(new Nodes.Properties.NodePropertyList("Network Interfaces", true));
             // AddNodeProperty(new Nodes.Properties.NodePropertyList("Services", true));
-
+             
             NodeTheme = makeGradient("#19c8f3", "#6551e5");
             _mainVM = mainVM;
             parentContext = parent;

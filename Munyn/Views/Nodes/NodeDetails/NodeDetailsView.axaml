@@ -44,13 +44,7 @@
 									</ItemsPanelTemplate>
 								</ItemsControl.ItemsPanel>
 							</ItemsControl>
-							<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10" Command="{Binding AddBlankPropertyCommand}">
-								<Button.Background>
-									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
-										<GradientStop Color="#19c8f3" Offset="0.0"/>
-										<GradientStop Color="#6551e5" Offset="1.0"/>
-									</LinearGradientBrush>
-								</Button.Background>
+							<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10" Command="{Binding AddBlankPropertyCommand}" Background="{Binding NodeTheme}">
 								<TextBlock Text="Add Property"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="12" Margin="5"></TextBlock>
 							</Button>
 						</StackPanel>

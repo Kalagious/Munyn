@@ -10,11 +10,18 @@
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Munyn.Views.MainView"
              x:DataType="vm:MainViewModel">
-	
-	
-	
-	
-	
+
+
+
+
+	<UserControl.DataTemplates>
+		<DataTemplate DataType="vm:NodeBaseViewModel">
+			<nodes:NodeView DataContext="{Binding}"/>
+		</DataTemplate>
+		<DataTemplate DataType="vm:PathBaseViewModel">
+			<Path Data="{Binding PathData}" Stroke="#f2f2f2" StrokeThickness="2"/>
+		</DataTemplate>
+	</UserControl.DataTemplates>
 	
   <Design.DataContext>
     <vm:MainViewModel />
@@ -183,11 +190,7 @@
 										<Setter Property="Canvas.Top" Value="{Binding Y}"/>
 									</Style>
 								</ItemsControl.Styles>
-								<ItemsControl.ItemTemplate>
-									<DataTemplate DataType="vm:NodeBaseViewModel">
-										<nodes:NodeView DataContext="{Binding}"/>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
+
 								
 								<ItemsControl.ItemsPanel>
 									<ItemsPanelTemplate>
