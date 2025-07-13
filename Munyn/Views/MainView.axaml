@@ -99,8 +99,11 @@
 				</StackPanel>
 				<!--TopBar Right Grouping-->
 				<StackPanel Grid.Column="1" Orientation="Horizontal" Background="Transparent">
-					<Button>
-						<Svg Path="avares://Munyn/Assets/Icons/pencil-square.svg"/>
+					<Button Command="{Binding SaveCommand}">
+						<Svg Path="avares://Munyn/Assets/Icons/save-icon.svg"/>
+					</Button>
+					<Button Command="{Binding LoadCommand}">
+						<Svg Path="avares://Munyn/Assets/Icons/folder-line-icon.svg"/>
 					</Button>
 					<TextBlock Grid.Column="0" Text="FileName.json" FontSize="16" Margin="10,0,15,0" VerticalAlignment="Center"/>
 				</StackPanel>
