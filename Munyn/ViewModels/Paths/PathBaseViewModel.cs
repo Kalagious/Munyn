@@ -43,13 +43,19 @@ namespace Munyn.ViewModels
         // --- NEW: Method to calculate the curved path data ---
         public void RecalculatePathData()
         {
+            if (_mainVm == null || StartNode == null) return;
 
-            if (StartNode != null)
-                StartPoint = new Point(StartNode.X + _mainVm.FindNodeViewByViewModel(StartNode).Bounds.Width / 2, StartNode.Y);
+            var startNodeView = _mainVm.FindNodeViewByViewModel(StartNode);
+            if (startNodeView == null) return;
 
+            StartPoint = new Point(StartNode.X + startNodeView.Bounds.Width / 2, StartNode.Y);
 
             if (EndNode != null)
-                EndPoint = new Point(EndNode.X + _mainVm.FindNodeViewByViewModel(EndNode).Bounds.Width / 2, EndNode.Y);
+            {
+                var endNodeView = _mainVm.FindNodeViewByViewModel(EndNode);
+                if (endNodeView == null) return;
+                EndPoint = new Point(EndNode.X + endNodeView.Bounds.Width / 2, EndNode.Y);
+            }
 
             if (StartPoint == null || EndPoint == null)
             {

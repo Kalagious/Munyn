@@ -467,24 +467,29 @@ public partial class MainViewModel : ViewModelBase
             var allPaths = new List<PathDto>();
             BuildContextFromDto(saveData, rootContext, nodeMap, allPaths);
 
-            foreach (var pathDto in allPaths)
-            {
-                if (nodeMap.TryGetValue(pathDto.StartNodeId, out var startNode) && nodeMap.TryGetValue(pathDto.EndNodeId, out var endNode))
-                {
-                    var path = new PathBaseViewModel(startNode, new Avalonia.Point(endNode.X, endNode.Y), this)
-                    {
-                        EndNode = endNode
-                    };
-                    path._mainVm = this;
-                    startNode.connectedPaths.Add(path);
-                    endNode.connectedPaths.Add(path);
-                    // Find the context that the path belongs to and add it
-                    var pathContext = FindContextForNode(rootContext, startNode);
-                    pathContext?.contextNodes.Add(path);
-                }
-            }
-
             EnterContext(rootContext);
+            RefreshContext();
+
+            Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+            {
+                foreach (var pathDto in allPaths)
+                {
+                    if (nodeMap.TryGetValue(pathDto.StartNodeId, out var startNode) && nodeMap.TryGetValue(pathDto.EndNodeId, out var endNode))
+                    {
+                        var path = new PathBaseViewModel(startNode, new Avalonia.Point(endNode.X, endNode.Y), this)
+                        {
+                            EndNode = endNode
+                        };
+                        path._mainVm = this;
+                        startNode.connectedPaths.Add(path);
+                        endNode.connectedPaths.Add(path);
+                        // Find the context that the path belongs to and add it
+                        var pathContext = FindContextForNode(rootContext, startNode);
+                        pathContext?.contextNodes.Add(path);
+                        path.RecalculatePathData();
+                    }
+                }
+            }, Avalonia.Threading.DispatcherPriority.Background);
         }
     }
 
