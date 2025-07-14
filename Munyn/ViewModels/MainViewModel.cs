@@ -476,6 +476,7 @@ public partial class MainViewModel : ViewModelBase
         context.NodeName = dto.NodeName;
         context.X = dto.X;
         context.Y = dto.Y;
+        context._mainVM = this;
 
         foreach (var propDto in dto.Properties)
         {
@@ -526,6 +527,7 @@ public partial class MainViewModel : ViewModelBase
                 newNode.Id = Guid.Parse(nodeDto.Id);
                 newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
                 newNode.OnClickedNode = OnClickedNode;
+                newNode._mainVM = this;
 
                 foreach (var propDto in nodeDto.Properties)
                 {
