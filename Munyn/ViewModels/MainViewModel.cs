@@ -473,6 +473,7 @@ public partial class MainViewModel : ViewModelBase
     {
         context.Id = Guid.Parse(dto.Id);
         context.contextName = dto.NodeName;
+        context.NodeName = dto.NodeName;
         context.X = dto.X;
         context.Y = dto.Y;
 
