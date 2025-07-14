@@ -568,9 +568,29 @@ public partial class MainViewModel : ViewModelBase
 
         foreach (var childContextDto in dto.ChildrenContexts)
         {
-            var childContext = new ContextBase { parentContext = context };
-            BuildContextFromDto(childContextDto, childContext, nodeMap);
-            context.contextNodes.Add(childContext);
+            if (childContextDto.NodeType == nameof(HostNodeViewModel))
+            {
+                var hostNode = new HostNodeViewModel
+                {
+                    NodeName = childContextDto.NodeName,
+                    contextName = childContextDto.NodeName,
+                    X = childContextDto.X,
+                    Y = childContextDto.Y,
+                    parentCanvas = NodeCanvasBase,
+                    contextNodes = new ObservableCollection<ViewModelBase>(),
+                    parentContext = context,
+                    _mainVM = this
+                };
+                hostNode.InitializeProperties();
+                BuildContextFromDto(childContextDto, hostNode, nodeMap);
+                context.contextNodes.Add(hostNode);
+            }
+            else
+            {
+                var childContext = new ContextBase { parentContext = context };
+                BuildContextFromDto(childContextDto, childContext, nodeMap);
+                context.contextNodes.Add(childContext);
+            }
         }
 
         foreach (var pathDto in dto.Paths)
