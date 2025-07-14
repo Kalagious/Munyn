@@ -464,12 +464,50 @@ public partial class MainViewModel : ViewModelBase
 
             rootContext = new ContextBase();
             var nodeMap = new Dictionary<string, NodeBaseViewModel>();
-            BuildContextFromDto(saveData, rootContext, nodeMap);
+            var allPaths = new List<PathDto>();
+            BuildContextFromDto(saveData, rootContext, nodeMap, allPaths);
+
+            foreach (var pathDto in allPaths)
+            {
+                if (nodeMap.TryGetValue(pathDto.StartNodeId, out var startNode) && nodeMap.TryGetValue(pathDto.EndNodeId, out var endNode))
+                {
+                    var path = new PathBaseViewModel(startNode, new Avalonia.Point(endNode.X, endNode.Y), this)
+                    {
+                        EndNode = endNode
+                    };
+                    path._mainVm = this;
+                    startNode.connectedPaths.Add(path);
+                    endNode.connectedPaths.Add(path);
+                    // Find the context that the path belongs to and add it
+                    var pathContext = FindContextForNode(rootContext, startNode);
+                    pathContext?.contextNodes.Add(path);
+                }
+            }
+
             EnterContext(rootContext);
         }
     }
 
-    private void BuildContextFromDto(ContextDto dto, ContextBase context, Dictionary<string, NodeBaseViewModel> nodeMap)
+    private ContextBase? FindContextForNode(ContextBase context, NodeBaseViewModel node)
+    {
+        if (context.contextNodes.Contains(node))
+        {
+            return context;
+        }
+
+        foreach (var childContext in context.contextNodes.OfType<ContextBase>())
+        {
+            var foundContext = FindContextForNode(childContext, node);
+            if (foundContext != null)
+            {
+                return foundContext;
+            }
+        }
+
+        return null;
+    }
+
+    private void BuildContextFromDto(ContextDto dto, ContextBase context, Dictionary<string, NodeBaseViewModel> nodeMap, List<PathDto> allPaths)
     {
         context.Id = Guid.Parse(dto.Id);
         context.contextName = dto.NodeName;
@@ -566,6 +604,8 @@ public partial class MainViewModel : ViewModelBase
             }
         }
 
+        allPaths.AddRange(dto.Paths);
+
         foreach (var childContextDto in dto.ChildrenContexts)
         {
             if (childContextDto.NodeType == nameof(HostNodeViewModel))
@@ -584,29 +624,14 @@ public partial class MainViewModel : ViewModelBase
                     OnStartConnectionDragNode = OnStartConnectionDragFromNode
                 };
                 hostNode.InitializeProperties();
-                BuildContextFromDto(childContextDto, hostNode, nodeMap);
+                BuildContextFromDto(childContextDto, hostNode, nodeMap, allPaths);
                 context.contextNodes.Add(hostNode);
             }
             else
             {
                 var childContext = new ContextBase { parentContext = context };
-                BuildContextFromDto(childContextDto, childContext, nodeMap);
+                BuildContextFromDto(childContextDto, childContext, nodeMap, allPaths);
                 context.contextNodes.Add(childContext);
-            }
-        }
-
-        foreach (var pathDto in dto.Paths)
-        {
-            if (nodeMap.TryGetValue(pathDto.StartNodeId, out var startNode) && nodeMap.TryGetValue(pathDto.EndNodeId, out var endNode))
-            {
-                var path = new PathBaseViewModel(startNode, new Avalonia.Point(endNode.X, endNode.Y), this)
-                {
-                    EndNode = endNode
-                };
-                path._mainVm = this;
-                startNode.connectedPaths.Add(path);
-                endNode.connectedPaths.Add(path);
-                context.contextNodes.Add(path);
             }
         }
     }
