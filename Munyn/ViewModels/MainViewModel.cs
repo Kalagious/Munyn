@@ -377,7 +377,7 @@ public partial class MainViewModel : ViewModelBase
     private void BuildDtoFromContext(ContextBase context, ContextDto dto)
     {
         dto.Id = context.Id.ToString();
-        dto.NodeName = context.contextName;
+        dto.NodeName = context.NodeName;
         dto.NodeType = context.GetType().Name;
         dto.X = context.X;
         dto.Y = context.Y;
@@ -579,7 +579,9 @@ public partial class MainViewModel : ViewModelBase
                     parentCanvas = NodeCanvasBase,
                     contextNodes = new ObservableCollection<ViewModelBase>(),
                     parentContext = context,
-                    _mainVM = this
+                    _mainVM = this,
+                    OnClickedNode = OnClickedNode,
+                    OnStartConnectionDragNode = OnStartConnectionDragFromNode
                 };
                 hostNode.InitializeProperties();
                 BuildContextFromDto(childContextDto, hostNode, nodeMap);
