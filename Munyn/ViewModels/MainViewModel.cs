@@ -506,7 +506,19 @@ public partial class MainViewModel : ViewModelBase
             switch (nodeDto.NodeType)
             {
                 case nameof(HostNodeViewModel):
-                    newNode = new HostNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, context, NodeCanvasBase, this);
+                    var hostNode = new HostNodeViewModel
+                    {
+                        NodeName = nodeDto.NodeName,
+                        contextName = nodeDto.NodeName,
+                        X = nodeDto.X,
+                        Y = nodeDto.Y,
+                        parentCanvas = NodeCanvasBase,
+                        contextNodes = new ObservableCollection<ViewModelBase>(),
+                        parentContext = context,
+                        _mainVM = this
+                    };
+                    hostNode.InitializeProperties();
+                    newNode = hostNode;
                     break;
                 case nameof(NetworkNodeViewModel):
                     newNode = new NetworkNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, context, NodeCanvasBase, this);
@@ -569,6 +581,7 @@ public partial class MainViewModel : ViewModelBase
                 {
                     EndNode = endNode
                 };
+                path._mainVm = this;
                 startNode.connectedPaths.Add(path);
                 endNode.connectedPaths.Add(path);
                 context.contextNodes.Add(path);

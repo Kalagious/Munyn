@@ -11,7 +11,7 @@ namespace Munyn.ViewModels
         public Point EndPoint;
         public NodeBaseViewModel StartNode;
         public NodeBaseViewModel EndNode;
-        private MainViewModel _mainVm;
+        public MainViewModel _mainVm;
         // PathData property for the curved line
         [ObservableProperty]
         private string _pathData = "M 0,0 C 0,0 0,0 0,0"; // Default empty path
