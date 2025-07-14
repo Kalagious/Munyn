@@ -381,6 +381,7 @@ public partial class MainViewModel : ViewModelBase
     {
         dto.Id = context.Id.ToString();
         dto.NodeName = context.NodeName;
+        dto.ContextName = context.contextName;
         dto.NodeType = context.GetType().Name;
         dto.X = context.X;
         dto.Y = context.Y;
@@ -519,7 +520,10 @@ public partial class MainViewModel : ViewModelBase
     private void BuildContextFromDto(ContextDto dto, ContextBase context, Dictionary<string, NodeBaseViewModel> nodeMap, List<PathDto> allPaths)
     {
         context.Id = Guid.Parse(dto.Id);
-        context.contextName = dto.NodeName;
+        if (string.IsNullOrEmpty(dto.NodeName))
+            context.contextName = dto.ContextName;
+        else
+            context.contextName = dto.NodeName;
         context.NodeName = dto.NodeName;
         context.X = dto.X;
         context.Y = dto.Y;
