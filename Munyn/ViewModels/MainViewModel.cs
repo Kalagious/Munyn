@@ -41,6 +41,9 @@ public partial class MainViewModel : ViewModelBase
 
 
     [ObservableProperty]
+    private string loadedFileName = "Untitled.json";
+
+    [ObservableProperty]
     private bool _isRootContext = true;
 
     [ObservableProperty]
@@ -61,7 +64,7 @@ public partial class MainViewModel : ViewModelBase
     [RelayCommand]
     private void BackContext()
     {
-        if (currentContext != null)
+        if (currentContext != null && currentContext.parentContext != null)
         {
             currentContext = currentContext.parentContext;
             RefreshContext();
@@ -456,6 +459,7 @@ public partial class MainViewModel : ViewModelBase
         if (files.Count > 0)
         {
             var file = files[0];
+            LoadedFileName = file.Name;
             await using var stream = await file.OpenReadAsync();
             using var reader = new StreamReader(stream);
             var json = await reader.ReadToEndAsync();

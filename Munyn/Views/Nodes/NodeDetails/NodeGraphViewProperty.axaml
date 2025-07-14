@@ -7,9 +7,8 @@
 
 
 		<StackPanel>
-			<Border Height="1" Background="LightGray" Margin="15,5,15,5"/>
 			<StackPanel Orientation="Horizontal">
-				<TextBlock Margin="20,5,0,5" Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center"></TextBlock> 
+				<TextBlock Margin="20,2,0,2" Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center"></TextBlock> 
 				<TextBlock Text=":" Foreground="Black" VerticalAlignment="Center"></TextBlock>
 
 				<TextBlock Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent"></TextBlock>
