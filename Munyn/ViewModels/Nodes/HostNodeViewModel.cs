@@ -45,6 +45,19 @@ namespace Munyn.ViewModels
 
         }
 
+        public HostNodeViewModel() : base()
+        {
+
+        }
+
+        public void InitializeProperties()
+        {
+            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Os", true, true));
+            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("User Count", true, true, false));
+            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Service Count", true, false, false));
+            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Description", true, true));
+        }
+
         public HostNodeViewModel(string name, float x, float y, ContextBase parent, Canvas tmpParentCanvas, MainViewModel mainVM)
         {
             NodeName = name;
@@ -54,12 +67,7 @@ namespace Munyn.ViewModels
             parentCanvas = tmpParentCanvas;
             contextNodes = new ObservableCollection<ViewModelBase>();
 
-            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Os", true, true));
-            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("User Count", true, true, false));
-            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Service Count", true, false, false));
-            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Description", true, true));
-            // AddNodeProperty(new Nodes.Properties.NodePropertyList("Network Interfaces", true));
-            // AddNodeProperty(new Nodes.Properties.NodePropertyList("Services", true));
+            InitializeProperties();
              
             NodeTheme = makeGradient("#19c8f3", "#6551e5");
             _mainVM = mainVM;

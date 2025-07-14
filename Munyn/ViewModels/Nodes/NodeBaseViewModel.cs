@@ -18,6 +18,8 @@ namespace Munyn.ViewModels
 {
     public partial class NodeBaseViewModel : ViewModelBase
     {
+        public Guid Id { get; set; }
+
         [ObservableProperty]
         private string? _nodeName;
 
@@ -44,6 +46,11 @@ namespace Munyn.ViewModels
         public Canvas parentCanvas;
 
         public List<PathBaseViewModel> connectedPaths = new List<PathBaseViewModel>();
+
+        public NodeBaseViewModel()
+        {
+            Id = Guid.NewGuid();
+        }
 
         [ObservableProperty]
         IBrush _nodeTheme;

@@ -10,6 +10,13 @@ using System.Linq;
 using System.Drawing;
 using Avalonia.Input;
 using Avalonia.Media;
+using Munyn.ViewModels.Data;
+using Munyn.ViewModels.Nodes.Properties;
+using Newtonsoft.Json;
+using System.IO;
+using Avalonia.Platform.Storage;
+using System.Threading.Tasks;
+using System;
 
 namespace Munyn.ViewModels;
 
@@ -34,6 +41,9 @@ public partial class MainViewModel : ViewModelBase
 
 
     [ObservableProperty]
+    private string loadedFileName = "Untitled.json";
+
+    [ObservableProperty]
     private bool _isRootContext = true;
 
     [ObservableProperty]
@@ -54,7 +64,7 @@ public partial class MainViewModel : ViewModelBase
     [RelayCommand]
     private void BackContext()
     {
-        if (currentContext != null)
+        if (currentContext != null && currentContext.parentContext != null)
         {
             currentContext = currentContext.parentContext;
             RefreshContext();
@@ -329,5 +339,313 @@ public partial class MainViewModel : ViewModelBase
         RefreshContext();
     }
 
+    [RelayCommand]
+    private async void Save()
+    {
+        await SaveAsync();
+    }
 
+    [RelayCommand]
+    private async void Load()
+    {
+        await LoadAsync();
+    }
+
+    private async Task SaveAsync()
+    {
+        var topLevel = TopLevel.GetTopLevel(NodeCanvasBase);
+        if (topLevel == null) return;
+
+        var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+        {
+            Title = "Save Munyn Graph",
+            FileTypeChoices = new[]
+            {
+                new FilePickerFileType("JSON") { Patterns = new[] { "*.json" } }
+            }
+        });
+
+        if (file is not null)
+        {
+            var saveData = new ContextDto();
+            BuildDtoFromContext(rootContext, saveData);
+
+            string json = JsonConvert.SerializeObject(saveData, Formatting.Indented);
+            await using var stream = await file.OpenWriteAsync();
+            await using var writer = new StreamWriter(stream);
+            await writer.WriteAsync(json);
+        }
+    }
+
+    private void BuildDtoFromContext(ContextBase context, ContextDto dto)
+    {
+        dto.Id = context.Id.ToString();
+        dto.NodeName = context.NodeName;
+        dto.ContextName = context.contextName;
+        dto.NodeType = context.GetType().Name;
+        dto.X = context.X;
+        dto.Y = context.Y;
+        dto.Properties = context.Properties.Select(p => new NodePropertyDto
+        {
+            PropertyName = p.PropertyName,
+            IsVisableOnGraphNode = p.IsVisableOnGraphNode,
+            Value = p.PropertyValue
+        }).ToList();
+
+        if (context.NodeTheme is LinearGradientBrush contextBrush)
+        {
+            dto.ThemeColor1 = contextBrush.GradientStops[0].Color.ToString();
+            dto.ThemeColor2 = contextBrush.GradientStops[1].Color.ToString();
+        }
+
+        dto.Nodes = new List<NodeDto>();
+        dto.Paths = new List<PathDto>();
+        dto.ChildrenContexts = new List<ContextDto>();
+
+        foreach (var node in context.contextNodes)
+        {
+            if (node is ContextBase childContext)
+            {
+                var childDto = new ContextDto();
+                BuildDtoFromContext(childContext, childDto);
+                dto.ChildrenContexts.Add(childDto);
+            }
+            else if (node is PathBaseViewModel path)
+            {
+                dto.Paths.Add(new PathDto
+                {
+                    StartNodeId = path.StartNode.Id.ToString(),
+                    EndNodeId = path.EndNode.Id.ToString()
+                });
+            }
+            else if (node is NodeBaseViewModel vm)
+            {
+                var nodeDto = new NodeDto
+                {
+                    Id = vm.Id.ToString(),
+                    NodeType = vm.GetType().Name,
+                    NodeName = vm.NodeName,
+                    X = vm.X,
+                    Y = vm.Y,
+                    Properties = vm.Properties.Select(p => new NodePropertyDto
+                    {
+                        PropertyName = p.PropertyName,
+                        IsVisableOnGraphNode = p.IsVisableOnGraphNode,
+                        Value = p.PropertyValue
+                    }).ToList()
+                };
+
+                if (vm.NodeTheme is LinearGradientBrush brush)
+                {
+                    nodeDto.ThemeColor1 = brush.GradientStops[0].Color.ToString();
+                    nodeDto.ThemeColor2 = brush.GradientStops[1].Color.ToString();
+                }
+                dto.Nodes.Add(nodeDto);
+            }
+        }
+    }
+
+    private async Task LoadAsync()
+    {
+        var topLevel = TopLevel.GetTopLevel(NodeCanvasBase);
+        if (topLevel == null) return;
+
+        var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = "Load Munyn Graph",
+            AllowMultiple = false,
+            FileTypeFilter = new[] { new FilePickerFileType("JSON") { Patterns = new[] { "*.json" } } }
+        });
+
+        if (files.Count > 0)
+        {
+            var file = files[0];
+            LoadedFileName = file.Name;
+            await using var stream = await file.OpenReadAsync();
+            using var reader = new StreamReader(stream);
+            var json = await reader.ReadToEndAsync();
+
+            var saveData = JsonConvert.DeserializeObject<ContextDto>(json);
+
+            rootContext = new ContextBase();
+            var nodeMap = new Dictionary<string, NodeBaseViewModel>();
+            var allPaths = new List<PathDto>();
+            BuildContextFromDto(saveData, rootContext, nodeMap, allPaths);
+
+            EnterContext(rootContext);
+            RefreshContext();
+
+            Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+            {
+                foreach (var pathDto in allPaths)
+                {
+                    if (nodeMap.TryGetValue(pathDto.StartNodeId, out var startNode) && nodeMap.TryGetValue(pathDto.EndNodeId, out var endNode))
+                    {
+                        var path = new PathBaseViewModel(startNode, new Avalonia.Point(endNode.X, endNode.Y), this)
+                        {
+                            EndNode = endNode
+                        };
+                        path._mainVm = this;
+                        startNode.connectedPaths.Add(path);
+                        endNode.connectedPaths.Add(path);
+                        // Find the context that the path belongs to and add it
+                        var pathContext = FindContextForNode(rootContext, startNode);
+                        pathContext?.contextNodes.Add(path);
+                        path.RecalculatePathData();
+                    }
+                }
+            }, Avalonia.Threading.DispatcherPriority.Background);
+        }
+    }
+
+    private ContextBase? FindContextForNode(ContextBase context, NodeBaseViewModel node)
+    {
+        if (context.contextNodes.Contains(node))
+        {
+            return context;
+        }
+
+        foreach (var childContext in context.contextNodes.OfType<ContextBase>())
+        {
+            var foundContext = FindContextForNode(childContext, node);
+            if (foundContext != null)
+            {
+                return foundContext;
+            }
+        }
+
+        return null;
+    }
+
+    private void BuildContextFromDto(ContextDto dto, ContextBase context, Dictionary<string, NodeBaseViewModel> nodeMap, List<PathDto> allPaths)
+    {
+        context.Id = Guid.Parse(dto.Id);
+        if (string.IsNullOrEmpty(dto.NodeName))
+            context.contextName = dto.ContextName;
+        else
+            context.contextName = dto.NodeName;
+        context.NodeName = dto.NodeName;
+        context.X = dto.X;
+        context.Y = dto.Y;
+        context._mainVM = this;
+
+        foreach (var propDto in dto.Properties)
+        {
+            var existingProp = context.GetNodePropertyFromName(propDto.PropertyName);
+            if (existingProp != null)
+            {
+                existingProp.PropertyValue = propDto.Value;
+            }
+            else
+            {
+                var newProp = new NodePropertyBasic(propDto.PropertyName, propDto.IsVisableOnGraphNode);
+                newProp.PropertyValue = propDto.Value;
+                context.AddNodeProperty(newProp);
+            }
+        }
+
+        if (!string.IsNullOrEmpty(dto.ThemeColor1) && !string.IsNullOrEmpty(dto.ThemeColor2))
+        {
+            context.NodeTheme = context.makeGradient(dto.ThemeColor1, dto.ThemeColor2);
+        }
+
+        nodeMap[dto.Id] = context;
+
+        foreach (var nodeDto in dto.Nodes)
+        {
+            NodeBaseViewModel newNode = null;
+            switch (nodeDto.NodeType)
+            {
+                case nameof(HostNodeViewModel):
+                    var hostNode = new HostNodeViewModel
+                    {
+                        NodeName = nodeDto.NodeName,
+                        contextName = nodeDto.NodeName,
+                        X = nodeDto.X,
+                        Y = nodeDto.Y,
+                        parentCanvas = NodeCanvasBase,
+                        contextNodes = new ObservableCollection<ViewModelBase>(),
+                        parentContext = context,
+                        _mainVM = this
+                    };
+                    hostNode.InitializeProperties();
+                    newNode = hostNode;
+                    break;
+                case nameof(NetworkNodeViewModel):
+                    newNode = new NetworkNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, context, NodeCanvasBase, this);
+                    break;
+                case nameof(UserNodeViewModel):
+                    newNode = new UserNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase);
+                    break;
+                case nameof(ServiceNodeViewModel):
+                    newNode = new ServiceNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase);
+                    break;
+                case nameof(AssetNodeViewModel):
+                    newNode = new AssetNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase);
+                    break;
+            }
+
+            if (newNode != null)
+            {
+                newNode.Id = Guid.Parse(nodeDto.Id);
+                newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
+                newNode.OnClickedNode = OnClickedNode;
+                newNode._mainVM = this;
+
+                foreach (var propDto in nodeDto.Properties)
+                {
+                    var existingProp = newNode.GetNodePropertyFromName(propDto.PropertyName);
+                    if (existingProp != null)
+                    {
+                        existingProp.PropertyValue = propDto.Value;
+                    }
+                    else
+                    {
+                        var newProp = new NodePropertyBasic(propDto.PropertyName, propDto.IsVisableOnGraphNode);
+                        newProp.PropertyValue = propDto.Value;
+                        newNode.AddNodeProperty(newProp);
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(nodeDto.ThemeColor1) && !string.IsNullOrEmpty(nodeDto.ThemeColor2))
+                {
+                    newNode.NodeTheme = newNode.makeGradient(nodeDto.ThemeColor1, nodeDto.ThemeColor2);
+                }
+
+                context.contextNodes.Add(newNode);
+                nodeMap[nodeDto.Id] = newNode;
+            }
+        }
+
+        allPaths.AddRange(dto.Paths);
+
+        foreach (var childContextDto in dto.ChildrenContexts)
+        {
+            if (childContextDto.NodeType == nameof(HostNodeViewModel))
+            {
+                var hostNode = new HostNodeViewModel
+                {
+                    NodeName = childContextDto.NodeName,
+                    contextName = childContextDto.NodeName,
+                    X = childContextDto.X,
+                    Y = childContextDto.Y,
+                    parentCanvas = NodeCanvasBase,
+                    contextNodes = new ObservableCollection<ViewModelBase>(),
+                    parentContext = context,
+                    _mainVM = this,
+                    OnClickedNode = OnClickedNode,
+                    OnStartConnectionDragNode = OnStartConnectionDragFromNode
+                };
+                hostNode.InitializeProperties();
+                BuildContextFromDto(childContextDto, hostNode, nodeMap, allPaths);
+                context.contextNodes.Add(hostNode);
+            }
+            else
+            {
+                var childContext = new ContextBase { parentContext = context };
+                BuildContextFromDto(childContextDto, childContext, nodeMap, allPaths);
+                context.contextNodes.Add(childContext);
+            }
+        }
+    }
 }

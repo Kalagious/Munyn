@@ -1,0 +1,247 @@
+{
+  "Nodes": [
+    {
+      "Id": "f75cbe4d-abd4-4bcb-bdba-5e01a7c98eef",
+      "NodeType": "UserNodeViewModel",
+      "NodeName": "Jeff",
+      "X": 203.0,
+      "Y": 148.0,
+      "Properties": [
+        {
+          "PropertyName": "Groups",
+          "IsVisableOnGraphNode": true,
+          "IsSecret": false,
+          "IsDeletable": false,
+          "PropertyType": 0,
+          "Value": null
+        },
+        {
+          "PropertyName": "Password",
+          "IsVisableOnGraphNode": true,
+          "IsSecret": false,
+          "IsDeletable": false,
+          "PropertyType": 0,
+          "Value": null
+        },
+        {
+          "PropertyName": "Description",
+          "IsVisableOnGraphNode": true,
+          "IsSecret": false,
+          "IsDeletable": false,
+          "PropertyType": 0,
+          "Value": null
+        }
+      ],
+      "ThemeColor1": "#ffef3f79",
+      "ThemeColor2": "#ffd511d5"
+    },
+    {
+      "Id": "1c06a1b7-d17f-4ea0-aeb8-ffe86b75cb20",
+      "NodeType": "UserNodeViewModel",
+      "NodeName": "Jeff",
+      "X": 138.0,
+      "Y": 497.0,
+      "Properties": [
+        {
+          "PropertyName": "Groups",
+          "IsVisableOnGraphNode": true,
+          "IsSecret": false,
+          "IsDeletable": false,
+          "PropertyType": 0,
+          "Value": null
+        },
+        {
+          "PropertyName": "Password",
+          "IsVisableOnGraphNode": true,
+          "IsSecret": false,
+          "IsDeletable": false,
+          "PropertyType": 0,
+          "Value": null
+        },
+        {
+          "PropertyName": "Description",
+          "IsVisableOnGraphNode": true,
+          "IsSecret": false,
+          "IsDeletable": false,
+          "PropertyType": 0,
+          "Value": null
+        }
+      ],
+      "ThemeColor1": "#ffef3f79",
+      "ThemeColor2": "#ffd511d5"
+    },
+    {
+      "Id": "b7123cf0-445a-4bc1-8d29-0d68dd397c0c",
+      "NodeType": "AssetNodeViewModel",
+      "NodeName": "id_rsa",
+      "X": 665.0,
+      "Y": 436.0,
+      "Properties": [
+        {
+          "PropertyName": "Location",
+          "IsVisableOnGraphNode": true,
+          "IsSecret": false,
+          "IsDeletable": false,
+          "PropertyType": 0,
+          "Value": null
+        },
+        {
+          "PropertyName": "Description",
+          "IsVisableOnGraphNode": true,
+          "IsSecret": false,
+          "IsDeletable": false,
+          "PropertyType": 0,
+          "Value": null
+        }
+      ],
+      "ThemeColor1": "#ffeab900",
+      "ThemeColor2": "#fffa8700"
+    }
+  ],
+  "Paths": [
+    {
+      "StartNodeId": "1c06a1b7-d17f-4ea0-aeb8-ffe86b75cb20",
+      "EndNodeId": "f75cbe4d-abd4-4bcb-bdba-5e01a7c98eef"
+    },
+    {
+      "StartNodeId": "b7123cf0-445a-4bc1-8d29-0d68dd397c0c",
+      "EndNodeId": "549340bb-5b4d-4a96-93b2-ea9e0fb281d0"
+    },
+    {
+      "StartNodeId": "1c06a1b7-d17f-4ea0-aeb8-ffe86b75cb20",
+      "EndNodeId": "549340bb-5b4d-4a96-93b2-ea9e0fb281d0"
+    }
+  ],
+  "ChildrenContexts": [
+    {
+      "Nodes": [
+        {
+          "Id": "2137dc2c-335d-4bc1-9a73-72415753130f",
+          "NodeType": "ServiceNodeViewModel",
+          "NodeName": "Apache Tomcat",
+          "X": 30.0,
+          "Y": 50.0,
+          "Properties": [
+            {
+              "PropertyName": "Location",
+              "IsVisableOnGraphNode": true,
+              "IsSecret": false,
+              "IsDeletable": false,
+              "PropertyType": 0,
+              "Value": null
+            },
+            {
+              "PropertyName": "Version",
+              "IsVisableOnGraphNode": true,
+              "IsSecret": false,
+              "IsDeletable": false,
+              "PropertyType": 0,
+              "Value": null
+            },
+            {
+              "PropertyName": "Description",
+              "IsVisableOnGraphNode": true,
+              "IsSecret": false,
+              "IsDeletable": false,
+              "PropertyType": 0,
+              "Value": null
+            }
+          ],
+          "ThemeColor1": "#ffb613d0",
+          "ThemeColor2": "#ff6524f3"
+        },
+        {
+          "Id": "a8a94ed1-9f78-44a8-98fd-8c9aba19fd93",
+          "NodeType": "ServiceNodeViewModel",
+          "NodeName": "Apache Tomcat",
+          "X": 441.0,
+          "Y": 291.0,
+          "Properties": [
+            {
+              "PropertyName": "Location",
+              "IsVisableOnGraphNode": true,
+              "IsSecret": false,
+              "IsDeletable": false,
+              "PropertyType": 0,
+              "Value": null
+            },
+            {
+              "PropertyName": "Version",
+              "IsVisableOnGraphNode": true,
+              "IsSecret": false,
+              "IsDeletable": false,
+              "PropertyType": 0,
+              "Value": null
+            },
+            {
+              "PropertyName": "Description",
+              "IsVisableOnGraphNode": true,
+              "IsSecret": false,
+              "IsDeletable": false,
+              "PropertyType": 0,
+              "Value": null
+            }
+          ],
+          "ThemeColor1": "#ffb613d0",
+          "ThemeColor2": "#ff6524f3"
+        }
+      ],
+      "Paths": [
+        {
+          "StartNodeId": "a8a94ed1-9f78-44a8-98fd-8c9aba19fd93",
+          "EndNodeId": "2137dc2c-335d-4bc1-9a73-72415753130f"
+        }
+      ],
+      "ChildrenContexts": [],
+      "Id": "549340bb-5b4d-4a96-93b2-ea9e0fb281d0",
+      "NodeType": "HostNodeViewModel",
+      "NodeName": "Mailing.htb",
+      "X": 477.0,
+      "Y": 110.0,
+      "Properties": [
+        {
+          "PropertyName": "Os",
+          "IsVisableOnGraphNode": true,
+          "IsSecret": false,
+          "IsDeletable": false,
+          "PropertyType": 0,
+          "Value": null
+        },
+        {
+          "PropertyName": "User Count",
+          "IsVisableOnGraphNode": true,
+          "IsSecret": false,
+          "IsDeletable": false,
+          "PropertyType": 0,
+          "Value": "0"
+        },
+        {
+          "PropertyName": "Service Count",
+          "IsVisableOnGraphNode": false,
+          "IsSecret": false,
+          "IsDeletable": false,
+          "PropertyType": 0,
+          "Value": "2"
+        },
+        {
+          "PropertyName": "Description",
+          "IsVisableOnGraphNode": true,
+          "IsSecret": false,
+          "IsDeletable": false,
+          "PropertyType": 0,
+          "Value": null
+        }
+      ],
+      "ThemeColor1": "#ff19c8f3",
+      "ThemeColor2": "#ff6551e5"
+    }
+  ],
+  "Id": "f96b9e60-f0e0-49ba-9537-deb64cfa4fa2",
+  "NodeType": "ContextBase",
+  "NodeName": null,
+  "X": 0.0,
+  "Y": 0.0,
+  "Properties": [],
+  "ThemeColor1": null,
+  "ThemeColor2": null
+}
