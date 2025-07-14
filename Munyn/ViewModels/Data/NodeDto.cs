@@ -22,5 +22,19 @@ namespace Munyn.ViewModels.Data
         public bool IsDeletable { get; set; }
         public int PropertyType { get; set; }
         public string Value { get; set; }
+
+        // For list properties
+        public List<NodePropertyDto> ListContent { get; set; }
+
+        // For text properties
+        public string TextContent { get; set; }
+
+        // For script properties
+        public string ScriptContent { get; set; }
+        public int ScriptType { get; set; }
+
+        // For command properties
+        public string Command { get; set; }
+        public string Description { get; set; }
     }
 }

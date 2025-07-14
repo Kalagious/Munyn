@@ -35,10 +35,35 @@ namespace Munyn.ViewModels.Nodes.Properties
     }
     public partial class NodePropertyList : NodePropertyBasic
     {
-
-        [ObservableProperty] private string? _propertyValue;
-
-
+        [ObservableProperty]
+        private List<NodePropertyBasic> _listContent;
     }
 
+    public partial class NodePropertyText : NodePropertyBasic
+    {
+        [ObservableProperty]
+        private string? _textContent;
+    }
+
+    public enum ScriptType
+    {
+        Bash,
+        Python
+    }
+
+    public partial class NodePropertyScript : NodePropertyBasic
+    {
+        [ObservableProperty]
+        private string? _scriptContent;
+        [ObservableProperty]
+        private ScriptType _type;
+    }
+
+    public partial class NodePropertyCommand : NodePropertyBasic
+    {
+        [ObservableProperty]
+        private string? _command;
+        [ObservableProperty]
+        private string? _description;
+    }
 }

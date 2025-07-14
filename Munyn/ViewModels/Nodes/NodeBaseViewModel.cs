@@ -4,6 +4,7 @@ using Avalonia.Input;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Munyn.ViewModels.Data;
 using Munyn.ViewModels.Nodes.Properties;
 using System;
 using System.Collections.Generic;
@@ -59,15 +60,39 @@ namespace Munyn.ViewModels
         public Action<NodeBaseViewModel, PointerReleasedEventArgs> OnClickedNode { get; internal set; }
 
         [RelayCommand]
-        private void AddBlankProperty() {
-        
-                AddNodeProperty(new NodePropertyBasic("New Property", false, false, true, -1));
+        private void AddBlankProperty()
+        {
+            AddNodeProperty(new NodePropertyBasic("New Property", false, false, true, -1));
+        }
+
+        [RelayCommand]
+        private void AddListProperty()
+        {
+            AddNodeProperty(new NodePropertyList { PropertyName = "New List Property" });
+        }
+
+        [RelayCommand]
+        private void AddTextProperty()
+        {
+            AddNodeProperty(new NodePropertyText { PropertyName = "New Text Property" });
+        }
+
+        [RelayCommand]
+        private void AddScriptProperty()
+        {
+            AddNodeProperty(new NodePropertyScript { PropertyName = "New Script Property" });
+        }
+
+        [RelayCommand]
+        private void AddCommandProperty()
+        {
+            AddNodeProperty(new NodePropertyCommand { PropertyName = "New Command Property" });
         }
 
         public void AddNodeProperty(NodePropertyBasic property)
         {
             if (property == null) throw new ArgumentNullException(nameof(property));
-            
+
             Properties.Add(property);
             GetGraphViewProperties();
         }
@@ -90,6 +115,123 @@ namespace Munyn.ViewModels
                 }
             }
         }
+
+        public void UpdatePropertiesFromDto(List<NodePropertyDto> propertyDtos)
+        {
+            Properties.Clear();
+            foreach (var propertyDto in propertyDtos)
+            {
+                NodePropertyBasic newProperty = null;
+                if (propertyDto.PropertyType == 1)
+                {
+                    newProperty = new NodePropertyList
+                    {
+                        PropertyName = propertyDto.PropertyName,
+                        ListContent = new List<NodePropertyBasic>()
+                    };
+                    foreach (var innerPropertyDto in propertyDto.ListContent)
+                    {
+                        //This is not ideal, but it will work for now, it will not correctly load list properties within list properties
+                        ((NodePropertyList)newProperty).ListContent.Add(new NodePropertyBasic
+                        {
+                            PropertyName = innerPropertyDto.PropertyName,
+                            Value = innerPropertyDto.Value
+                        });
+                    }
+                }
+                else if (propertyDto.PropertyType == 2)
+                {
+                    newProperty = new NodePropertyText
+                    {
+                        PropertyName = propertyDto.PropertyName,
+                        TextContent = propertyDto.TextContent
+                    };
+                }
+                else if (propertyDto.PropertyType == 3)
+                {
+                    newProperty = new NodePropertyScript
+                    {
+                        PropertyName = propertyDto.PropertyName,
+                        ScriptContent = propertyDto.ScriptContent,
+                        Type = (ScriptType)propertyDto.ScriptType
+                    };
+                }
+                else if (propertyDto.PropertyType == 4)
+                {
+                    newProperty = new NodePropertyCommand
+                    {
+                        PropertyName = propertyDto.PropertyName,
+                        Command = propertyDto.Command,
+                        Description = propertyDto.Description
+                    };
+                }
+                else
+                {
+                    newProperty = new NodePropertyBasic
+                    {
+                        PropertyName = propertyDto.PropertyName,
+                        Value = propertyDto.Value
+                    };
+                }
+
+                if (newProperty != null)
+                {
+                    AddNodeProperty(newProperty);
+                }
+            }
+        }
+
+        public List<NodePropertyDto> GetPropertiesDto()
+        {
+            var propertyDtos = new List<NodePropertyDto>();
+            foreach (var property in Properties)
+            {
+                var propertyDto = new NodePropertyDto
+                {
+                    PropertyName = property.PropertyName,
+                    IsVisableOnGraphNode = property.IsVisableOnGraphNode,
+                };
+
+                if (property is NodePropertyList listProperty)
+                {
+                    propertyDto.PropertyType = 1;
+                    propertyDto.ListContent = new List<NodePropertyDto>();
+                    foreach (var innerProperty in listProperty.ListContent)
+                    {
+                        propertyDto.ListContent.Add(new NodePropertyDto
+                        {
+                            PropertyName = innerProperty.PropertyName,
+                            Value = innerProperty.Value
+                        });
+                    }
+                }
+                else if (property is NodePropertyText textProperty)
+                {
+                    propertyDto.PropertyType = 2;
+                    propertyDto.TextContent = textProperty.TextContent;
+                }
+                else if (property is NodePropertyScript scriptProperty)
+                {
+                    propertyDto.PropertyType = 3;
+                    propertyDto.ScriptContent = scriptProperty.ScriptContent;
+                    propertyDto.ScriptType = (int)scriptProperty.Type;
+                }
+                else if (property is NodePropertyCommand commandProperty)
+                {
+                    propertyDto.PropertyType = 4;
+                    propertyDto.Command = commandProperty.Command;
+                    propertyDto.Description = commandProperty.Description;
+                }
+                else
+                {
+                    propertyDto.PropertyType = 0;
+                    propertyDto.Value = property.Value;
+                }
+                propertyDtos.Add(propertyDto);
+            }
+            return propertyDtos;
+        }
+
 
         public LinearGradientBrush makeGradient(string color1, string color2)
         {
