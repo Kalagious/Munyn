@@ -37,14 +37,14 @@
 						</LinearGradientBrush>
 					</Border.Background>
 				<StackPanel>
-					<Svg Path="avares://Munyn/Assets/Icons/neural-network-black-icon.svg" Margin="0,10,0,10" Width="75"/>
+					<PathIcon Data="{StaticResource neural-network-black-icon}" Margin="0,10,0,10" Width="75" Foreground="#f2f2f2"/>
 					<TextBlock Text="192.168.1.0/24"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"></TextBlock>
 					<TextBlock Text="22 Hosts"  Foreground="#f2f2f2"  FontSize="14" HorizontalAlignment="Center" Margin=""></TextBlock>
 					<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10" Command="{Binding EnterContextButtonCommand}">
 		
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Text="Enter Context"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="12" Margin="5"></TextBlock>
-							<Svg Path="avares://Munyn/Assets/Icons/arrow-next-right-icon.svg" Width="6" Margin="0,0,5,0"/>
+							<PathIcon Data="{StaticResource arrow-next-right-icon}" Width="6" Margin="0,0,5,0" Foreground="#f2f2f2"/>
 						</StackPanel>
 					</Button>
 				</StackPanel>
