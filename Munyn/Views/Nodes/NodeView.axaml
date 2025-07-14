@@ -52,7 +52,7 @@
 				<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10,10,10,5" Command="{Binding EnterContextButtonCommand}" Background="{Binding NodeTheme}" IsVisible="{Binding IsContext}">
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Text="Enter Context"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="12" Margin="5"></TextBlock>
-						<Svg Path="avares://Munyn/Assets/Icons/arrow-next-right-icon.svg" Width="6" Margin="0,0,5,0"/>
+						<PathIcon Data="{StaticResource arrow-next-right-icon}" Width="6" Margin="0,0,5,0"/>
 					</StackPanel>
 				</Button>
 			</StackPanel>

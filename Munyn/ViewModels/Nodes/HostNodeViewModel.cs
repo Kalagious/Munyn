@@ -23,7 +23,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using static SkiaSharp.HarfBuzz.SKShaper;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Munyn.ViewModels
