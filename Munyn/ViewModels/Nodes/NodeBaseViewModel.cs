@@ -89,11 +89,6 @@ namespace Munyn.ViewModels
             AddNodeProperty(new NodePropertyLink { PropertyName = "New Link Property" });
         }
 
-        [RelayCommand]
-        private void AddCodeProperty()
-        {
-            AddNodeProperty(new NodePropertyCode { PropertyName = "New Code Property" });
-        }
 
         [RelayCommand]
         private void AddCommandProperty()

@@ -77,9 +77,4 @@ namespace Munyn.ViewModels.Nodes.Properties
         private string? _displayText;
     }
 
-    public partial class NodePropertyCode : NodePropertyBasic
-    {
-        [ObservableProperty]
-        private string? _code;
-    }
 }
