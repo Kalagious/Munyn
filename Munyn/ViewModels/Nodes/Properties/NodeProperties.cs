@@ -14,6 +14,7 @@ namespace Munyn.ViewModels.Nodes.Properties
         [ObservableProperty] private string? _value;
         [ObservableProperty] private string? _propertyValue;
         [ObservableProperty] private string? _propertyIcon;
+        [ObservableProperty] private string? _icon;
         [ObservableProperty] private bool _isDefault;
         [ObservableProperty] private bool _isFavorited;
         [ObservableProperty] private bool _isEditable;
@@ -29,6 +30,7 @@ namespace Munyn.ViewModels.Nodes.Properties
             IsEditable = isEditable;
             IsFavorited = false;
             IsVisableOnGraphNode = isVisiableOnGraphNode;
+            Icon = "file-richtext-fill";
         }
 
 
@@ -45,18 +47,18 @@ namespace Munyn.ViewModels.Nodes.Properties
         private string? _textContent;
     }
 
-    public enum ScriptType
+    public enum ExecutableType
     {
         Bash,
-        Python
+        PowerShell
     }
 
-    public partial class NodePropertyScript : NodePropertyBasic
+    public partial class NodePropertyExecutable : NodePropertyBasic
     {
         [ObservableProperty]
-        private string? _scriptContent;
+        private string? _command;
         [ObservableProperty]
-        private ScriptType _type;
+        private ExecutableType _type;
     }
 
     public partial class NodePropertyCommand : NodePropertyBasic
@@ -65,5 +67,19 @@ namespace Munyn.ViewModels.Nodes.Properties
         private string? _command;
         [ObservableProperty]
         private string? _description;
+    }
+
+    public partial class NodePropertyLink : NodePropertyBasic
+    {
+        [ObservableProperty]
+        private string? _url;
+        [ObservableProperty]
+        private string? _displayText;
+    }
+
+    public partial class NodePropertyCode : NodePropertyBasic
+    {
+        [ObservableProperty]
+        private string? _code;
     }
 }

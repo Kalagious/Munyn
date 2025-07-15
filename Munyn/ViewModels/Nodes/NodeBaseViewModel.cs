@@ -78,9 +78,21 @@ namespace Munyn.ViewModels
         }
 
         [RelayCommand]
-        private void AddScriptProperty()
+        private void AddExecutableProperty()
         {
-            AddNodeProperty(new NodePropertyScript { PropertyName = "New Script Property" });
+            AddNodeProperty(new NodePropertyExecutable { PropertyName = "New Executable Property" });
+        }
+
+        [RelayCommand]
+        private void AddLinkProperty()
+        {
+            AddNodeProperty(new NodePropertyLink { PropertyName = "New Link Property" });
+        }
+
+        [RelayCommand]
+        private void AddCodeProperty()
+        {
+            AddNodeProperty(new NodePropertyCode { PropertyName = "New Code Property" });
         }
 
         [RelayCommand]
@@ -149,11 +161,11 @@ namespace Munyn.ViewModels
                 }
                 else if (propertyDto.PropertyType == 3)
                 {
-                    newProperty = new NodePropertyScript
+                    newProperty = new NodePropertyExecutable
                     {
                         PropertyName = propertyDto.PropertyName,
-                        ScriptContent = propertyDto.ScriptContent,
-                        Type = (ScriptType)propertyDto.ScriptType
+                        Command = propertyDto.ExecutableCommand,
+                        Type = (ExecutableType)propertyDto.ExecutableType
                     };
                 }
                 else if (propertyDto.PropertyType == 4)
@@ -163,6 +175,23 @@ namespace Munyn.ViewModels
                         PropertyName = propertyDto.PropertyName,
                         Command = propertyDto.Command,
                         Description = propertyDto.Description
+                    };
+                }
+                else if (propertyDto.PropertyType == 5)
+                {
+                    newProperty = new NodePropertyLink
+                    {
+                        PropertyName = propertyDto.PropertyName,
+                        Url = propertyDto.Url,
+                        DisplayText = propertyDto.DisplayText
+                    };
+                }
+                else if (propertyDto.PropertyType == 6)
+                {
+                    newProperty = new NodePropertyCode
+                    {
+                        PropertyName = propertyDto.PropertyName,
+                        Code = propertyDto.Code
                     };
                 }
                 else
@@ -176,6 +205,7 @@ namespace Munyn.ViewModels
 
                 if (newProperty != null)
                 {
+                    newProperty.Icon = propertyDto.Icon;
                     AddNodeProperty(newProperty);
                 }
             }
@@ -190,6 +220,7 @@ namespace Munyn.ViewModels
                 {
                     PropertyName = property.PropertyName,
                     IsVisableOnGraphNode = property.IsVisableOnGraphNode,
+                    Icon = property.Icon
                 };
 
                 if (property is NodePropertyList listProperty)
@@ -210,17 +241,28 @@ namespace Munyn.ViewModels
                     propertyDto.PropertyType = 2;
                     propertyDto.TextContent = textProperty.TextContent;
                 }
-                else if (property is NodePropertyScript scriptProperty)
+                else if (property is NodePropertyExecutable executableProperty)
                 {
                     propertyDto.PropertyType = 3;
-                    propertyDto.ScriptContent = scriptProperty.ScriptContent;
-                    propertyDto.ScriptType = (int)scriptProperty.Type;
+                    propertyDto.ExecutableCommand = executableProperty.Command;
+                    propertyDto.ExecutableType = (int)executableProperty.Type;
                 }
                 else if (property is NodePropertyCommand commandProperty)
                 {
                     propertyDto.PropertyType = 4;
                     propertyDto.Command = commandProperty.Command;
                     propertyDto.Description = commandProperty.Description;
+                }
+                else if (property is NodePropertyLink linkProperty)
+                {
+                    propertyDto.PropertyType = 5;
+                    propertyDto.Url = linkProperty.Url;
+                    propertyDto.DisplayText = linkProperty.DisplayText;
+                }
+                else if (property is NodePropertyCode codeProperty)
+                {
+                    propertyDto.PropertyType = 6;
+                    propertyDto.Code = codeProperty.Code;
                 }
                 else
                 {
