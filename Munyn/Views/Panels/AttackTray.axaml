@@ -1,0 +1,57 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Munyn.Panels.AttackTray">
+	<StackPanel Background="#F2F2F2">
+		<StackPanel.Styles>
+			<Style Selector="Button">
+				<Setter Property="Width" Value="70"/>
+				<Setter Property="Height" Value="70"/>
+				<Setter Property="Margin" Value="10"/>
+				<Setter Property="Foreground" Value="White"/>
+				<Setter Property="CornerRadius" Value="5"/>
+				<Setter Property="FontWeight" Value="SemiBold"/>
+				<Setter Property="HorizontalAlignment" Value="Center"/>
+			</Style>
+
+		</StackPanel.Styles>
+		<Button Command="{Binding NewHostDragCommand}">
+			<PathIcon Data="{StaticResource radar}" Foreground="#f2f2f2" Width="45" Height="45"/>
+			<Button.Background>
+				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+					<GradientStop Color="#55DD55" Offset="0.0"/>
+					<GradientStop Color="#22AA22" Offset="1.0"/>
+				</LinearGradientBrush>
+			</Button.Background>
+		</Button>
+		<Button Command="{Binding NewHostDragCommand}">
+			<PathIcon Data="{StaticResource striking-arrows}" Foreground="#f2f2f2" Width="45" Height="45"/>
+			<Button.Background>
+				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+					<GradientStop Color="#FF3333" Offset="0.0"/>
+					<GradientStop Color="#BB5555" Offset="1.0"/>
+				</LinearGradientBrush>
+			</Button.Background>
+		</Button>
+		<Button Command="{Binding NewHostDragCommand}">
+			<PathIcon Data="{StaticResource automation}" Foreground="#f2f2f2" Width="45" Height="45"/>
+			<Button.Background>
+				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+					<GradientStop Color="#5E90CE" Offset="0.0"/>
+					<GradientStop Color="#64DFDF" Offset="1.0"/>
+				</LinearGradientBrush>
+			</Button.Background>
+		</Button>
+		<Button Command="{Binding NewHostDragCommand}">
+			<PathIcon Data="{StaticResource start-cog}" Foreground="#f2f2f2" Width="45" Height="45"/>
+			<Button.Background>
+				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
+					<GradientStop Color="#FF3333" Offset="0.0"/>
+					<GradientStop Color="#BB5599" Offset="1.0"/>
+				</LinearGradientBrush>
+			</Button.Background>
+		</Button>
+	</StackPanel>
+</UserControl>

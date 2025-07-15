@@ -1,58 +1,52 @@
 {
   "ContextName": "Root",
-  "Nodes": [
-    {
-      "Id": "3a61f75f-bba9-4d8e-86b5-d563056210b5",
-      "NodeType": "UserNodeViewModel",
-      "NodeName": "Jeff",
-      "X": 260.0,
-      "Y": 118.0,
-      "Properties": [
-        {
-          "PropertyName": "Groups",
-          "IsVisableOnGraphNode": true,
-          "IsSecret": false,
-          "IsDeletable": false,
-          "PropertyType": 0,
-          "Value": null
-        },
-        {
-          "PropertyName": "Password",
-          "IsVisableOnGraphNode": true,
-          "IsSecret": false,
-          "IsDeletable": false,
-          "PropertyType": 0,
-          "Value": null
-        },
-        {
-          "PropertyName": "Description",
-          "IsVisableOnGraphNode": true,
-          "IsSecret": false,
-          "IsDeletable": false,
-          "PropertyType": 0,
-          "Value": null
-        }
-      ],
-      "ThemeColor1": "#ffef3f79",
-      "ThemeColor2": "#ffd511d5"
-    }
-  ],
-  "Paths": [
-    {
-      "StartNodeId": "44b6aaa7-cf3d-41b1-a4ef-b2dbba5efd5e",
-      "EndNodeId": "3a61f75f-bba9-4d8e-86b5-d563056210b5"
-    }
-  ],
+  "Nodes": [],
+  "Paths": [],
   "ChildrenContexts": [
     {
       "ContextName": "Mailing.htb",
       "Nodes": [
         {
-          "Id": "63d1b71d-0fa6-4af9-b841-47f870eca54f",
+          "Id": "3f6db160-e039-4b88-8917-fcbcb7550540",
+          "NodeType": "UserNodeViewModel",
+          "NodeName": "www-data",
+          "X": 714.0,
+          "Y": 544.0,
+          "Properties": [
+            {
+              "PropertyName": "Groups",
+              "IsVisableOnGraphNode": true,
+              "IsSecret": false,
+              "IsDeletable": false,
+              "PropertyType": 0,
+              "Value": "www-data"
+            },
+            {
+              "PropertyName": "Password",
+              "IsVisableOnGraphNode": true,
+              "IsSecret": false,
+              "IsDeletable": false,
+              "PropertyType": 0,
+              "Value": ""
+            },
+            {
+              "PropertyName": "Description",
+              "IsVisableOnGraphNode": true,
+              "IsSecret": false,
+              "IsDeletable": false,
+              "PropertyType": 0,
+              "Value": "Basic Webuser"
+            }
+          ],
+          "ThemeColor1": "#ffef3f79",
+          "ThemeColor2": "#ffd511d5"
+        },
+        {
+          "Id": "65181423-9102-441c-8a14-6972f06ed526",
           "NodeType": "ServiceNodeViewModel",
-          "NodeName": "Apache Tomcat",
-          "X": 199.0,
-          "Y": 172.0,
+          "NodeName": "Apache",
+          "X": 840.0,
+          "Y": 772.0,
           "Properties": [
             {
               "PropertyName": "Location",
@@ -60,7 +54,7 @@
               "IsSecret": false,
               "IsDeletable": false,
               "PropertyType": 0,
-              "Value": null
+              "Value": "http://mailing.htb"
             },
             {
               "PropertyName": "Version",
@@ -76,53 +70,18 @@
               "IsSecret": false,
               "IsDeletable": false,
               "PropertyType": 0,
-              "Value": null
+              "Value": "Webserver"
             }
           ],
           "ThemeColor1": "#ffb613d0",
           "ThemeColor2": "#ff6524f3"
         },
         {
-          "Id": "cc7f4e08-7585-4ce4-9290-872e736d1dc7",
-          "NodeType": "UserNodeViewModel",
-          "NodeName": "Jeff",
-          "X": 479.0,
-          "Y": 361.0,
-          "Properties": [
-            {
-              "PropertyName": "Groups",
-              "IsVisableOnGraphNode": true,
-              "IsSecret": false,
-              "IsDeletable": false,
-              "PropertyType": 0,
-              "Value": null
-            },
-            {
-              "PropertyName": "Password",
-              "IsVisableOnGraphNode": true,
-              "IsSecret": false,
-              "IsDeletable": false,
-              "PropertyType": 0,
-              "Value": null
-            },
-            {
-              "PropertyName": "Description",
-              "IsVisableOnGraphNode": true,
-              "IsSecret": false,
-              "IsDeletable": false,
-              "PropertyType": 0,
-              "Value": null
-            }
-          ],
-          "ThemeColor1": "#ffef3f79",
-          "ThemeColor2": "#ffd511d5"
-        },
-        {
-          "Id": "3fea9722-356c-465c-80d6-9c54f239d012",
+          "Id": "0216148d-21e0-4af7-b1e3-e1f4b8851cb3",
           "NodeType": "AssetNodeViewModel",
-          "NodeName": "id_rsa",
-          "X": 73.0,
-          "Y": 404.0,
+          "NodeName": "users.db",
+          "X": 594.0,
+          "Y": 360.0,
           "Properties": [
             {
               "PropertyName": "Location",
@@ -130,7 +89,7 @@
               "IsSecret": false,
               "IsDeletable": false,
               "PropertyType": 0,
-              "Value": null
+              "Value": "/var/www/dbs"
             },
             {
               "PropertyName": "Description",
@@ -138,29 +97,68 @@
               "IsSecret": false,
               "IsDeletable": false,
               "PropertyType": 0,
-              "Value": null
+              "Value": "Db containing creds"
             }
           ],
           "ThemeColor1": "#ffeab900",
           "ThemeColor2": "#fffa8700"
+        },
+        {
+          "Id": "b71bd465-bced-4f83-a142-a528e65740ef",
+          "NodeType": "UserNodeViewModel",
+          "NodeName": "root",
+          "X": 548.0,
+          "Y": 150.0,
+          "Properties": [
+            {
+              "PropertyName": "Groups",
+              "IsVisableOnGraphNode": true,
+              "IsSecret": false,
+              "IsDeletable": false,
+              "PropertyType": 0,
+              "Value": "root"
+            },
+            {
+              "PropertyName": "Password",
+              "IsVisableOnGraphNode": true,
+              "IsSecret": false,
+              "IsDeletable": false,
+              "PropertyType": 0,
+              "Value": "MunynIsCo0l!"
+            },
+            {
+              "PropertyName": "Description",
+              "IsVisableOnGraphNode": true,
+              "IsSecret": false,
+              "IsDeletable": false,
+              "PropertyType": 0,
+              "Value": "root user"
+            }
+          ],
+          "ThemeColor1": "#ffef3f79",
+          "ThemeColor2": "#ffd511d5"
         }
       ],
       "Paths": [
         {
-          "StartNodeId": "3fea9722-356c-465c-80d6-9c54f239d012",
-          "EndNodeId": "63d1b71d-0fa6-4af9-b841-47f870eca54f"
+          "StartNodeId": "65181423-9102-441c-8a14-6972f06ed526",
+          "EndNodeId": "3f6db160-e039-4b88-8917-fcbcb7550540"
         },
         {
-          "StartNodeId": "cc7f4e08-7585-4ce4-9290-872e736d1dc7",
-          "EndNodeId": "63d1b71d-0fa6-4af9-b841-47f870eca54f"
+          "StartNodeId": "3f6db160-e039-4b88-8917-fcbcb7550540",
+          "EndNodeId": "0216148d-21e0-4af7-b1e3-e1f4b8851cb3"
+        },
+        {
+          "StartNodeId": "0216148d-21e0-4af7-b1e3-e1f4b8851cb3",
+          "EndNodeId": "b71bd465-bced-4f83-a142-a528e65740ef"
         }
       ],
       "ChildrenContexts": [],
-      "Id": "44b6aaa7-cf3d-41b1-a4ef-b2dbba5efd5e",
+      "Id": "c210aecb-8673-4428-85d5-5db3de5e3ede",
       "NodeType": "HostNodeViewModel",
       "NodeName": "Mailing.htb",
-      "X": 153.0,
-      "Y": 294.0,
+      "X": 705.0,
+      "Y": 317.0,
       "Properties": [
         {
           "PropertyName": "Os",
@@ -168,7 +166,7 @@
           "IsSecret": false,
           "IsDeletable": false,
           "PropertyType": 0,
-          "Value": null
+          "Value": "Ubuntu 20.04"
         },
         {
           "PropertyName": "User Count",
@@ -176,7 +174,7 @@
           "IsSecret": false,
           "IsDeletable": false,
           "PropertyType": 0,
-          "Value": "1"
+          "Value": "2"
         },
         {
           "PropertyName": "Service Count",
@@ -192,14 +190,14 @@
           "IsSecret": false,
           "IsDeletable": false,
           "PropertyType": 0,
-          "Value": null
+          "Value": "Basic Webserver"
         }
       ],
       "ThemeColor1": "#ff19c8f3",
       "ThemeColor2": "#ff6551e5"
     }
   ],
-  "Id": "f894d24b-df9f-4fd6-b798-52e79391d8bc",
+  "Id": "35d74777-7a11-4f24-bee2-3b0421886885",
   "NodeType": "ContextBase",
   "NodeName": null,
   "X": 0.0,

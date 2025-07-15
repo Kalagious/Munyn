@@ -39,5 +39,11 @@
     <Compile Update="Views\Nodes\NodeDetails\NodeGraphViewProperty.axaml.cs">
       <DependentUpon>NodeGraphViewProperty.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Panels\AttackTray.axaml.cs">
+      <DependentUpon>AttackTray.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Panels\ExtrasTray.axaml.cs">
+      <DependentUpon>ExtrasTray.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

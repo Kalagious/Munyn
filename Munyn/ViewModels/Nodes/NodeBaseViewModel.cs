@@ -84,7 +84,7 @@ namespace Munyn.ViewModels
             PropertiesInNodeView.Clear();
             foreach (NodePropertyBasic property in Properties)
             {
-                if (property.IsVisableOnGraphNode)
+                if (property.IsVisableOnGraphNode && !(string.IsNullOrEmpty(property.PropertyValue)))
                 {
                     PropertiesInNodeView.Add(property);
                 }

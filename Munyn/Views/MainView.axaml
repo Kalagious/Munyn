@@ -7,12 +7,17 @@
 			 xmlns:nodedetails="clr-namespace:Munyn.Views.Nodes.NodeDetails;assembly=Munyn"
 			 xmlns:views="clr-namespace:Munyn.Views;assembly=Munyn"
 			 xmlns:misc="clr-namespace:Munyn.Views.Misc;assembly=Munyn"
+			 xmlns:converters="clr-namespace:Munyn.Converters;assembly=Munyn"
+			 xmlns:panels="clr-namespace:Munyn.Panels;assembly=Munyn"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Munyn.Views.MainView"
              x:DataType="vm:MainViewModel">
 
 
-
+	<UserControl.Resources>
+		<converters:IntEqualityConverter x:Key="intEqualityConverter" />
+		<converters:IntInequalityConverter x:Key="intInequalityConverter" />
+	</UserControl.Resources>
 
 	<UserControl.DataTemplates>
 		<DataTemplate DataType="vm:NodeBaseViewModel">
@@ -49,16 +54,41 @@
 					
 				</Style>
 			</StackPanel.Styles>
-			
-			<Button>Munyn</Button>
-			<Button Command="{Binding ToggleTrayCommand}">
-				<PathIcon Data="{StaticResource window-stack}" Foreground="#f2f2f2"/>
-			</Button>
-			<Border CornerRadius="3" BorderThickness="3" BorderBrush="{Binding PathToolBorderColor}" Margin="10">
-				<Button Command="{Binding TogglePathToolCommand}" Margin="0">
-					<PathIcon Data="{StaticResource bezier2}" Foreground="#f2f2f2"/>
+
+			<TextBlock FontSize="25" HorizontalAlignment="Center" Foreground="#f2f2f2" Margin="5,5,5,3" FontWeight="Bold">Munyn</TextBlock>
+			<Border CornerRadius="3" BorderThickness="3" BorderBrush="Transparent" Margin="5" HorizontalAlignment="Center">
+				<Button Command="{Binding SetBasicTrayCommand}" Margin="0">
+					<StackPanel>
+						<PathIcon Data="{StaticResource window-stack}"  Foreground="#f2f2f2" Margin="2" Width="60" Height="60"/>
+						<TextBlock HorizontalAlignment="Center" Foreground="#f2f2f2">Basic</TextBlock>
+					</StackPanel>
 				</Button>
 			</Border>
+			<Border CornerRadius="3" BorderThickness="3" BorderBrush="Transparent" Margin="5" HorizontalAlignment="Center">
+				<Button Command="{Binding SetAttackTrayCommand}" Margin="0">
+					<StackPanel>
+						<PathIcon Data="{StaticResource bouncing-sword}"  Foreground="#f2f2f2" Margin="2" Width="60" Height="60"/>
+						<TextBlock HorizontalAlignment="Center" Foreground="#f2f2f2">Attack</TextBlock>
+					</StackPanel>				
+				</Button>
+			</Border>
+			<Border CornerRadius="3" BorderThickness="3" BorderBrush="{Binding PathToolBorderColor}" Margin="5" HorizontalAlignment="Center">
+				<Button Command="{Binding TogglePathToolCommand}" Margin="0">
+					<StackPanel>
+						<PathIcon Data="{StaticResource bezier2}"  Foreground="#f2f2f2" Margin="2" Width="60" Height="60"/>
+						<TextBlock HorizontalAlignment="Center" Foreground="#f2f2f2">Paths</TextBlock>
+					</StackPanel>
+				</Button>
+			</Border>
+			<Border CornerRadius="3" BorderThickness="3" BorderBrush="Transparent" Margin="5" HorizontalAlignment="Center">
+				<Button Command="{Binding SetExtrasTrayCommand}" Margin="0">
+					<StackPanel>
+						<PathIcon Data="{StaticResource symbol-misc}"  Foreground="#f2f2f2" Margin="2" Width="60" Height="60"/>
+						<TextBlock HorizontalAlignment="Center" Foreground="#f2f2f2">Extras</TextBlock>
+					</StackPanel>
+				</Button>
+			</Border>
+			
 
 		</StackPanel>
 
@@ -115,68 +145,12 @@
 
 			
 			<Grid Grid.Row="1">
-				<SplitView Name="ItemTray" IsPaneOpen="{Binding IsTrayOpen}" DisplayMode="Inline" OpenPaneLength="100">
+				<SplitView Name="ItemTray" IsPaneOpen="{Binding TrayState, Converter={StaticResource intInequalityConverter}, ConverterParameter=0}" DisplayMode="Inline" OpenPaneLength="100">
 					<SplitView.Pane>
-						
-						<StackPanel Background="#F7F7F7">
-							<StackPanel.Styles>
-								<Style Selector="Button">
-									<Setter Property="Width" Value="70"/>
-									<Setter Property="Height" Value="70"/>
-									<Setter Property="Margin" Value="10"/>
-									<Setter Property="Foreground" Value="White"/>
-									<Setter Property="CornerRadius" Value="5"/>
-									<Setter Property="FontWeight" Value="SemiBold"/>
-									<Setter Property="HorizontalAlignment" Value="Center"/>
-								</Style>
-
-							</StackPanel.Styles>
-							<Button Command="{Binding NewNetworkDragCommand}">
-								<PathIcon Data="{StaticResource neural-network-black-icon}" Foreground="#f2f2f2"/>
-								<Button.Background>
-									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
-										<GradientStop Color="#c531a5" Offset="0.0"/>
-										<GradientStop Color="#4c78ea" Offset="0.5"/>
-										<GradientStop Color="#64DFDF" Offset="1.0"/>
-									</LinearGradientBrush>
-								</Button.Background>
-							</Button>
-							<Button Command="{Binding NewHostDragCommand}">
-								<PathIcon Data="{StaticResource pc-display}" Foreground="#f2f2f2"/>
-								<Button.Background>
-									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
-										<GradientStop Color="#5E90CE" Offset="0.0"/>
-										<GradientStop Color="#64DFDF" Offset="1.0"/>
-									</LinearGradientBrush>
-								</Button.Background>
-							</Button>
-							<Button Command="{Binding NewUserDragCommand}">
-								<PathIcon Data="{StaticResource person-bounding-box}" Foreground="#f2f2f2"/>
-								<Button.Background>
-									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
-										<GradientStop Color="#ef3f79" Offset="0.0"/>
-										<GradientStop Color="#bf3f79" Offset="1.0"/>
-									</LinearGradientBrush>
-								</Button.Background>
-							</Button>
-							<Button Command="{Binding NewServiceDragCommand}">
-								<PathIcon Data="{StaticResource database-fill-gear}" Foreground="#f2f2f2"/>
-								<Button.Background>
-									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
-										<GradientStop Color="#c531a5" Offset="0.0"/>
-										<GradientStop Color="#9f3fd9" Offset="1.0"/>
-									</LinearGradientBrush>
-								</Button.Background>
-							</Button>
-							<Button Command="{Binding NewAssetDragCommand}">
-								<PathIcon Data="{StaticResource gold-icon-white}" Foreground="#f2f2f2"/>
-								<Button.Background>
-									<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
-										<GradientStop Color="#eab900" Offset="0.0"/>
-										<GradientStop Color="#fa8700" Offset="1.0"/>
-									</LinearGradientBrush>
-								</Button.Background>
-							</Button>
+						<StackPanel Background="#f2f2f2">
+							<panels:BasicTray IsVisible="{Binding TrayState, Converter={StaticResource intEqualityConverter}, ConverterParameter=1}"/>
+							<panels:AttackTray IsVisible="{Binding TrayState, Converter={StaticResource intEqualityConverter}, ConverterParameter=2}"/>
+							<panels:ExtrasTray IsVisible="{Binding TrayState, Converter={StaticResource intEqualityConverter}, ConverterParameter=4}"/>
 						</StackPanel>
 					</SplitView.Pane>
 						<Grid>
@@ -203,8 +177,8 @@
 									</ItemsPanelTemplate>
 								</ItemsControl.ItemsPanel>
 							</ItemsControl>
-							<Border Width="300" VerticalAlignment="Top" HorizontalAlignment="Right" ZIndex="10" CornerRadius="5" Background="#f2f2f2" Margin="10">
-								<nodedetails:NodeDetailsView DataContext="{Binding SelectedNode}" ZIndex="10"></nodedetails:NodeDetailsView>
+							<Border Width="300" VerticalAlignment="Top" HorizontalAlignment="Right" ZIndex="10" CornerRadius="5" Background="#f2f2f2" Margin="10" IsVisible="{Binding IsNodeSelected}">
+								<nodedetails:NodeDetailsView DataContext="{Binding SelectedNode}" ZIndex="10" />
 									
 							</Border>
 						</Grid>

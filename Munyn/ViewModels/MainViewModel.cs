@@ -47,18 +47,59 @@ public partial class MainViewModel : ViewModelBase
     private bool _isRootContext = true;
 
     [ObservableProperty]
-    private bool _isTrayOpen = true;
-
-    [ObservableProperty]
     private string _currentContextName = "Null";
 
     [ObservableProperty]
     private NodeBaseViewModel _selectedNode;
 
-    [RelayCommand]
-    private void ToggleTray()
+    [ObservableProperty]
+    private bool _isNodeSelected = false;
+
+    enum TrayStates
     {
-        IsTrayOpen = ! IsTrayOpen;
+        Closed,
+        Basic,
+        Attack,
+        Paths,
+        Extras
+    }
+
+
+
+    [ObservableProperty]
+    private int _trayState = 1;
+
+    [RelayCommand]
+    private void SetBasicTray()
+    {
+        if (TrayState == (int)TrayStates.Basic)
+        {
+            TrayState = (int)TrayStates.Closed;
+            return;
+        }
+        TrayState = (int)TrayStates.Basic;
+    }    
+    
+    [RelayCommand]
+    private void SetAttackTray()
+    {
+        if (TrayState == (int)TrayStates.Attack)
+        {
+            TrayState = (int)TrayStates.Closed;
+            return;
+        }
+        TrayState = (int)TrayStates.Attack;
+    }    
+    
+    [RelayCommand]
+    private void SetExtrasTray()
+    {
+        if (TrayState == (int)TrayStates.Extras)
+        {
+            TrayState = (int)TrayStates.Closed;
+            return;
+        }
+        TrayState = (int)TrayStates.Extras;
     }
 
     [RelayCommand]
@@ -275,6 +316,7 @@ public partial class MainViewModel : ViewModelBase
     public void OnClickedNode(NodeBaseViewModel node, PointerReleasedEventArgs e)
     {
         SelectedNode = node;
+        IsNodeSelected = true;
     }
 
 
@@ -543,6 +585,7 @@ public partial class MainViewModel : ViewModelBase
                 context.AddNodeProperty(newProp);
             }
         }
+        context.GetGraphViewProperties();
 
         if (!string.IsNullOrEmpty(dto.ThemeColor1) && !string.IsNullOrEmpty(dto.ThemeColor2))
         {
@@ -611,6 +654,8 @@ public partial class MainViewModel : ViewModelBase
                 {
                     newNode.NodeTheme = newNode.makeGradient(nodeDto.ThemeColor1, nodeDto.ThemeColor2);
                 }
+
+                newNode.GetGraphViewProperties();
 
                 context.contextNodes.Add(newNode);
                 nodeMap[nodeDto.Id] = newNode;

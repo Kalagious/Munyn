@@ -13,7 +13,7 @@ outFile.write('<ResourceDictionary xmlns="https://github.com/avaloniaui"\nxmlns:
 for file in files:
 	fileData = open(file, 'r').read()
 	fileData = fileData.replace('\x00', '')
-	matches = re.findall(' d="(.*?)"\/>', fileData)
+	matches = re.findall(' d="(.*?)"', fileData)
 	if matches != None and len(matches) > 0:
 		pathData = ""
 	
