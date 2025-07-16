@@ -21,12 +21,13 @@ namespace Munyn.ViewModels
             X = x;
             Y = y;
 
-            NodeTheme = makeGradient("#55DD55", "#22AA22");
+            IconName = "radar";
+            NodeTheme = makeTheme("#55DD55", "#22AA22");
 
             AddNodeProperty(new Nodes.Properties.NodePropertyCommand { PropertyName = "Command", IsDefault=true, IsEditable=true, IsVisableOnGraphNode = true });
             AddNodeProperty(new Nodes.Properties.NodePropertyText { PropertyName = "Result", IsDefault=true, IsEditable=true});
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic { PropertyName = "Description", IsDefault = true, IsEditable = true, IsVisableOnGraphNode = true });
-            Icon = (StreamGeometry)Application.Current.Resources["radar"];
+
             parentCanvas = tmpParentCanvas;
         }
 

@@ -26,9 +26,8 @@ namespace Munyn.ViewModels
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Password", true, true));
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Description", true, true));
 
-            Icon = (StreamGeometry)Application.Current.Resources["person-bounding-box"];
-
-            NodeTheme = makeGradient("#ef3f79", "#d511d5");
+            IconName = "person-bounding-box";
+            NodeTheme = makeTheme("#ef3f79", "#d511d5");
 
 
             parentCanvas = tmpParentCanvas;

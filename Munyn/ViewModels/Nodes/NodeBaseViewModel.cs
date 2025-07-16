@@ -51,10 +51,12 @@ namespace Munyn.ViewModels
         public NodeBaseViewModel()
         {
             Id = Guid.NewGuid();
+            
         }
 
         [ObservableProperty]
         private StreamGeometry _icon;
+        public string IconName;
 
         [ObservableProperty]
         IBrush _nodeTheme;
@@ -240,8 +242,12 @@ namespace Munyn.ViewModels
         }
 
 
-        public LinearGradientBrush makeGradient(string color1, string color2)
+        public LinearGradientBrush makeTheme(string color1, string color2)
         {
+            if (IconName != null)
+                Icon = (StreamGeometry)Application.Current.Resources[IconName];
+
+
             LinearGradientBrush nodeGradient = new LinearGradientBrush();
             nodeGradient.GradientStops.Add(new GradientStop(Color.Parse(color1), 0.0));
             nodeGradient.GradientStops.Add(new GradientStop(Color.Parse(color2), 1.0));

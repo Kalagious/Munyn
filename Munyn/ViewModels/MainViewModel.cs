@@ -637,7 +637,7 @@ public partial class MainViewModel : ViewModelBase
 
         if (!string.IsNullOrEmpty(dto.ThemeColor1) && !string.IsNullOrEmpty(dto.ThemeColor2))
         {
-            context.NodeTheme = context.makeGradient(dto.ThemeColor1, dto.ThemeColor2);
+            context.NodeTheme = context.makeTheme(dto.ThemeColor1, dto.ThemeColor2);
         }
 
         nodeMap[dto.Id] = context;
@@ -700,7 +700,7 @@ public partial class MainViewModel : ViewModelBase
 
                 if (!string.IsNullOrEmpty(nodeDto.ThemeColor1) && !string.IsNullOrEmpty(nodeDto.ThemeColor2))
                 {
-                    newNode.NodeTheme = newNode.makeGradient(nodeDto.ThemeColor1, nodeDto.ThemeColor2);
+                    newNode.NodeTheme = newNode.makeTheme(nodeDto.ThemeColor1, nodeDto.ThemeColor2);
                 }
 
                 newNode.GetGraphViewProperties();

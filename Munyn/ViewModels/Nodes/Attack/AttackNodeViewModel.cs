@@ -21,12 +21,12 @@ namespace Munyn.ViewModels
             X = x;
             Y = y;
 
-            NodeTheme = makeGradient("#FF3333", "#BB5555");
+            IconName = "striking-arrows";
+            NodeTheme = makeTheme("#FF3333", "#BB5555");
 
             AddNodeProperty(new Nodes.Properties.NodePropertyCommand { PropertyName = "Command", IsDefault=true, IsEditable=true, IsVisableOnGraphNode = true });
             AddNodeProperty(new Nodes.Properties.NodePropertyText { PropertyName = "Result", IsDefault=true, IsEditable=true});
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic { PropertyName = "Description", IsDefault = true, IsEditable = true, IsVisableOnGraphNode = true });
-            Icon = (StreamGeometry)Application.Current.Resources["striking-arrows"];
             parentCanvas = tmpParentCanvas;
         }
 

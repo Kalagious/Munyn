@@ -25,10 +25,9 @@ namespace Munyn.ViewModels
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Version", true, true, false));
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Description", true, true));
 
-            Icon = (StreamGeometry)Application.Current.Resources["database-fill-gear"];
 
-
-            NodeTheme = makeGradient("#b613d0", "#6524f3");
+            IconName = "database-fill-gear";
+            NodeTheme = makeTheme("#b613d0", "#6524f3");
 
             parentCanvas = tmpParentCanvas;
         }

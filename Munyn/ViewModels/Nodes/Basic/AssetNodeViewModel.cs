@@ -22,12 +22,12 @@ namespace Munyn.ViewModels
             X = x;
             Y = y;
 
-            NodeTheme = makeGradient("#eab900", "#fa8700");
+            IconName = "gold-icon-white";
+            NodeTheme = makeTheme("#eab900", "#fa8700");
 
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Location", true, true));
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Description", true, true));
 
-            Icon = (StreamGeometry)Application.Current.Resources["gold-icon-white"];
 
             parentCanvas = tmpParentCanvas;
         }
