@@ -1,9 +1,12 @@
 ﻿using System;
+using Avalonia;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Avalonia.Media;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Munyn.ViewModels;
 
@@ -14,6 +17,9 @@ namespace Munyn.ViewModels
         public ObservableCollection<ViewModelBase>? contextNodes;
         public String? contextName;
         public ContextBase? parentContext;
+
+        [ObservableProperty]
+        private StreamGeometry _contextIcon;
         
 
         [RelayCommand]
@@ -28,7 +34,8 @@ namespace Munyn.ViewModels
         public ContextBase()
         {
             contextNodes = new ObservableCollection<ViewModelBase>();
-            IsContext = true;  
+            IsContext = true;
+            ContextIcon = (StreamGeometry)Application.Current.Resources["sitemap-icon"];
         }
 
         public int GetNodeCountOfType<T>()

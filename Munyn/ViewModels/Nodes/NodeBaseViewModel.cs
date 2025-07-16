@@ -54,6 +54,9 @@ namespace Munyn.ViewModels
         }
 
         [ObservableProperty]
+        private StreamGeometry _icon;
+
+        [ObservableProperty]
         IBrush _nodeTheme;
 
         public Action<NodeBaseViewModel, Point, PointerPressedEventArgs> OnStartConnectionDragNode { get; internal set; }
@@ -77,11 +80,6 @@ namespace Munyn.ViewModels
             AddNodeProperty(new NodePropertyText { PropertyName = "New Text Property" });
         }
 
-        [RelayCommand]
-        private void AddExecutableProperty()
-        {
-            AddNodeProperty(new NodePropertyExecutable { PropertyName = "New Executable Property" });
-        }
 
         [RelayCommand]
         private void AddLinkProperty()
@@ -116,7 +114,7 @@ namespace Munyn.ViewModels
             PropertiesInNodeView.Clear();
             foreach (NodePropertyBasic property in Properties)
             {
-                if (property.IsVisableOnGraphNode && !(string.IsNullOrEmpty(property.PropertyValue)))
+                if (property.IsVisableOnGraphNode)
                 {
                     PropertiesInNodeView.Add(property);
                 }
@@ -152,15 +150,6 @@ namespace Munyn.ViewModels
                     {
                         PropertyName = propertyDto.PropertyName,
                         TextContent = propertyDto.TextContent
-                    };
-                }
-                else if (propertyDto.PropertyType == 3)
-                {
-                    newProperty = new NodePropertyExecutable
-                    {
-                        PropertyName = propertyDto.PropertyName,
-                        Command = propertyDto.ExecutableCommand,
-                        Type = (ExecutableType)propertyDto.ExecutableType
                     };
                 }
                 else if (propertyDto.PropertyType == 4)
@@ -227,12 +216,6 @@ namespace Munyn.ViewModels
                 {
                     propertyDto.PropertyType = 2;
                     propertyDto.TextContent = textProperty.TextContent;
-                }
-                else if (property is NodePropertyExecutable executableProperty)
-                {
-                    propertyDto.PropertyType = 3;
-                    propertyDto.ExecutableCommand = executableProperty.Command;
-                    propertyDto.ExecutableType = (int)executableProperty.Type;
                 }
                 else if (property is NodePropertyCommand commandProperty)
                 {

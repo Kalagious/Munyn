@@ -66,6 +66,9 @@ namespace Munyn.ViewModels
             parentCanvas = tmpParentCanvas;
             contextNodes = new ObservableCollection<ViewModelBase>();
 
+            Icon = (StreamGeometry)Application.Current.Resources["pc-display"];
+            ContextIcon = Icon;
+
             InitializeProperties();
              
             NodeTheme = makeGradient("#19c8f3", "#6551e5");

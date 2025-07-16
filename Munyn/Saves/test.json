@@ -1,93 +1,17 @@
 {
   "ContextName": "Root",
-  "Nodes": [
-    {
-      "Id": "3a61f75f-bba9-4d8e-86b5-d563056210b5",
-      "NodeType": "UserNodeViewModel",
-      "NodeName": "Jeff",
-      "X": 260.0,
-      "Y": 118.0,
-      "Properties": [
-        {
-          "PropertyName": "Groups",
-          "IsVisableOnGraphNode": true,
-          "IsSecret": false,
-          "IsDeletable": false,
-          "PropertyType": 0,
-          "Value": null
-        },
-        {
-          "PropertyName": "Password",
-          "IsVisableOnGraphNode": true,
-          "IsSecret": false,
-          "IsDeletable": false,
-          "PropertyType": 0,
-          "Value": null
-        },
-        {
-          "PropertyName": "Description",
-          "IsVisableOnGraphNode": true,
-          "IsSecret": false,
-          "IsDeletable": false,
-          "PropertyType": 0,
-          "Value": null
-        }
-      ],
-      "ThemeColor1": "#ffef3f79",
-      "ThemeColor2": "#ffd511d5"
-    }
-  ],
-  "Paths": [
-    {
-      "StartNodeId": "44b6aaa7-cf3d-41b1-a4ef-b2dbba5efd5e",
-      "EndNodeId": "3a61f75f-bba9-4d8e-86b5-d563056210b5"
-    }
-  ],
+  "Nodes": [],
+  "Paths": [],
   "ChildrenContexts": [
     {
       "ContextName": "Mailing.htb",
       "Nodes": [
         {
-          "Id": "63d1b71d-0fa6-4af9-b841-47f870eca54f",
-          "NodeType": "ServiceNodeViewModel",
-          "NodeName": "Apache Tomcat",
-          "X": 199.0,
-          "Y": 172.0,
-          "Properties": [
-            {
-              "PropertyName": "Location",
-              "IsVisableOnGraphNode": true,
-              "IsSecret": false,
-              "IsDeletable": false,
-              "PropertyType": 0,
-              "Value": null
-            },
-            {
-              "PropertyName": "Version",
-              "IsVisableOnGraphNode": true,
-              "IsSecret": false,
-              "IsDeletable": false,
-              "PropertyType": 0,
-              "Value": null
-            },
-            {
-              "PropertyName": "Description",
-              "IsVisableOnGraphNode": true,
-              "IsSecret": false,
-              "IsDeletable": false,
-              "PropertyType": 0,
-              "Value": null
-            }
-          ],
-          "ThemeColor1": "#ffb613d0",
-          "ThemeColor2": "#ff6524f3"
-        },
-        {
-          "Id": "cc7f4e08-7585-4ce4-9290-872e736d1dc7",
+          "Id": "a8fe685b-4a16-4dfe-94b6-bbbd75b810f1",
           "NodeType": "UserNodeViewModel",
           "NodeName": "Jeff",
-          "X": 479.0,
-          "Y": 361.0,
+          "X": 569.0,
+          "Y": 660.0,
           "Properties": [
             {
               "PropertyName": "Groups",
@@ -95,7 +19,17 @@
               "IsSecret": false,
               "IsDeletable": false,
               "PropertyType": 0,
-              "Value": null
+              "Value": null,
+              "ListContent": null,
+              "TextContent": null,
+              "ExecutableCommand": null,
+              "ExecutableType": 0,
+              "Command": null,
+              "Description": null,
+              "Url": null,
+              "DisplayText": null,
+              "Code": null,
+              "Icon": null
             },
             {
               "PropertyName": "Password",
@@ -103,7 +37,17 @@
               "IsSecret": false,
               "IsDeletable": false,
               "PropertyType": 0,
-              "Value": null
+              "Value": null,
+              "ListContent": null,
+              "TextContent": null,
+              "ExecutableCommand": null,
+              "ExecutableType": 0,
+              "Command": null,
+              "Description": null,
+              "Url": null,
+              "DisplayText": null,
+              "Code": null,
+              "Icon": null
             },
             {
               "PropertyName": "Description",
@@ -111,18 +55,28 @@
               "IsSecret": false,
               "IsDeletable": false,
               "PropertyType": 0,
-              "Value": null
+              "Value": null,
+              "ListContent": null,
+              "TextContent": null,
+              "ExecutableCommand": null,
+              "ExecutableType": 0,
+              "Command": null,
+              "Description": null,
+              "Url": null,
+              "DisplayText": null,
+              "Code": null,
+              "Icon": null
             }
           ],
           "ThemeColor1": "#ffef3f79",
           "ThemeColor2": "#ffd511d5"
         },
         {
-          "Id": "3fea9722-356c-465c-80d6-9c54f239d012",
-          "NodeType": "AssetNodeViewModel",
-          "NodeName": "id_rsa",
-          "X": 73.0,
-          "Y": 404.0,
+          "Id": "4d59cee7-19e1-40ff-9947-f92c4fb1a916",
+          "NodeType": "ServiceNodeViewModel",
+          "NodeName": "testsasdfasdf",
+          "X": 409.0,
+          "Y": 478.0,
           "Properties": [
             {
               "PropertyName": "Location",
@@ -130,7 +84,35 @@
               "IsSecret": false,
               "IsDeletable": false,
               "PropertyType": 0,
-              "Value": null
+              "Value": "Test",
+              "ListContent": null,
+              "TextContent": null,
+              "ExecutableCommand": null,
+              "ExecutableType": 0,
+              "Command": null,
+              "Description": null,
+              "Url": null,
+              "DisplayText": null,
+              "Code": null,
+              "Icon": null
+            },
+            {
+              "PropertyName": "Version",
+              "IsVisableOnGraphNode": true,
+              "IsSecret": false,
+              "IsDeletable": false,
+              "PropertyType": 0,
+              "Value": null,
+              "ListContent": null,
+              "TextContent": null,
+              "ExecutableCommand": null,
+              "ExecutableType": 0,
+              "Command": null,
+              "Description": null,
+              "Url": null,
+              "DisplayText": null,
+              "Code": null,
+              "Icon": null
             },
             {
               "PropertyName": "Description",
@@ -138,7 +120,64 @@
               "IsSecret": false,
               "IsDeletable": false,
               "PropertyType": 0,
-              "Value": null
+              "Value": null,
+              "ListContent": null,
+              "TextContent": null,
+              "ExecutableCommand": null,
+              "ExecutableType": 0,
+              "Command": null,
+              "Description": null,
+              "Url": null,
+              "DisplayText": null,
+              "Code": null,
+              "Icon": null
+            }
+          ],
+          "ThemeColor1": "#ffb613d0",
+          "ThemeColor2": "#ff6524f3"
+        },
+        {
+          "Id": "33dddc1f-4dbb-48c3-8bb6-412a6176f169",
+          "NodeType": "AssetNodeViewModel",
+          "NodeName": "id_rsa",
+          "X": 494.0,
+          "Y": 167.0,
+          "Properties": [
+            {
+              "PropertyName": "Location",
+              "IsVisableOnGraphNode": true,
+              "IsSecret": false,
+              "IsDeletable": false,
+              "PropertyType": 0,
+              "Value": null,
+              "ListContent": null,
+              "TextContent": null,
+              "ExecutableCommand": null,
+              "ExecutableType": 0,
+              "Command": null,
+              "Description": null,
+              "Url": null,
+              "DisplayText": null,
+              "Code": null,
+              "Icon": null
+            },
+            {
+              "PropertyName": "Description",
+              "IsVisableOnGraphNode": true,
+              "IsSecret": false,
+              "IsDeletable": false,
+              "PropertyType": 0,
+              "Value": null,
+              "ListContent": null,
+              "TextContent": null,
+              "ExecutableCommand": null,
+              "ExecutableType": 0,
+              "Command": null,
+              "Description": null,
+              "Url": null,
+              "DisplayText": null,
+              "Code": null,
+              "Icon": null
             }
           ],
           "ThemeColor1": "#ffeab900",
@@ -147,20 +186,20 @@
       ],
       "Paths": [
         {
-          "StartNodeId": "3fea9722-356c-465c-80d6-9c54f239d012",
-          "EndNodeId": "63d1b71d-0fa6-4af9-b841-47f870eca54f"
+          "StartNodeId": "a8fe685b-4a16-4dfe-94b6-bbbd75b810f1",
+          "EndNodeId": "4d59cee7-19e1-40ff-9947-f92c4fb1a916"
         },
         {
-          "StartNodeId": "cc7f4e08-7585-4ce4-9290-872e736d1dc7",
-          "EndNodeId": "63d1b71d-0fa6-4af9-b841-47f870eca54f"
+          "StartNodeId": "4d59cee7-19e1-40ff-9947-f92c4fb1a916",
+          "EndNodeId": "33dddc1f-4dbb-48c3-8bb6-412a6176f169"
         }
       ],
       "ChildrenContexts": [],
-      "Id": "44b6aaa7-cf3d-41b1-a4ef-b2dbba5efd5e",
+      "Id": "47f76748-da24-4a24-a56f-9b0ef85a20a1",
       "NodeType": "HostNodeViewModel",
       "NodeName": "Mailing.htb",
-      "X": 153.0,
-      "Y": 294.0,
+      "X": 440.0,
+      "Y": 460.0,
       "Properties": [
         {
           "PropertyName": "Os",
@@ -168,7 +207,17 @@
           "IsSecret": false,
           "IsDeletable": false,
           "PropertyType": 0,
-          "Value": null
+          "Value": null,
+          "ListContent": null,
+          "TextContent": null,
+          "ExecutableCommand": null,
+          "ExecutableType": 0,
+          "Command": null,
+          "Description": null,
+          "Url": null,
+          "DisplayText": null,
+          "Code": null,
+          "Icon": null
         },
         {
           "PropertyName": "User Count",
@@ -176,7 +225,17 @@
           "IsSecret": false,
           "IsDeletable": false,
           "PropertyType": 0,
-          "Value": "1"
+          "Value": "1",
+          "ListContent": null,
+          "TextContent": null,
+          "ExecutableCommand": null,
+          "ExecutableType": 0,
+          "Command": null,
+          "Description": null,
+          "Url": null,
+          "DisplayText": null,
+          "Code": null,
+          "Icon": null
         },
         {
           "PropertyName": "Service Count",
@@ -184,7 +243,17 @@
           "IsSecret": false,
           "IsDeletable": false,
           "PropertyType": 0,
-          "Value": "1"
+          "Value": "1",
+          "ListContent": null,
+          "TextContent": null,
+          "ExecutableCommand": null,
+          "ExecutableType": 0,
+          "Command": null,
+          "Description": null,
+          "Url": null,
+          "DisplayText": null,
+          "Code": null,
+          "Icon": null
         },
         {
           "PropertyName": "Description",
@@ -192,14 +261,24 @@
           "IsSecret": false,
           "IsDeletable": false,
           "PropertyType": 0,
-          "Value": null
+          "Value": null,
+          "ListContent": null,
+          "TextContent": null,
+          "ExecutableCommand": null,
+          "ExecutableType": 0,
+          "Command": null,
+          "Description": null,
+          "Url": null,
+          "DisplayText": null,
+          "Code": null,
+          "Icon": null
         }
       ],
       "ThemeColor1": "#ff19c8f3",
       "ThemeColor2": "#ff6551e5"
     }
   ],
-  "Id": "f894d24b-df9f-4fd6-b798-52e79391d8bc",
+  "Id": "994404ea-bdaa-4a1b-b975-e488fe8253b9",
   "NodeType": "ContextBase",
   "NodeName": null,
   "X": 0.0,

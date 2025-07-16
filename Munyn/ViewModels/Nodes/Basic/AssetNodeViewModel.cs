@@ -1,4 +1,6 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
@@ -11,30 +13,21 @@ using System.Xml.Linq;
 
 namespace Munyn.ViewModels
 {
-    public partial class ServiceNodeViewModel : NodeBaseViewModel
+    public partial class AssetNodeViewModel : NodeBaseViewModel
     {
 
-        [ObservableProperty]
-        private string _servicePort;
-        [ObservableProperty]
-        private string? _servicePath;
-        [ObservableProperty]
-        private string _serviceDetails;
-
-        
-
-        public ServiceNodeViewModel(string name, float x, float y, Canvas tmpParentCanvas)
+        public AssetNodeViewModel(string name, float x, float y, Canvas tmpParentCanvas)
         {
             NodeName = name;
             X = x;
             Y = y;
 
+            NodeTheme = makeGradient("#eab900", "#fa8700");
+
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Location", true, true));
-            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Version", true, true, false));
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Description", true, true));
 
-
-            NodeTheme = makeGradient("#b613d0", "#6524f3");
+            Icon = (StreamGeometry)Application.Current.Resources["gold-icon-white"];
 
             parentCanvas = tmpParentCanvas;
         }

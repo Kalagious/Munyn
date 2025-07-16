@@ -17,7 +17,7 @@
 			</Style>
 
 		</StackPanel.Styles>
-		<Button Command="{Binding NewHostDragCommand}">
+		<Button Command="{Binding NewReconDragCommand}">
 			<PathIcon Data="{StaticResource radar}" Foreground="#f2f2f2" Width="45" Height="45"/>
 			<Button.Background>
 				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
@@ -26,7 +26,7 @@
 				</LinearGradientBrush>
 			</Button.Background>
 		</Button>
-		<Button Command="{Binding NewHostDragCommand}">
+		<Button Command="{Binding NewAttackDragCommand}">
 			<PathIcon Data="{StaticResource striking-arrows}" Foreground="#f2f2f2" Width="45" Height="45"/>
 			<Button.Background>
 				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
@@ -35,16 +35,7 @@
 				</LinearGradientBrush>
 			</Button.Background>
 		</Button>
-		<Button Command="{Binding NewHostDragCommand}">
-			<PathIcon Data="{StaticResource automation}" Foreground="#f2f2f2" Width="45" Height="45"/>
-			<Button.Background>
-				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
-					<GradientStop Color="#5E90CE" Offset="0.0"/>
-					<GradientStop Color="#64DFDF" Offset="1.0"/>
-				</LinearGradientBrush>
-			</Button.Background>
-		</Button>
-		<Button Command="{Binding NewHostDragCommand}">
+		<Button Command="{Binding NewCheckpointDragCommand}">
 			<PathIcon Data="{StaticResource start-cog}" Foreground="#f2f2f2" Width="45" Height="45"/>
 			<Button.Background>
 				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">

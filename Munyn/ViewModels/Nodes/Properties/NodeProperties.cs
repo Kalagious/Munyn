@@ -39,26 +39,16 @@ namespace Munyn.ViewModels.Nodes.Properties
     {
         [ObservableProperty]
         private List<NodePropertyBasic> _listContent;
+
+        public NodePropertyList() : base() { }
     }
 
     public partial class NodePropertyText : NodePropertyBasic
     {
         [ObservableProperty]
         private string? _textContent;
-    }
 
-    public enum ExecutableType
-    {
-        Bash,
-        PowerShell
-    }
-
-    public partial class NodePropertyExecutable : NodePropertyBasic
-    {
-        [ObservableProperty]
-        private string? _command;
-        [ObservableProperty]
-        private ExecutableType _type;
+        public NodePropertyText() : base() { }
     }
 
     public partial class NodePropertyCommand : NodePropertyBasic
@@ -67,6 +57,8 @@ namespace Munyn.ViewModels.Nodes.Properties
         private string? _command;
         [ObservableProperty]
         private string? _description;
+
+        public NodePropertyCommand() : base() { }
     }
 
     public partial class NodePropertyLink : NodePropertyBasic
@@ -75,6 +67,8 @@ namespace Munyn.ViewModels.Nodes.Properties
         private string? _url;
         [ObservableProperty]
         private string? _displayText;
+
+        public NodePropertyLink() : base() { }
     }
 
 }

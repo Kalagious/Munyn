@@ -46,4 +46,8 @@
       <DependentUpon>ExtrasTray.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModels\Nodes\Extras\" />
+  </ItemGroup>
 </Project>

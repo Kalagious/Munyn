@@ -204,6 +204,54 @@ public partial class MainViewModel : ViewModelBase
 
     }
 
+    [RelayCommand]
+    private void NewReconDrag()
+    {
+        if (NodeCanvasBase != null)
+        {
+
+            NodeBaseViewModel newNode = new ReconNodeViewModel("Nmap", 30, 50, NodeCanvasBase);
+            newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
+            newNode.OnClickedNode = OnClickedNode;
+
+            currentContext.contextNodes.Add(newNode);
+            RefreshContext();
+        }
+
+    }
+
+    [RelayCommand]
+    private void NewAttackDrag()
+    {
+        if (NodeCanvasBase != null)
+        {
+
+            NodeBaseViewModel newNode = new AttackNodeViewModel("PHP File Include", 30, 50, NodeCanvasBase);
+            newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
+            newNode.OnClickedNode = OnClickedNode;
+
+            currentContext.contextNodes.Add(newNode);
+            RefreshContext();
+        }
+
+    }
+
+    [RelayCommand]
+    private void NewCheckpointDrag()
+    {
+        if (NodeCanvasBase != null)
+        {
+
+            NodeBaseViewModel newNode = new CheckpointNodeViewModel("Jeff SSH", 30, 50, NodeCanvasBase);
+            newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
+            newNode.OnClickedNode = OnClickedNode;
+
+            currentContext.contextNodes.Add(newNode);
+            RefreshContext();
+        }
+
+    }
+
 
     [ObservableProperty]
     private ObservableCollection<ViewModelBase> _visableNodes;
