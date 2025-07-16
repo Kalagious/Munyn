@@ -1,29 +1,24 @@
-# Munyn
+# Munyn: Your Visual Cybersecurity Storyteller
 
-Munyn is a flexible and intuitive visual mapping tool designed for security professionals. Think of it as a dynamic, digital whiteboard that helps you chart out complex network infrastructures, identify potential attack vectors, and visualize entire penetration testing workflows.
+Ever tried explaining a complex network intrusion to a client, or mapping out a penetration test on a cluttered whiteboard? It can be tough. That's where Munyn comes in.
 
-## What is Munyn?
+Think of Munyn as your digital canvas for cybersecurity. It’s a tool that helps you visually map out network infrastructures, trace potential attack paths, and tell the story of a security assessment in a way that’s clear, concise, and easy to understand.
 
-With Munyn, you can:
+## What's Munyn all about?
 
-*   **Quickly build network diagrams:** Drag and drop pre-defined nodes for networks, hosts, users, and services to create a visual representation of your target environment.
-*   **Map out attack paths:** Visually link vulnerabilities, exploits, and user accounts to understand and demonstrate how an attacker could move through a network.
-*   **Stay organized:** Use "contexts" to create nested diagrams, allowing you to zoom in on specific networks or hosts without losing the big picture.
-*   **Save and share your work:** Your graphs are saved in a simple JSON format, making it easy to store, share, and collaborate with your team.
+Munyn is built on a simple idea: that visualizing complex security concepts makes them easier to understand. With Munyn, you can:
 
-Whether you're a penetration tester, a security analyst, or a systems administrator, Munyn provides a clear and powerful way to visualize and understand your security landscape.
+*   **Bring your networks to life:** Go beyond simple diagrams. Build rich, visual representations of your target environments by dragging and dropping nodes for everything from servers and workstations to users and services.
+*   **Uncover the path of an attack:** Connect the dots between vulnerabilities, exploits, and user accounts to create a visual narrative of how an attacker could compromise a system. It's a powerful way to understand and communicate risk.
+*   **Keep your thoughts organized:** Dive deep into specific parts of your network without losing the bigger picture. Munyn's "contexts" let you create nested diagrams, so you can explore a single host or an entire subnet with ease.
+*   **Share your insights:** Save your work as a simple JSON file, making it a breeze to share your findings with colleagues, clients, or anyone who needs to understand the security landscape.
 
-## Features
+Whether you're a seasoned penetration tester, a security analyst trying to make sense of a complex network, or a sysadmin who wants a better way to visualize your infrastructure, Munyn is for you. It's a tool for anyone who believes that a good picture is worth a thousand lines of code.
 
-*   **Node-Based Graphing:** Drag and drop various node types to build your diagrams.
-*   **Contexts:** Nest diagrams within nodes to manage complexity.
-*   **Connections:** Draw lines between nodes to represent relationships.
-*   **Save/Load:** Save your work to a JSON file and load it back in later.
-*   **Customization:** Add properties and apply themes to nodes.
+## Features at a Glance
 
-## How to Use
-
-1.  **Adding Nodes:** Drag nodes from the trays on the left onto the canvas.
-2.  **Creating Connections:** Select the "Path Tool" and click and drag from one node to another.
-3.  **Navigating Contexts:** Double-click on a node to enter its context. Use the breadcrumb trail at the top to navigate back.
-4.  **Saving and Loading:** Use the "Save" and "Load" buttons in the top menu to manage your work.
+*   **Intuitive, drag-and-drop interface:** Build your diagrams without a steep learning curve.
+*   **Nested "contexts":** Keep your diagrams organized and easy to navigate.
+*   **Flexible connections:** Draw relationships between any two nodes on your canvas.
+*   **Easy save and load:** Pick up right where you left off, or share your work with others.
+*   **Node customization:** Add properties and themes to make your diagrams your own.
