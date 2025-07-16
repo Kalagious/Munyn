@@ -181,14 +181,6 @@ namespace Munyn.ViewModels
                         DisplayText = propertyDto.DisplayText
                     };
                 }
-                else if (propertyDto.PropertyType == 6)
-                {
-                    newProperty = new NodePropertyCode
-                    {
-                        PropertyName = propertyDto.PropertyName,
-                        Code = propertyDto.Code
-                    };
-                }
                 else
                 {
                     newProperty = new NodePropertyBasic
@@ -253,11 +245,6 @@ namespace Munyn.ViewModels
                     propertyDto.PropertyType = 5;
                     propertyDto.Url = linkProperty.Url;
                     propertyDto.DisplayText = linkProperty.DisplayText;
-                }
-                else if (property is NodePropertyCode codeProperty)
-                {
-                    propertyDto.PropertyType = 6;
-                    propertyDto.Code = codeProperty.Code;
                 }
                 else
                 {
