@@ -481,7 +481,7 @@ public partial class MainViewModel : ViewModelBase
             IsVisableOnGraphNode = p.IsVisableOnGraphNode,
             Value = p.PropertyValue,
             IconName = p.IconName,
-            IconColor = p.IconColor,
+            IconColorString = p.IconColorString,
         }).ToList();
 
         if (context.NodeTheme is LinearGradientBrush contextBrush)
@@ -525,7 +525,7 @@ public partial class MainViewModel : ViewModelBase
                         IsVisableOnGraphNode = p.IsVisableOnGraphNode,
                         Value = p.PropertyValue,
                         IconName = p.IconName,
-                        IconColor = p.IconColor
+                        IconColorString = p.IconColorString
                     }).ToList()
                 };
 
@@ -630,14 +630,14 @@ public partial class MainViewModel : ViewModelBase
             {
                 existingProp.PropertyValue = propDto.Value;
                 existingProp.IconName = propDto.IconName;
-                existingProp.IconColor = propDto.IconColor;
+                existingProp.IconColorString = propDto.IconColorString;
             }
             else
             {
                 var newProp = new NodePropertyBasic(propDto.PropertyName, propDto.IsVisableOnGraphNode);
                 newProp.PropertyValue = propDto.Value;
                 newProp.IconName = propDto.IconName;
-                newProp.IconColor = propDto.IconColor;
+                newProp.IconColorString = propDto.IconColorString;
                 context.AddNodeProperty(newProp);
             }
         }
@@ -707,14 +707,14 @@ public partial class MainViewModel : ViewModelBase
                     {
                         existingProp.PropertyValue = propDto.Value;
                         existingProp.IconName = propDto.IconName;
-                        existingProp.IconColor = propDto.IconColor;
+                        existingProp.IconColorString = propDto.IconColorString;
                     }
                     else
                     {
                         var newProp = new NodePropertyBasic(propDto.PropertyName, propDto.IsVisableOnGraphNode);
                         newProp.PropertyValue = propDto.Value;
                         newProp.IconName = propDto.IconName;
-                        newProp.IconColor = propDto.IconColor;
+                        newProp.IconColorString = propDto.IconColorString;
                         newNode.AddNodeProperty(newProp);
                     }
                 }
