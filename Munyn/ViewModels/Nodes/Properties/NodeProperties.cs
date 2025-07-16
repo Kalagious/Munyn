@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,9 @@ namespace Munyn.ViewModels.Nodes.Properties
         //[ObservableProperty] private int _propertyIndex; // Index in overall property list
         [ObservableProperty] private int _propertyIndexInNodeView; // Index for displaying properties specifically in nodes on the graph, -1 means doesnt matter
 
+        [ObservableProperty] private bool _isIconSelectionOpen;
+        public IconSelectionViewModel IconSelectionViewModel { get; set; }
+
         public NodePropertyBasic(string propertyName = "New Property", bool isDefault = false, bool isVisiableOnGraphNode = false, bool isEditable = true, int propertyIndexInNodeView = -1)
         {
             PropertyName = propertyName;
@@ -37,19 +41,22 @@ namespace Munyn.ViewModels.Nodes.Properties
             IsFavorited = false;
             IsVisableOnGraphNode = isVisiableOnGraphNode;
             IconName = "file-richtext-fill";
+            IconSelectionViewModel = new IconSelectionViewModel();
+            IconSelectionViewModel.PropertyChanged += IconSelectionViewModel_PropertyChanged;
             Refresh();
         }
 
-        [RelayCommand]
-        private async Task OpenIconSelection()
+        private void IconSelectionViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var dialog = new Munyn.Views.Nodes.NodeDetails.IconSelectionView();
-            var result = await dialog.ShowDialog<string>((Avalonia.Application.Current.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime).MainWindow);
-
-            if (!string.IsNullOrEmpty(result))
+            if (e.PropertyName == nameof(IconSelectionViewModel.SelectedIcon))
             {
-                IconName = result;
+                IconName = IconSelectionViewModel.SelectedIcon;
                 Refresh();
+            }
+            else if (e.PropertyName == nameof(IconSelectionViewModel.IconColor))
+            {
+                IconColor = new SolidColorBrush(IconSelectionViewModel.IconColor);
+                IconColorString = IconSelectionViewModel.IconColor.ToString();
             }
         }
 
@@ -58,6 +65,18 @@ namespace Munyn.ViewModels.Nodes.Properties
             if (Application.Current.Resources.TryGetResource(IconName, null, out var resource))
             {
                 Icon = (StreamGeometry)resource;
+            }
+
+            if (!string.IsNullOrEmpty(IconColorString))
+            {
+                if (Color.TryParse(IconColorString, out var color))
+                {
+                    IconColor = new SolidColorBrush(color);
+                }
+            }
+            else
+            {
+                IconColor = new SolidColorBrush(Colors.Black);
             }
         }
 

@@ -19,6 +19,8 @@ namespace Munyn.ViewModels.Nodes.Properties
 
         [ObservableProperty]
         private string _selectedIcon;
+        [ObservableProperty]
+        private Color _iconColor;
 
         public IconSelectionViewModel()
         {
