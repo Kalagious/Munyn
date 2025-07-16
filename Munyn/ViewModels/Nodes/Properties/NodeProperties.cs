@@ -36,6 +36,11 @@ namespace Munyn.ViewModels.Nodes.Properties
             IsFavorited = false;
             IsVisableOnGraphNode = isVisiableOnGraphNode;
             IconName = "file-richtext-fill";
+            Refresh();
+        }
+
+        public void Refresh()
+        {
             Icon = (StreamGeometry)Application.Current.Resources[IconName];
         }
 
