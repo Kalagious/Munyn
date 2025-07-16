@@ -479,7 +479,9 @@ public partial class MainViewModel : ViewModelBase
         {
             PropertyName = p.PropertyName,
             IsVisableOnGraphNode = p.IsVisableOnGraphNode,
-            Value = p.PropertyValue
+            Value = p.PropertyValue,
+            IconName = p.IconName,
+            IconColor = p.IconColor,
         }).ToList();
 
         if (context.NodeTheme is LinearGradientBrush contextBrush)
@@ -521,7 +523,9 @@ public partial class MainViewModel : ViewModelBase
                     {
                         PropertyName = p.PropertyName,
                         IsVisableOnGraphNode = p.IsVisableOnGraphNode,
-                        Value = p.PropertyValue
+                        Value = p.PropertyValue,
+                        IconName = p.IconName,
+                        IconColor = p.IconColor
                     }).ToList()
                 };
 
@@ -625,11 +629,15 @@ public partial class MainViewModel : ViewModelBase
             if (existingProp != null)
             {
                 existingProp.PropertyValue = propDto.Value;
+                existingProp.IconName = propDto.IconName;
+                existingProp.IconColor = propDto.IconColor;
             }
             else
             {
                 var newProp = new NodePropertyBasic(propDto.PropertyName, propDto.IsVisableOnGraphNode);
                 newProp.PropertyValue = propDto.Value;
+                newProp.IconName = propDto.IconName;
+                newProp.IconColor = propDto.IconColor;
                 context.AddNodeProperty(newProp);
             }
         }
@@ -674,6 +682,15 @@ public partial class MainViewModel : ViewModelBase
                 case nameof(AssetNodeViewModel):
                     newNode = new AssetNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase);
                     break;
+                case nameof(ReconNodeViewModel):
+                    newNode = new ReconNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase);
+                    break;
+                case nameof(AttackNodeViewModel):
+                    newNode = new AttackNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase);
+                    break;
+                case nameof(CheckpointNodeViewModel):
+                    newNode = new CheckpointNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase);
+                    break;
             }
 
             if (newNode != null)
@@ -689,11 +706,15 @@ public partial class MainViewModel : ViewModelBase
                     if (existingProp != null)
                     {
                         existingProp.PropertyValue = propDto.Value;
+                        existingProp.IconName = propDto.IconName;
+                        existingProp.IconColor = propDto.IconColor;
                     }
                     else
                     {
                         var newProp = new NodePropertyBasic(propDto.PropertyName, propDto.IsVisableOnGraphNode);
                         newProp.PropertyValue = propDto.Value;
+                        newProp.IconName = propDto.IconName;
+                        newProp.IconColor = propDto.IconColor;
                         newNode.AddNodeProperty(newProp);
                     }
                 }
