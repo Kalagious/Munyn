@@ -9,7 +9,9 @@
 		<StackPanel>
 			<Border Height="1" Background="LightGray" Margin="15,5,15,5"/>
 			<StackPanel Orientation="Horizontal">
-				<PathIcon Margin="15,2,3,2" Data="{Binding Icon}" Foreground="Black"/>
+                <Button Command="{Binding OpenIconSelectionCommand}" Background="Transparent" BorderThickness="0">
+                    <PathIcon Margin="15,2,3,2" Data="{Binding Icon}" Foreground="Black"/>
+                </Button>
 				<TextBox IsVisible="{Binding !IsDefault}" Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" BorderThickness="0"></TextBox>
 				<TextBlock Margin="5,5,0,5" IsVisible="{Binding IsDefault}" Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center"></TextBlock> 
 				<TextBlock Text=":" Foreground="Black" VerticalAlignment="Center"></TextBlock>

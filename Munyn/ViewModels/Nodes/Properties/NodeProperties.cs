@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Munyn.ViewModels.Nodes.Properties
         [ObservableProperty] private string? _propertyValue;
         [ObservableProperty] private StreamGeometry _icon;
         [ObservableProperty] private IBrush _iconColor;
-        public string IconName;
+        [ObservableProperty] private string _iconName;
         public string IconColorString;
 
         [ObservableProperty] private bool _isDefault;
@@ -39,9 +40,25 @@ namespace Munyn.ViewModels.Nodes.Properties
             Refresh();
         }
 
+        [RelayCommand]
+        private async Task OpenIconSelection()
+        {
+            var dialog = new Munyn.Views.Nodes.NodeDetails.IconSelectionView();
+            var result = await dialog.ShowDialog<string>((Avalonia.Application.Current.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime).MainWindow);
+
+            if (!string.IsNullOrEmpty(result))
+            {
+                IconName = result;
+                Refresh();
+            }
+        }
+
         public void Refresh()
         {
-            Icon = (StreamGeometry)Application.Current.Resources[IconName];
+            if (Application.Current.Resources.TryGetResource(IconName, null, out var resource))
+            {
+                Icon = (StreamGeometry)resource;
+            }
         }
 
 
