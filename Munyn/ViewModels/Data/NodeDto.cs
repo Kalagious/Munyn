@@ -43,6 +43,7 @@ namespace Munyn.ViewModels.Data
 
         // For code properties
         public string Code { get; set; }
-        public string Icon { get; set; }
+        public string IconName { get; set; }
+        public string IconColor { get; set; }
     }
 }

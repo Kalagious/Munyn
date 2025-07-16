@@ -8,7 +8,8 @@
 
 		<StackPanel>
 			<StackPanel Orientation="Horizontal">
-				<TextBlock Margin="20,2,0,2" Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center"></TextBlock> 
+				<PathIcon Margin="10,2,3,2" Data="{Binding Icon}" Foreground="Black"/>
+				<TextBlock  Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center"></TextBlock> 
 				<TextBlock Text=":" Foreground="Black" VerticalAlignment="Center"></TextBlock>
 
 				<TextBlock Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent"></TextBlock>

@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia;
+using Avalonia.Media;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +15,11 @@ namespace Munyn.ViewModels.Nodes.Properties
         [ObservableProperty] private string? _propertyName;
         [ObservableProperty] private string? _value;
         [ObservableProperty] private string? _propertyValue;
-        [ObservableProperty] private string? _propertyIcon;
-        [ObservableProperty] private string? _icon;
+        [ObservableProperty] private StreamGeometry _icon;
+        [ObservableProperty] private IBrush _iconColor;
+        public string IconName;
+        public string IconColorString;
+
         [ObservableProperty] private bool _isDefault;
         [ObservableProperty] private bool _isFavorited;
         [ObservableProperty] private bool _isEditable;
@@ -30,7 +35,8 @@ namespace Munyn.ViewModels.Nodes.Properties
             IsEditable = isEditable;
             IsFavorited = false;
             IsVisableOnGraphNode = isVisiableOnGraphNode;
-            Icon = "file-richtext-fill";
+            IconName = "file-richtext-fill";
+            Icon = (StreamGeometry)Application.Current.Resources[IconName];
         }
 
 

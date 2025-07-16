@@ -183,7 +183,7 @@ namespace Munyn.ViewModels
 
                 if (newProperty != null)
                 {
-                    newProperty.Icon = propertyDto.Icon;
+                    newProperty.IconName = propertyDto.IconName;
                     AddNodeProperty(newProperty);
                 }
             }
@@ -198,7 +198,7 @@ namespace Munyn.ViewModels
                 {
                     PropertyName = property.PropertyName,
                     IsVisableOnGraphNode = property.IsVisableOnGraphNode,
-                    Icon = property.Icon
+                    IconName = property.IconName
                 };
 
                 if (property is NodePropertyList listProperty)
