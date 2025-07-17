@@ -498,7 +498,7 @@ public partial class MainViewModel : ViewModelBase
             Title = "Save Munyn Graph",
             FileTypeChoices = new[]
             {
-                new FilePickerFileType("JSON") { Patterns = new[] { "*.json" } }
+                new FilePickerFileType("MUN") { Patterns = new[] { "*.mun" } }
             }
         });
 
@@ -595,7 +595,7 @@ public partial class MainViewModel : ViewModelBase
         {
             Title = "Load Munyn Graph",
             AllowMultiple = false,
-            FileTypeFilter = new[] { new FilePickerFileType("JSON") { Patterns = new[] { "*.json" } } }
+            FileTypeFilter = new[] { new FilePickerFileType("MUN") { Patterns = new[] { "*.mun" } } }
         });
 
         if (files.Count > 0)
