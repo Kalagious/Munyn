@@ -11,10 +11,9 @@
 		<PathIcon Data="{StaticResource arrow-next-right-icon}" Width="10" IsVisible="{Binding ArrowVisible}"/>
 		<Button Margin="-2,0,-2,0" Background="Transparent" Command="{Binding EnterContextButtonCommand}">
 			<StackPanel Orientation="Horizontal">
-				<PathIcon Data="{Binding Icon}" Width="17" Margin="4,0,4,0"/>
+				<PathIcon Data="{Binding Icon}" Width="17" Margin="4,0,4,0" Foreground="#f2f2f2"/>
 				<TextBlock Text="{Binding ContextName}" Margin="0,2,0,2" Foreground="WhiteSmoke" FontSize="12"></TextBlock>
 			</StackPanel>
 		</Button>
 	</StackPanel>
-	
 </UserControl>

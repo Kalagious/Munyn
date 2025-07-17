@@ -23,7 +23,9 @@ public partial class MainView : UserControl
     {
         InitializeComponent();
         this.Loaded += OnLoaded;
-        
+        this.PointerMoved += MainView_OnPointerMoved;
+        this.PointerReleased += MainView_OnPointerReleased;
+
     }
 
     private void InitializeComponent()
@@ -60,5 +62,22 @@ public partial class MainView : UserControl
             }
         }
     }
+    
+    private void MainView_OnPointerMoved(object? sender, PointerEventArgs e)
+    {
+        if (DataContext is MainViewModel mainVm)
+            mainVm.HandlePointerMoved(e);
 
+        e.Handled = true;
+    }
+
+    private void MainView_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
+    {
+        if (DataContext is MainViewModel mainVm)
+            mainVm.OnEndConnectionDragFromNode(e);
+
+        e.Handled = true;
+    }
 }
+
+

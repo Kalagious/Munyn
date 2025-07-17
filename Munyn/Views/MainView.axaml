@@ -173,7 +173,7 @@
 								
 								<ItemsControl.ItemsPanel>
 									<ItemsPanelTemplate>
-										<views:NodeCanvasBaseView x:Name="CanvasView" Background="#303040"/>
+										<Canvas x:Name="NodeCanvasBase"  RenderTransformOrigin="0,0" Background="#303040"/>
 									</ItemsPanelTemplate>
 								</ItemsControl.ItemsPanel>
 							</ItemsControl>
