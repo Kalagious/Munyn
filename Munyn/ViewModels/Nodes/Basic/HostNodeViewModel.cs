@@ -32,8 +32,10 @@ namespace Munyn.ViewModels
 
         public void Refresh()
         {
-            GetNodePropertyFromName("User Count").PropertyValue = GetNodeCountOfType<UserNodeViewModel>().ToString();
-            GetNodePropertyFromName("Service Count").PropertyValue = GetNodeCountOfType<ServiceNodeViewModel>().ToString();
+            if (GetNodePropertyFromName("User Count") != null)
+                GetNodePropertyFromName("User Count").PropertyValue = GetNodeCountOfType<UserNodeViewModel>().ToString();
+            if (GetNodePropertyFromName("Service Count") != null)
+                GetNodePropertyFromName("Service Count").PropertyValue = GetNodeCountOfType<ServiceNodeViewModel>().ToString();
 
 /*            foreach (ViewModelBase node in contextNodes)
             {

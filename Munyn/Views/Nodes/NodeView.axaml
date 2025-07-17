@@ -59,8 +59,5 @@
 			</StackPanel>
 		</Border>
 		</StackPanel>
-		<Button Classes="DeleteButton" Command="{Binding DeleteNodeCommand}" IsVisible="{Binding IsPointerOver, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
-			<PathIcon Data="{StaticResource close-icon}" Width="12" Height="12"/>
-		</Button>
 	</Panel>
 </UserControl>
