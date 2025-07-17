@@ -3,16 +3,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Munyn.Views.Nodes.NodeDetails.NodeDetailsViewProperty">
+             x:Class="Munyn.Views.Nodes.NodeDetails.NodeDetailsViewProperty"
+             xmlns:panels="clr-namespace:Munyn.Views.Panels;assembly=Munyn">
+
 
 
 		<StackPanel>
 			<Border Height="1" Background="LightGray" Margin="15,5,15,5"/>
 			<Grid ColumnDefinitions="*,Auto">
 				<StackPanel Orientation="Horizontal" Grid.Column="0">
-					<Button Command="{Binding OpenIconSelectionCommand}" Background="Transparent" BorderThickness="0">
-						<PathIcon Margin="15,2,3,2" Data="{Binding Icon}" Foreground="Black"/>
-					</Button>
+            <ToggleButton IsChecked="{Binding IsIconSelectionOpen}" Background="Transparent" BorderThickness="0" Margin="15,0,0,0">
+                <PathIcon HorizontalAlignment="Center" Margin="0,2,0,2" Data="{Binding Icon}" Foreground="{Binding IconColor}"/>
+            </ToggleButton>
+            <Popup IsOpen="{Binding IsIconSelectionOpen}" Placement="Bottom" MaxWidth="400">
+                <Border Background="White" BorderBrush="Gray" BorderThickness="1">
+                    <panels:IconSelectionView DataContext="{Binding IconSelectionViewModel}" />
+                </Border>
+            </Popup>
 					<TextBox IsVisible="{Binding !IsDefault}" Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" BorderThickness="0"></TextBox>
 					<TextBlock Margin="5,5,0,5" IsVisible="{Binding IsDefault}" Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center"></TextBlock>
 					<TextBlock Text=":" Foreground="Black" VerticalAlignment="Center"></TextBlock>
