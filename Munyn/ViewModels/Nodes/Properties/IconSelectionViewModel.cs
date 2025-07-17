@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 
@@ -32,6 +33,9 @@ namespace Munyn.ViewModels.Nodes.Properties
                     .Select(r => r.Key.ToString())
                     .ToList();
             }
+
+            foreach (string name in Icons)
+                Debug.WriteLine($"Icon: {name}");
         }
 
         [RelayCommand]
@@ -47,6 +51,7 @@ namespace Munyn.ViewModels.Nodes.Properties
         {
             if (value is string iconName)
             {
+                
                 if (Application.Current != null && Application.Current.Resources.TryGetResource(iconName, null, out var resource))
                 {
                     return resource;

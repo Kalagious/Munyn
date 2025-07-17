@@ -64,6 +64,16 @@ namespace Munyn.ViewModels
         public Action<NodeBaseViewModel, Point, PointerPressedEventArgs> OnStartConnectionDragNode { get; internal set; }
         public Action<NodeBaseViewModel, PointerReleasedEventArgs> OnClickedNode { get; internal set; }
 
+
+        [ObservableProperty]
+        private bool _isPropertySelectionOpen = false;
+
+        [RelayCommand]
+        private void OpenProperySelection()
+        {
+            IsPropertySelectionOpen = !IsPropertySelectionOpen;
+        }
+
         [RelayCommand]
         private void AddBlankProperty()
         {

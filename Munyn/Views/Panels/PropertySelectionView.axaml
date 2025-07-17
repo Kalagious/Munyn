@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Munyn.Views.Panels.PropertySelectionView"
+        xmlns:vm="using:Munyn.ViewModels.Nodes.Properties"
+	    x:DataType="vm:PropertySelectionViewModel">
+	<UserControl.DataContext>
+		<vm:PropertySelectionViewModel/>
+	</UserControl.DataContext>
+	<Border Background="White" BorderBrush="Gray" BorderThickness="2" CornerRadius="4">
+		<StackPanel>
+		    <ListBox ItemsSource="{Binding PropertiesList}" SelectedItem="{Binding SelectedProperty}">
+				<ListBox.Styles>
+					<Style Selector="ListBoxItem">
+						<Setter Property="Padding" Value="1" />
+					</Style>
+				</ListBox.Styles>
+				<ListBox.ItemsPanel>
+		            <ItemsPanelTemplate>
+		                <StackPanel/>
+		            </ItemsPanelTemplate>
+		        </ListBox.ItemsPanel>
+		        <ListBox.ItemTemplate>
+		            <DataTemplate>
+		                <Button Command="{Binding DataContext.SelectPropertyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" >
+							<StackPanel Orientation="Horizontal">
+								<PathIcon Data="{Binding PropertyIcon}" Foreground="#f2f2f2" Width="20"/>
+								<TextBlock Margin="6,0,0,0" Foreground="#f2f2f2" Text="{Binding PropertyName}" MinWidth="80"/>
+							</StackPanel>
+						</Button>
+		            </DataTemplate>
+		        </ListBox.ItemTemplate>
+		    </ListBox>
+		</StackPanel>
+	</Border>
+</UserControl>

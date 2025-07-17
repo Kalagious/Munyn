@@ -5,10 +5,12 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Munyn.Views.Nodes.NodeDetails.NodeDetailsView"
 			 xmlns:vm="clr-namespace:Munyn.ViewModels"
-			 x:DataType="vm:HostNodeViewModel"
 			 xmlns:nodedetails="clr-namespace:Munyn.Views.Nodes.NodeDetails;assembly=Munyn"
 			 xmlns:properties="clr-namespace:Munyn.ViewModels.Nodes.Properties;assembly=Munyn"
-
+			 xmlns:panels="clr-namespace:Munyn.Views.Panels"
+			 x:DataType="vm:HostNodeViewModel"		
+			 
+			 
 			 Canvas.Left="{Binding X}"
 			 Canvas.Top="{Binding Y}"
 			 PointerPressed="Node_PointerPressed"
@@ -44,12 +46,20 @@
 									</ItemsPanelTemplate>
 								</ItemsControl.ItemsPanel>
 							</ItemsControl>
-							<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10" Command="{Binding AddBlankPropertyCommand}" Background="{Binding NodeTheme}">
-								<TextBlock Text="Add Property"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="12" Margin="5"></TextBlock>
-							</Button>
-							<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10" Command="{Binding DeleteNodeCommand}" Background="#F25555">
-								<TextBlock Text="Delete Node"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="12" Margin="5"></TextBlock>
-							</Button>
+							<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+								<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10" Command="{Binding OpenProperySelectionCommand}" Background="{Binding NodeTheme}">
+									<StackPanel>
+										<TextBlock Text="Add Property"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="12" Margin="5"></TextBlock>
+										<Popup IsOpen="{Binding IsPropertySelectionOpen}" Placement="Bottom"  MaxWidth="400" >
+											<panels:PropertySelectionView/>
+										</Popup>
+									</StackPanel>
+								</Button>
+	
+								<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10" Command="{Binding DeleteNodeCommand}" Background="#F25555">
+									<TextBlock Text="Delete Node"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="12" Margin="5"></TextBlock>
+								</Button>
+							</StackPanel>
 						</StackPanel>
 					</ScrollViewer>
 				</Border>

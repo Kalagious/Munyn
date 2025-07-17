@@ -5,11 +5,12 @@ using Munyn.ViewModels.Nodes.Properties;
 
 namespace Munyn.Views.Panels
 {
-    public partial class IconSelectionView : UserControl
+    public partial class PropertySelectionView : UserControl
     {
-        public IconSelectionView()
+        public PropertySelectionView()
         {
             InitializeComponent();
+            
         }
     }
 }

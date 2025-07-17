@@ -44,7 +44,7 @@ public partial class MainViewModel : ViewModelBase
     private MainViewModel _mainViewModelClone;
 
     [ObservableProperty]
-    private string loadedFileName = "Untitled.json";
+    private string loadedFileName = "Untitled.Mun";
 
     [ObservableProperty]
     private bool _isRootContext = true;
@@ -506,7 +506,7 @@ public partial class MainViewModel : ViewModelBase
         {
             var saveData = new ContextDto();
             BuildDtoFromContext(rootContext, saveData);
-
+            LoadedFileName = file.Name;
             string json = JsonConvert.SerializeObject(saveData, Formatting.Indented);
             await using var stream = await file.OpenWriteAsync();
             await using var writer = new StreamWriter(stream);
@@ -678,6 +678,7 @@ public partial class MainViewModel : ViewModelBase
                 existingProp.PropertyValue = propDto.Value;
                 existingProp.IconName = propDto.IconName;
                 existingProp.IconColorString = propDto.IconColorString;
+                existingProp.Refresh();
             }
             else
             {
@@ -685,7 +686,9 @@ public partial class MainViewModel : ViewModelBase
                 newProp.PropertyValue = propDto.Value;
                 newProp.IconName = propDto.IconName;
                 newProp.IconColorString = propDto.IconColorString;
+                newProp.Refresh();
                 context.AddNodeProperty(newProp);
+
             }
         }
         context.GetGraphViewProperties();

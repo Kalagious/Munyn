@@ -1,75 +1,6 @@
 {
   "ContextName": "Root",
-  "Nodes": [
-    {
-      "Id": "ba436621-f285-4ec2-aeb6-5bec8d374468",
-      "NodeType": "UserNodeViewModel",
-      "NodeName": "Jeff",
-      "X": 397.6,
-      "Y": 179.20000000000002,
-      "Properties": [
-        {
-          "PropertyName": "Groups",
-          "IsVisableOnGraphNode": true,
-          "IsSecret": false,
-          "IsDeletable": false,
-          "PropertyType": 0,
-          "Value": null,
-          "ListContent": null,
-          "TextContent": null,
-          "ExecutableCommand": null,
-          "ExecutableType": 0,
-          "Command": null,
-          "Description": null,
-          "Url": null,
-          "DisplayText": null,
-          "Code": null,
-          "IconName": "file-richtext-fill",
-          "IconColorString": null
-        },
-        {
-          "PropertyName": "Password",
-          "IsVisableOnGraphNode": true,
-          "IsSecret": false,
-          "IsDeletable": false,
-          "PropertyType": 0,
-          "Value": null,
-          "ListContent": null,
-          "TextContent": null,
-          "ExecutableCommand": null,
-          "ExecutableType": 0,
-          "Command": null,
-          "Description": null,
-          "Url": null,
-          "DisplayText": null,
-          "Code": null,
-          "IconName": "file-richtext-fill",
-          "IconColorString": null
-        },
-        {
-          "PropertyName": "Description",
-          "IsVisableOnGraphNode": true,
-          "IsSecret": false,
-          "IsDeletable": false,
-          "PropertyType": 0,
-          "Value": null,
-          "ListContent": null,
-          "TextContent": null,
-          "ExecutableCommand": null,
-          "ExecutableType": 0,
-          "Command": null,
-          "Description": null,
-          "Url": null,
-          "DisplayText": null,
-          "Code": null,
-          "IconName": "file-richtext-fill",
-          "IconColorString": null
-        }
-      ],
-      "ThemeColor1": "#ffef3f79",
-      "ThemeColor2": "#ffd511d5"
-    }
-  ],
+  "Nodes": [],
   "Paths": [],
   "ChildrenContexts": [
     {
@@ -77,7 +8,7 @@
       "Nodes": [],
       "Paths": [],
       "ChildrenContexts": [],
-      "Id": "a3c9ffc8-131a-4af3-b20f-fef6fecbafcc",
+      "Id": "f4adeab7-308e-40fe-81c7-76d57373f8fa",
       "NodeType": "HostNodeViewModel",
       "NodeName": "Mailing.htb",
       "X": 30.0,
@@ -99,7 +30,7 @@
           "Url": null,
           "DisplayText": null,
           "Code": null,
-          "IconName": "file-richtext-fill",
+          "IconName": "gold-icon",
           "IconColorString": null
         },
         {
@@ -164,7 +95,7 @@
       "ThemeColor2": "#ff6551e5"
     }
   ],
-  "Id": "1a2f56eb-cb01-46d8-a17e-37e2d694e687",
+  "Id": "4b07a712-3561-4e6b-975e-7cb727ccf30c",
   "NodeType": "ContextBase",
   "NodeName": null,
   "X": 0.0,

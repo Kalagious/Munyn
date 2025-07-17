@@ -18,7 +18,7 @@
 
 		</StackPanel.Styles>
 		<Button Command="{Binding NewNetworkDragCommand}">
-			<PathIcon Data="{StaticResource neural-network-black-icon}" Foreground="#f2f2f2" Width="45" Height="45"/>
+			<PathIcon Data="{StaticResource neural-network}" Foreground="#f2f2f2" Width="45" Height="45"/>
 			<Button.Background>
 				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
 					<GradientStop Color="#c531a5" Offset="0.0"/>
@@ -55,7 +55,7 @@
 			</Button.Background>
 		</Button>
 		<Button Command="{Binding NewAssetDragCommand}">
-			<PathIcon Data="{StaticResource gold-icon-white}" Foreground="#f2f2f2" Width="45" Height="45"/>
+			<PathIcon Data="{StaticResource gold-icon}" Foreground="#f2f2f2" Width="45" Height="45"/>
 			<Button.Background>
 				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
 					<GradientStop Color="#eab900" Offset="0.0"/>

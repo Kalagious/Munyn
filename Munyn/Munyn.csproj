@@ -45,5 +45,8 @@
     <Compile Update="Views\Panels\ExtrasTray.axaml.cs">
       <DependentUpon>ExtrasTray.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Panels\PropertySelectionView.axaml.cs">
+      <DependentUpon>PropertySelectionView.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

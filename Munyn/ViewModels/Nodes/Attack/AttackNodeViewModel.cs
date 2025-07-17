@@ -22,7 +22,7 @@ namespace Munyn.ViewModels
             Y = y;
 
             IconName = "striking-arrows";
-            NodeTheme = makeTheme("#FF3333", "#BB5555");
+            NodeTheme = makeTheme("#FF3333", "#DD2222");
 
             AddNodeProperty(new Nodes.Properties.NodePropertyCommand { PropertyName = "Command", IsDefault=true, IsEditable=true, IsVisableOnGraphNode = true });
             AddNodeProperty(new Nodes.Properties.NodePropertyText { PropertyName = "Result", IsDefault=true, IsEditable=true});
