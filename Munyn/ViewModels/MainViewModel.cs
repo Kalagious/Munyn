@@ -367,6 +367,44 @@ public partial class MainViewModel : ViewModelBase
         IsNodeSelected = true;
     }
 
+    [RelayCommand]
+    public void DeleteSelectedNode()
+    {
+        if (SelectedNode != null)
+        {
+            DeleteNode(SelectedNode);
+        }
+    }
+
+    [RelayCommand]
+    public void DeleteNode(NodeBaseViewModel node)
+    {
+        if (node != null)
+        {
+            // Find all paths connected to the node
+            var pathsToRemove = currentContext.contextNodes
+                .OfType<PathBaseViewModel>()
+                .Where(p => p.StartNode == node || p.EndNode == node)
+                .ToList();
+
+            // Remove the paths from the context
+            foreach (var path in pathsToRemove)
+            {
+                currentContext.contextNodes.Remove(path);
+            }
+
+            // Remove the node itself
+            currentContext.contextNodes.Remove(node);
+
+            // If the deleted node was the selected node, clear the selection
+            if (SelectedNode == node)
+            {
+                SelectedNode = null;
+                IsNodeSelected = false;
+            }
+        }
+    }
+
 
     public void OnEndConnectionDragFromNode(PointerReleasedEventArgs e)
     {

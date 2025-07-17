@@ -49,6 +49,15 @@ public partial class NodeCanvasBaseView : Canvas // Note: XAML root is UserContr
         this.AttachedToVisualTree += OnAttachedToVisualTree;
     }
 
+    private void OnKeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Back && DataContext is MainViewModel mainViewModel && mainViewModel.IsNodeSelected)
+        {
+            mainViewModel.DeleteSelectedNodeCommand.Execute(null);
+            e.Handled = true;
+        }
+    }
+
 
     private void OnAttachedToVisualTree(object? sender, Avalonia.VisualTreeAttachmentEventArgs e)
     {
