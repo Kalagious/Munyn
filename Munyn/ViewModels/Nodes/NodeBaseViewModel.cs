@@ -99,6 +99,7 @@ namespace Munyn.ViewModels
         [RelayCommand]
         private void DeleteNode()
         {
+            if (_mainVM != null)
             _mainVM.DeleteNode(this);
         }
 

@@ -47,13 +47,14 @@
 							<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10" Command="{Binding AddBlankPropertyCommand}" Background="{Binding NodeTheme}">
 								<TextBlock Text="Add Property"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="12" Margin="5"></TextBlock>
 							</Button>
+							<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10" Command="{Binding DeleteNodeCommand}" Background="#F25555">
+								<TextBlock Text="Delete Node"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="12" Margin="5"></TextBlock>
+							</Button>
 						</StackPanel>
 					</ScrollViewer>
 				</Border>
 			</Border>
-			<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10" Command="{Binding DeleteNodeCommand}" Background="IndianRed">
-				<TextBlock Text="Delete Node"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="12" Margin="5"></TextBlock>
-			</Button>
+			
 		</StackPanel>
 		
 

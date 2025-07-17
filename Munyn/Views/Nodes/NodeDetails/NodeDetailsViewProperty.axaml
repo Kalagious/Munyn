@@ -21,8 +21,8 @@
 					<TextBlock Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" IsVisible="{Binding !IsEditable}"></TextBlock>
 
 				</StackPanel>
-				<Button Grid.Column="1" Classes="DeleteButton" Command="{Binding DeletePropertyCommand}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,0,15,0" IsVisible="{Binding !IsDefault}">
-					<PathIcon Data="{StaticResource close-icon}" Width="10" Height="10"/>
+				<Button Grid.Column="1" Command="{Binding DeletePropertyCommand}" VerticalAlignment="Center" Background="Transparent" HorizontalAlignment="Right" Margin="5,0,15,0">
+					<PathIcon Data="{StaticResource delete}" Width="17" Height="17" Foreground="Black"/>
 				</Button>
 			</Grid>
 		</StackPanel>
