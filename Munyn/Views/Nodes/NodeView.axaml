@@ -21,13 +21,14 @@
 		<SolidColorBrush x:Key="BodyText" Color="{StaticResource BodyTextColor}"/>
 	</UserControl.Resources>
 
-	<StackPanel MinWidth="200" MaxWidth="400">
-		<Border BorderThickness="3" CornerRadius="5,5,0,0" BorderBrush="{Binding NodeTheme}" Background="{Binding NodeTheme}">
-			<StackPanel Orientation="Horizontal">
-				<PathIcon Margin="5,0,0,0" Height="20" Width="20" Foreground="#f2f2f2" Data="{Binding Icon}"/>				
-				<TextBlock Text="{Binding NodeName}"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="16" Margin="10"></TextBlock>
-			</StackPanel>
-		</Border>
+	<Panel>
+		<StackPanel MinWidth="200" MaxWidth="400">
+			<Border BorderThickness="3" CornerRadius="5,5,0,0" BorderBrush="{Binding NodeTheme}" Background="{Binding NodeTheme}">
+				<StackPanel Orientation="Horizontal">
+					<PathIcon Margin="5,0,0,0" Height="20" Width="20" Foreground="#f2f2f2" Data="{Binding Icon}"/>
+					<TextBlock Text="{Binding NodeName}"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="16" Margin="10"></TextBlock>
+				</StackPanel>
+			</Border>
 
 
 		<!-- INFO PANEL -->
@@ -57,8 +58,6 @@
 				</Button>
 			</StackPanel>
 		</Border>
-	</StackPanel>
-
-
-
+		</StackPanel>
+	</Panel>
 </UserControl>

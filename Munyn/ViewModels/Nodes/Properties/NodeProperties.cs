@@ -22,6 +22,8 @@ namespace Munyn.ViewModels.Nodes.Properties
         [ObservableProperty] private string _iconName;
         public string IconColorString;
 
+        public NodeBaseViewModel ParentNode { get; set; }
+
         [ObservableProperty] private bool _isDefault;
         [ObservableProperty] private bool _isFavorited;
         [ObservableProperty] private bool _isEditable;
@@ -80,7 +82,11 @@ namespace Munyn.ViewModels.Nodes.Properties
             }
         }
 
-
+        [RelayCommand]
+        private void DeleteProperty()
+        {
+            ParentNode?.RemoveProperty(this);
+        }
     }
     public partial class NodePropertyList : NodePropertyBasic
     {

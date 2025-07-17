@@ -169,6 +169,7 @@ public partial class MainViewModel : ViewModelBase
             NodeBaseViewModel newNode = new UserNodeViewModel("Jeff",  30, 50, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
+            newNode._mainVM = this;
 
             currentContext.contextNodes.Add(newNode);
             RefreshContext();
@@ -183,6 +184,7 @@ public partial class MainViewModel : ViewModelBase
             NodeBaseViewModel newNode = new ServiceNodeViewModel("Apache Tomcat", 30, 50, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
+            newNode._mainVM = this;
 
 
             currentContext.contextNodes.Add(newNode);
@@ -200,6 +202,7 @@ public partial class MainViewModel : ViewModelBase
             NodeBaseViewModel newNode = new AssetNodeViewModel("id_rsa", 30, 50, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
+            newNode._mainVM = this;
 
             currentContext.contextNodes.Add(newNode);
             RefreshContext();
@@ -216,6 +219,7 @@ public partial class MainViewModel : ViewModelBase
             NodeBaseViewModel newNode = new ReconNodeViewModel("Nmap", 30, 50, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
+            newNode._mainVM = this;
 
             currentContext.contextNodes.Add(newNode);
             RefreshContext();
@@ -232,6 +236,7 @@ public partial class MainViewModel : ViewModelBase
             NodeBaseViewModel newNode = new AttackNodeViewModel("PHP File Include", 30, 50, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
+            newNode._mainVM = this;
 
             currentContext.contextNodes.Add(newNode);
             RefreshContext();
@@ -248,6 +253,7 @@ public partial class MainViewModel : ViewModelBase
             NodeBaseViewModel newNode = new CheckpointNodeViewModel("Jeff SSH", 30, 50, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
+            newNode._mainVM = this;
 
             currentContext.contextNodes.Add(newNode);
             RefreshContext();
@@ -368,6 +374,44 @@ public partial class MainViewModel : ViewModelBase
     {
         SelectedNode = node;
         IsNodeSelected = true;
+    }
+
+    [RelayCommand]
+    public void DeleteSelectedNode()
+    {
+        if (SelectedNode != null)
+        {
+            DeleteNode(SelectedNode);
+        }
+    }
+
+    [RelayCommand]
+    public void DeleteNode(NodeBaseViewModel node)
+    {
+        if (node != null)
+        {
+            // Find all paths connected to the node
+            var pathsToRemove = currentContext.contextNodes
+                .OfType<PathBaseViewModel>()
+                .Where(p => p.StartNode == node || p.EndNode == node)
+                .ToList();
+
+            // Remove the paths from the context
+            foreach (var path in pathsToRemove)
+            {
+                currentContext.contextNodes.Remove(path);
+            }
+
+            // Remove the node itself
+            currentContext.contextNodes.Remove(node);
+
+            // If the deleted node was the selected node, clear the selection
+            if (SelectedNode == node)
+            {
+                SelectedNode = null;
+                IsNodeSelected = false;
+            }
+        }
     }
 
 

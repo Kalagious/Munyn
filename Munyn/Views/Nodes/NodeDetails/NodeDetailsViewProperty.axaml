@@ -7,9 +7,11 @@
              xmlns:panels="clr-namespace:Munyn.Views.Panels;assembly=Munyn">
 
 
-    <StackPanel>
-        <Border Height="1" Background="LightGray" Margin="15,5,15,5"/>
-        <StackPanel Orientation="Horizontal">
+
+		<StackPanel>
+			<Border Height="1" Background="LightGray" Margin="15,5,15,5"/>
+			<Grid ColumnDefinitions="*,Auto">
+				<StackPanel Orientation="Horizontal" Grid.Column="0">
             <ToggleButton IsChecked="{Binding IsIconSelectionOpen}" Background="Transparent" BorderThickness="0" Margin="15,0,0,0">
                 <PathIcon HorizontalAlignment="Center" Margin="0,2,0,2" Data="{Binding Icon}" Foreground="{Binding IconColor}"/>
             </ToggleButton>
@@ -18,12 +20,18 @@
                     <panels:IconSelectionView DataContext="{Binding IconSelectionViewModel}" />
                 </Border>
             </Popup>
-            <TextBox IsVisible="{Binding !IsDefault}" Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" BorderThickness="0"></TextBox>
-            <TextBlock Margin="5,5,0,5" IsVisible="{Binding IsDefault}" Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center"></TextBlock>
-            <TextBlock Text=":" Foreground="Black" VerticalAlignment="Center"></TextBlock>
-            <TextBox Margin="0,0,0,0" Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" IsVisible="{Binding IsEditable}"></TextBox>
-            <TextBlock Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" IsVisible="{Binding !IsEditable}"></TextBlock>
-        </StackPanel>
-    </StackPanel>
+					<TextBox IsVisible="{Binding !IsDefault}" Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" BorderThickness="0"></TextBox>
+					<TextBlock Margin="5,5,0,5" IsVisible="{Binding IsDefault}" Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center"></TextBlock>
+					<TextBlock Text=":" Foreground="Black" VerticalAlignment="Center"></TextBlock>
+
+					<TextBox Margin="0,0,0,0" Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" IsVisible="{Binding IsEditable}"></TextBox>
+					<TextBlock Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" IsVisible="{Binding !IsEditable}"></TextBlock>
+
+				</StackPanel>
+				<Button Grid.Column="1" Command="{Binding DeletePropertyCommand}" VerticalAlignment="Center" Background="Transparent" HorizontalAlignment="Right" Margin="5,0,15,0">
+					<PathIcon Data="{StaticResource delete}" Width="17" Height="17" Foreground="Black"/>
+				</Button>
+			</Grid>
+		</StackPanel>
 
 </UserControl>
