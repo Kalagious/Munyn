@@ -96,11 +96,24 @@ namespace Munyn.ViewModels
             AddNodeProperty(new NodePropertyCommand { PropertyName = "New Command Property" });
         }
 
+        [RelayCommand]
+        private void DeleteNode()
+        {
+            _mainVM.DeleteNode(this);
+        }
+
         public void AddNodeProperty(NodePropertyBasic property)
         {
             if (property == null) throw new ArgumentNullException(nameof(property));
-
+            property.ParentNode = this;
             Properties.Add(property);
+            GetGraphViewProperties();
+        }
+
+        public void RemoveProperty(NodePropertyBasic property)
+        {
+            if (property == null) throw new ArgumentNullException(nameof(property));
+            Properties.Remove(property);
             GetGraphViewProperties();
         }
 
