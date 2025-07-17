@@ -41,6 +41,9 @@ public partial class MainViewModel : ViewModelBase
 
 
     [ObservableProperty]
+    private MainViewModel _mainViewModelClone;
+
+    [ObservableProperty]
     private string loadedFileName = "Untitled.json";
 
     [ObservableProperty]
@@ -266,8 +269,8 @@ public partial class MainViewModel : ViewModelBase
 
         rootContext = new ContextBase();
         rootContext.contextName = "Root";
-        
 
+        MainViewModelClone = this;
         EnterContext(rootContext);
 
     }

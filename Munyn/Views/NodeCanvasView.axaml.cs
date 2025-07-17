@@ -248,7 +248,6 @@ public partial class NodeCanvasBaseView : Canvas // Note: XAML root is UserContr
     {
         if (NodeCanvasBase.Bounds.Width > 0 && NodeCanvasBase.Bounds.Height > 0)
         {
-            NodeCanvasBase.LayoutUpdated -= OnLayoutUpdated; // Unsubscribe to avoid repeated calls
             AddGridLines();
         }
     }

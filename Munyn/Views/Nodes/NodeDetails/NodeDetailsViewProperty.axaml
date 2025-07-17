@@ -10,10 +10,10 @@
     <StackPanel>
         <Border Height="1" Background="LightGray" Margin="15,5,15,5"/>
         <StackPanel Orientation="Horizontal">
-            <ToggleButton IsChecked="{Binding IsIconSelectionOpen}" Background="Transparent" BorderThickness="0">
-                <PathIcon Margin="15,2,3,2" Data="{Binding Icon}" Foreground="{Binding IconColor}"/>
+            <ToggleButton IsChecked="{Binding IsIconSelectionOpen}" Background="Transparent" BorderThickness="0" Margin="15,0,0,0">
+                <PathIcon HorizontalAlignment="Center" Margin="0,2,0,2" Data="{Binding Icon}" Foreground="{Binding IconColor}"/>
             </ToggleButton>
-            <Popup IsOpen="{Binding IsIconSelectionOpen}" Placement="Bottom" StaysOpen="False">
+            <Popup IsOpen="{Binding IsIconSelectionOpen}" Placement="Bottom" MaxWidth="400">
                 <Border Background="White" BorderBrush="Gray" BorderThickness="1">
                     <panels:IconSelectionView DataContext="{Binding IconSelectionViewModel}" />
                 </Border>
