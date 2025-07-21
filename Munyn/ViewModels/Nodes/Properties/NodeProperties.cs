@@ -127,9 +127,11 @@ namespace Munyn.ViewModels.Nodes.Properties
     public partial class NodePropertyVulnerability : NodePropertyBasic
     {
         [ObservableProperty]
-        private int _score;
+        private double _score;
         [ObservableProperty]
-        private string? _location;        
+        private string? _location;
+        [ObservableProperty]
+        private string? _resource;
         [ObservableProperty]
         private string? _description;
 

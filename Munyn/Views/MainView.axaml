@@ -177,7 +177,7 @@
 									</ItemsPanelTemplate>
 								</ItemsControl.ItemsPanel>
 							</ItemsControl>
-							<Border Width="300" VerticalAlignment="Top" HorizontalAlignment="Right" ZIndex="10" CornerRadius="5" Background="#f2f2f2" Margin="10" IsVisible="{Binding IsNodeSelected}">
+							<Border Width="400" VerticalAlignment="Top" HorizontalAlignment="Right" ZIndex="10" CornerRadius="5" Background="#f2f2f2" Margin="10" IsVisible="{Binding IsNodeSelected}">
 								<nodedetails:NodeDetailsView DataContext="{Binding SelectedNode}" ZIndex="10" />
 									
 							</Border>

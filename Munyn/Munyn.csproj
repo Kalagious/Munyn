@@ -49,6 +49,9 @@
     <Compile Update="Views\Nodes\NodeDetails\Properties\DetailsView\NodeDetailsPropertyCommandView.axaml.cs">
       <DependentUpon>NodeDetailsPropertyCommandView.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Nodes\NodeDetails\Properties\DetailsView\NodeDetailsPropertyVulnerabilitiyView.axaml.cs">
+      <DependentUpon>NodeDetailsPropertyVulnerabilitiyView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Nodes\NodeDetails\Properties\DetailsView\NodeDetailsPropertyTextView.axaml.cs">
       <DependentUpon>NodeDetailsPropertyTextView.axaml</DependentUpon>
     </Compile>
