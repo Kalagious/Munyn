@@ -3,9 +3,9 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
 namespace Munyn.Views.Nodes.NodeDetails;
-public partial class NodeGraphViewProperty : UserControl
+public partial class NodeGraphPropertyCompromisedView : UserControl
 {
-    public NodeGraphViewProperty()
+    public NodeGraphPropertyCompromisedView()
     {
         InitializeComponent();
     }

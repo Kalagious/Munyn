@@ -10,8 +10,7 @@ namespace Munyn // Make sure this matches your project's root namespace
     {
         // This is the entry point of your application.
         // It calls BuildAvaloniaApp() and then starts the UI lifetime.
-        public static void Main(string[] args) => BuildAvaloniaApp()
-            .StartWithClassicDesktopLifetime(args); // For desktop apps
+        public static void Main(string[] args) => BuildAvaloniaApp().StartWithClassicDesktopLifetime(args); // For desktop apps
 
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()

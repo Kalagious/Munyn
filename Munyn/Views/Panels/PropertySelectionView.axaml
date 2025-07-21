@@ -7,7 +7,7 @@
         xmlns:vm="using:Munyn.ViewModels.Nodes.Properties"
 	    x:DataType="vm:PropertySelectionViewModel">
 	<UserControl.DataContext>
-		<vm:PropertySelectionViewModel/>
+		<vm:PropertySelectionViewModel />
 	</UserControl.DataContext>
 	<Border Background="White" BorderBrush="Gray" BorderThickness="2" CornerRadius="4">
 		<StackPanel>
@@ -27,7 +27,7 @@
 		                <Button Command="{Binding DataContext.SelectPropertyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" >
 							<StackPanel Orientation="Horizontal">
 								<PathIcon Data="{Binding PropertyIcon}" Foreground="#f2f2f2" Width="20"/>
-								<TextBlock Margin="6,0,0,0" Foreground="#f2f2f2" Text="{Binding PropertyName}" MinWidth="80"/>
+								<TextBlock Margin="6,0,0,0" Foreground="#f2f2f2" Text="{Binding PropertyName}" MinWidth="90"/>
 							</StackPanel>
 						</Button>
 		            </DataTemplate>

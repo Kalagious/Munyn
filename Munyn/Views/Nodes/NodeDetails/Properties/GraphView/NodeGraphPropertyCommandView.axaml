@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Munyn.Views.Nodes.NodeDetails.NodeGraphPropertyCommandView">
+
+
+	<StackPanel Margin="10">
+		<Border BorderThickness="3" CornerRadius="5,5,0,0" BorderBrush="{Binding IconColor}" Background="{Binding IconColor}">
+			<StackPanel Orientation="Horizontal" Grid.Column="0">
+				<PathIcon HorizontalAlignment="Center" Margin="10,2,0,2" Data="{Binding Icon}" Foreground="#f2f2f2"/>
+				<TextBlock Margin="5,5,0,5" IsVisible="" Text="{Binding PropertyName}" Foreground="#f2f2f2" VerticalAlignment="Center"></TextBlock>
+			</StackPanel>
+		</Border>
+		<Border BorderBrush="#e5e5e5" Background="#e5e5e5" BorderThickness="3" CornerRadius="0,0,5,5" MaxHeight="100" >
+			<ScrollViewer>
+				<Border Background="#858595" BorderBrush="#858595" CornerRadius="3">
+					<TextBlock Margin="4" Text="{Binding PropertyValue}" Foreground="#dddddd" VerticalAlignment="Center" Background="Transparent" TextWrapping="Wrap"/>
+				</Border>
+			</ScrollViewer>
+		</Border>
+	</StackPanel>
+
+</UserControl>

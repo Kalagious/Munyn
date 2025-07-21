@@ -22,13 +22,12 @@ namespace Munyn.ViewModels
             X = x;
             Y = y;
 
-            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Groups", true, true));
-            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Password", true, true));
-            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Description", true, true));
-
             IconName = "person-bounding-box";
             NodeTheme = makeTheme("#ef3f79", "#d511d5");
 
+            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Groups", true, true));
+            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Password", true, true));
+            AddNodeProperty(new Nodes.Properties.NodePropertyText { PropertyName = "Description", IsDefault = true, IsEditable = true, IsVisableOnGraphNode = true, IconColor = NodeTheme });
 
             parentCanvas = tmpParentCanvas;
         }

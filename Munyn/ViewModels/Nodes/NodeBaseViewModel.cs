@@ -74,37 +74,6 @@ namespace Munyn.ViewModels
             IsPropertySelectionOpen = !IsPropertySelectionOpen;
         }
 
-        [RelayCommand]
-        private void AddBlankProperty()
-        {
-            AddNodeProperty(new NodePropertyBasic("New Property", false, false, true, -1));
-        }
-
-        [RelayCommand]
-        private void AddListProperty()
-        {
-            AddNodeProperty(new NodePropertyList { PropertyName = "New List Property" });
-        }
-
-        [RelayCommand]
-        private void AddTextProperty()
-        {
-            AddNodeProperty(new NodePropertyText { PropertyName = "New Text Property" });
-        }
-
-
-        [RelayCommand]
-        private void AddLinkProperty()
-        {
-            AddNodeProperty(new NodePropertyLink { PropertyName = "New Link Property" });
-        }
-
-
-        [RelayCommand]
-        private void AddCommandProperty()
-        {
-            AddNodeProperty(new NodePropertyCommand { PropertyName = "New Command Property" });
-        }
 
         [RelayCommand]
         private void DeleteNode()

@@ -12,6 +12,7 @@
 	</Application.Resources>
     <Application.Styles>
         <FluentTheme />
+		
 		<Style Selector="Button.DeleteButton">
 			<Setter Property="Background" Value="IndianRed"/>
 			<Setter Property="Foreground" Value="White"/>

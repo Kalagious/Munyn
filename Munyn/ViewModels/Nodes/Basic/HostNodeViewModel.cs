@@ -56,7 +56,7 @@ namespace Munyn.ViewModels
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Os", true, true));
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic("User Count", true, true, false));
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Service Count", true, false, false));
-            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Description", true, true));
+            AddNodeProperty(new Nodes.Properties.NodePropertyText { PropertyName = "Description", IsDefault = true, IsEditable = true, IsVisableOnGraphNode = true, IconColor = NodeTheme });
         }
 
         public HostNodeViewModel(string name, float x, float y, ContextBase parent, Canvas tmpParentCanvas, MainViewModel mainVM)
@@ -68,13 +68,13 @@ namespace Munyn.ViewModels
             parentCanvas = tmpParentCanvas;
             contextNodes = new ObservableCollection<ViewModelBase>();
 
-            
-
-            InitializeProperties();
-
             IconName = "pc-display";
             NodeTheme = makeTheme("#19c8f3", "#6551e5");
             ContextIcon = Icon;
+
+            InitializeProperties();
+
+
 
             _mainVM = mainVM;
             parentContext = parent;

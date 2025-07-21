@@ -26,7 +26,7 @@ namespace Munyn.ViewModels
 
             AddNodeProperty(new Nodes.Properties.NodePropertyCommand { PropertyName = "Command", IsDefault=true, IsEditable=true, IsVisableOnGraphNode = true });
             AddNodeProperty(new Nodes.Properties.NodePropertyText { PropertyName = "Result", IsDefault=true, IsEditable=true});
-            AddNodeProperty(new Nodes.Properties.NodePropertyBasic { PropertyName = "Description", IsDefault = true, IsEditable = true, IsVisableOnGraphNode = true });
+            AddNodeProperty(new Nodes.Properties.NodePropertyText { PropertyName = "Description", IsDefault = true, IsEditable = true, IsVisableOnGraphNode = true, IconColor = NodeTheme});
             parentCanvas = tmpParentCanvas;
         }
 

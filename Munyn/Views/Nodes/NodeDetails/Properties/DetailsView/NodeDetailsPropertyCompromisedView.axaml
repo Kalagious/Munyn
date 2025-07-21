@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Munyn.Views.Nodes.NodeDetails.NodeDetailsPropertyCompromisedView"
+             xmlns:panels="clr-namespace:Munyn.Views.Panels;assembly=Munyn">
+
+
+
+		<StackPanel Margin="10">
+			<Border BorderThickness="3" CornerRadius="5,5,0,0">
+				<Border.Background>
+					<LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+						<GradientStop Color="#FF3333" Offset="0.0"/>
+						<GradientStop Color="#DD2222" Offset="1.0"/>
+					</LinearGradientBrush>
+				</Border.Background>
+				<Border.BorderBrush>
+					<LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+						<GradientStop Color="#FF3333" Offset="0.0"/>
+						<GradientStop Color="#DD2222" Offset="1.0"/>
+					</LinearGradientBrush>
+				</Border.BorderBrush>
+				
+				<Grid ColumnDefinitions="*,Auto">
+					<StackPanel Orientation="Horizontal" Grid.Column="0">
+						<PathIcon HorizontalAlignment="Center" Margin="10,2,0,2" Data="{StaticResource skull}" Foreground="#f2f2f2"/>
+						<TextBlock Margin="5,5,0,5" Text="Compromised" Foreground="#f2f2f2" VerticalAlignment="Center"></TextBlock>
+					</StackPanel>
+					<Button Grid.Column="1" Command="{Binding DeletePropertyCommand}" VerticalAlignment="Center" Background="Transparent" HorizontalAlignment="Right">
+						<PathIcon Data="{StaticResource delete}" Width="17" Height="17" Foreground="Black"/>
+					</Button>
+				</Grid>
+			</Border>
+			<Border BorderBrush="#e5e5e5" Background="#e5e5e5" BorderThickness="3" CornerRadius="0,0,5,5" >
+				<Grid ColumnDefinitions="Auto,Auto,*">
+					<TextBlock Grid.Column="0" Margin="5,0,0,0" Text="Compromise Level:" Foreground="Black" VerticalAlignment="Center" FontWeight="Bold"/>
+					<TextBlock Grid.Column="1" Margin="5,0,0,0" Text="{Binding CompromiseLevel}" Foreground="Black" VerticalAlignment="Center" FontWeight="Bold"/>
+					<Slider Grid.Column="2" Value="{Binding CompromiseLevel}" Minimum="0" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True" Margin="10,0,10,0"/>
+				</Grid>
+			</Border>
+		</StackPanel>
+
+</UserControl>

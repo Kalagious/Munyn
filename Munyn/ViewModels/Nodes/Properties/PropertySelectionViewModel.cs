@@ -18,10 +18,7 @@ namespace Munyn.ViewModels.Nodes.Properties
         [ObservableProperty]
         private ObservableCollection<PropertySelectionItem> _propertiesList = new ObservableCollection<PropertySelectionItem>();
 
-        [ObservableProperty]
-        private PropertySelectionItem _selectedProperty;
-
-        NodeBaseViewModel selectedNode;
+        public NodeBaseViewModel selectedNode;
 
         public partial class PropertySelectionItem : ObservableObject
         {
@@ -53,7 +50,7 @@ namespace Munyn.ViewModels.Nodes.Properties
             PropertiesList.Add(new PropertySelectionItem
             {
                 PropertyType = typeof(NodePropertyList),
-                PropertyName = "List",
+                PropertyName = "List WIP",
                 PropertyIcon = (StreamGeometry)Application.Current.Resources["list"]
             });
             //Command
@@ -67,8 +64,22 @@ namespace Munyn.ViewModels.Nodes.Properties
             PropertiesList.Add(new PropertySelectionItem
             {
                 PropertyType = typeof(NodePropertyLink),
-                PropertyName = "Link",
+                PropertyName = "Link WIP",
                 PropertyIcon = (StreamGeometry)Application.Current.Resources["link"]
+            });            
+            //Link
+            PropertiesList.Add(new PropertySelectionItem
+            {
+                PropertyType = typeof(NodePropertyVulnerability),
+                PropertyName = "Vulnerability",
+                PropertyIcon = (StreamGeometry)Application.Current.Resources["aim"]
+            });            
+            //Link
+            PropertiesList.Add(new PropertySelectionItem
+            {
+                PropertyType = typeof(NodePropertyCompromised),
+                PropertyName = "Compromised",
+                PropertyIcon = (StreamGeometry)Application.Current.Resources["skull"]
             });
 
         }
@@ -76,8 +87,9 @@ namespace Munyn.ViewModels.Nodes.Properties
         [RelayCommand]
         private void SelectProperty(PropertySelectionItem selection)
         {
-            SelectedProperty = selection;
-            
+            NodePropertyBasic newProperty = Activator.CreateInstance(selection.PropertyType) as NodePropertyBasic;
+            selectedNode.AddNodeProperty(newProperty);
+            selectedNode.IsPropertySelectionOpen = false;
         }
     }
 }

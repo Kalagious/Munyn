@@ -6,8 +6,8 @@
              x:Class="Munyn.Views.Nodes.NodeView"
 			 xmlns:vm="clr-namespace:Munyn.ViewModels"
 			 x:DataType="vm:NodeBaseViewModel"
-			 xmlns:properties="clr-namespace:Munyn.Views.Nodes.NodeDetails;assembly=Munyn"
-
+			 xmlns:nodedetails="clr-namespace:Munyn.Views.Nodes.NodeDetails;assembly=Munyn"
+			 xmlns:properties="clr-namespace:Munyn.ViewModels.Nodes.Properties;assembly=Munyn"
 			 Canvas.Left="{Binding X}"
 			 Canvas.Top="{Binding Y}"
 			 PointerPressed="Node_PointerPressed"
@@ -19,10 +19,13 @@
 	<UserControl.Resources>
 		<Color x:Key="BodyTextColor">#303040</Color>
 		<SolidColorBrush x:Key="BodyText" Color="{StaticResource BodyTextColor}"/>
+	
 	</UserControl.Resources>
 
+
+
 	<Panel>
-		<StackPanel MinWidth="200" MaxWidth="400">
+		<StackPanel MinWidth="200" MaxWidth="250">
 			<Border BorderThickness="3" CornerRadius="5,5,0,0" BorderBrush="{Binding NodeTheme}" Background="{Binding NodeTheme}">
 				<StackPanel Orientation="Horizontal">
 					<PathIcon Margin="5,0,0,0" Height="20" Width="20" Foreground="#f2f2f2" Data="{Binding Icon}"/>
@@ -31,17 +34,29 @@
 			</Border>
 
 
-		<!-- INFO PANEL -->
-		<Border BorderBrush="#f7f7f7" BorderThickness="3" CornerRadius="0,0,5,5" >
-			<StackPanel Background="#f7f7f7">
-				<ItemsControl x:Name="PropertiesItemControl" ItemsSource="{Binding PropertiesInNodeView}" Margin="0,0,0,5">
-					<ItemsControl.ItemTemplate>
-						<DataTemplate>
-							<properties:NodeGraphViewProperty DataContext="{Binding}"/>
-						</DataTemplate>
-					</ItemsControl.ItemTemplate>
+			<!-- INFO PANEL -->
+			<Border BorderBrush="#f7f7f7" BorderThickness="3" CornerRadius="0,0,5,5" >
+				<StackPanel Background="#f7f7f7">
+					<ItemsControl x:Name="PropertiesItemControl" ItemsSource="{Binding PropertiesInNodeView}" Margin="0,0,0,5">
+						<ItemsControl.DataTemplates>
+							<DataTemplate DataType="properties:NodePropertyText">
+								<nodedetails:NodeGraphPropertyTextView/>
+							</DataTemplate>
 
-					<ItemsControl.ItemsPanel>
+							<DataTemplate DataType="properties:NodePropertyCommand">
+								<nodedetails:NodeGraphPropertyCommandView/>
+							</DataTemplate>
+							
+							<DataTemplate DataType="properties:NodePropertyCompromised">
+								<nodedetails:NodeGraphPropertyCompromisedView/>
+							</DataTemplate>
+
+							<DataTemplate DataType="properties:NodePropertyBasic">
+								<nodedetails:NodeGraphPropertyBasicView/>
+							</DataTemplate>
+						</ItemsControl.DataTemplates>
+
+						<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<StackPanel MinHeight="20"></StackPanel>
 						</ItemsPanelTemplate>

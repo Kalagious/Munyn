@@ -34,10 +34,10 @@ namespace Munyn.ViewModels.Nodes.Properties
         [ObservableProperty] private bool _isIconSelectionOpen;
         public IconSelectionViewModel IconSelectionViewModel { get; set; }
 
-        public NodePropertyBasic(string propertyName = "New Property", bool isDefault = false, bool isVisiableOnGraphNode = false, bool isEditable = true, int propertyIndexInNodeView = -1)
+
+        public NodePropertyBasic(string propertyName = "New Property", bool isDefault = false, bool isVisiableOnGraphNode = false, bool isEditable = true)
         {
             PropertyName = propertyName;
-            PropertyIndexInNodeView = propertyIndexInNodeView;
             IsDefault = isDefault;
             IsEditable = isEditable;
             IsFavorited = false;
@@ -93,7 +93,7 @@ namespace Munyn.ViewModels.Nodes.Properties
         [ObservableProperty]
         private List<NodePropertyBasic> _listContent;
 
-        public NodePropertyList() : base() { }
+        public NodePropertyList() : base() { IconName = "list"; Refresh(); }
     }
 
     public partial class NodePropertyText : NodePropertyBasic
@@ -101,7 +101,7 @@ namespace Munyn.ViewModels.Nodes.Properties
         [ObservableProperty]
         private string? _textContent;
 
-        public NodePropertyText() : base() { }
+        public NodePropertyText() : base() { IconName = "text"; Refresh(); }
     }
 
     public partial class NodePropertyCommand : NodePropertyBasic
@@ -111,7 +111,7 @@ namespace Munyn.ViewModels.Nodes.Properties
         [ObservableProperty]
         private string? _description;
 
-        public NodePropertyCommand() : base() { }
+        public NodePropertyCommand() : base() { IconName = "command"; Refresh(); IsVisableOnGraphNode = true; }
     }
 
     public partial class NodePropertyLink : NodePropertyBasic
@@ -121,7 +121,27 @@ namespace Munyn.ViewModels.Nodes.Properties
         [ObservableProperty]
         private string? _displayText;
 
-        public NodePropertyLink() : base() { }
+        public NodePropertyLink() : base() { IconName = "link"; Refresh(); }
+    }
+
+    public partial class NodePropertyVulnerability : NodePropertyBasic
+    {
+        [ObservableProperty]
+        private int _score;
+        [ObservableProperty]
+        private string? _location;        
+        [ObservableProperty]
+        private string? _description;
+
+        public NodePropertyVulnerability() : base() { IconName = "aim"; Refresh(); }
+    }
+
+    public partial class NodePropertyCompromised : NodePropertyBasic
+    {
+        [ObservableProperty]
+        private double? _compromiseLevel = 5;
+
+        public NodePropertyCompromised() : base() { IconName = "skull"; Refresh(); IsVisableOnGraphNode = true; }
     }
 
 }
