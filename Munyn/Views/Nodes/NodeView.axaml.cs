@@ -20,6 +20,16 @@ public partial class NodeView : UserControl
     public NodeView()
     {
         InitializeComponent();
+        this.LayoutUpdated += NodeView_LayoutUpdated;
+    }
+
+    private void NodeView_LayoutUpdated(object? sender, EventArgs e)
+    {
+        if (DataContext is NodeBaseViewModel viewModel)
+        {
+            foreach (PathBaseViewModel path in viewModel.connectedPaths)
+                path.RecalculatePathData();
+        }
     }
     public void Node_PointerPressed(object sender, PointerPressedEventArgs e)
     {
