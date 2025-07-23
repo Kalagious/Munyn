@@ -70,12 +70,6 @@
     <Compile Update="Views\Nodes\NodeDetails\Properties\GraphView\NodeGraphPropertyBasicView.axaml.cs">
       <DependentUpon>NodeGraphPropertyBasicView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Nodes\NodeDetails\NodeDetailsPropertyInterfaceView.axaml.cs">
-      <DependentUpon>NodeDetailsPropertyInterfaceView.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\Nodes\NodeDetails\NodeGraphPropertyInterfaceView.axaml.cs">
-      <DependentUpon>NodeGraphPropertyInterfaceView.axaml</DependentUpon>
-    </Compile>
     <Compile Update="Views\Panels\AttackTray.axaml.cs">
       <DependentUpon>AttackTray.axaml</DependentUpon>
     </Compile>
