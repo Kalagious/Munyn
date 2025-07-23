@@ -88,12 +88,16 @@ namespace Munyn.ViewModels.Nodes.Properties
             ParentNode?.RemoveProperty(this);
         }
     }
-    public partial class NodePropertyList : NodePropertyBasic
+    public partial class NodePropertyInterface : NodePropertyBasic
     {
         [ObservableProperty]
-        private List<NodePropertyBasic> _listContent;
+        private string? _interfaceName;
+        [ObservableProperty]
+        private string? _ip;
+        [ObservableProperty]
+        private string? _mac;
 
-        public NodePropertyList() : base() { IconName = "list"; Refresh(); }
+        public NodePropertyInterface() : base() { IconName = "link"; Refresh(); }
     }
 
     public partial class NodePropertyText : NodePropertyBasic

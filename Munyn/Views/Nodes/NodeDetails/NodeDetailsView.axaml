@@ -36,6 +36,10 @@
 	
 		<UserControl.DataTemplates>
 			
+			<DataTemplate DataType="properties:NodePropertyInterface">
+				<nodedetails:NodeDetailsPropertyInterfaceView DataContext="{Binding}"/>
+			</DataTemplate>
+
 			<DataTemplate DataType="properties:NodePropertyText">
 				<nodedetails:NodeDetailsPropertyTextView DataContext="{Binding}"/>
 			</DataTemplate>
