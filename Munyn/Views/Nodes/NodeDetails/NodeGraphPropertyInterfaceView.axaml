@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Munyn.Views.Nodes.NodeDetails.NodeGraphPropertyInterfaceView"
+			 xmlns:properties="clr-namespace:Munyn.ViewModels.Nodes.Properties;assembly=Munyn"
+			 x:DataType="properties:NodePropertyInterface">
+	<StackPanel Orientation="Horizontal" Margin="5,2,0,0">
+		<PathIcon Width="10" Height="10" Data="{Binding Icon}" Foreground="{Binding IconColor}" VerticalAlignment="Center"/>
+		<TextBlock Text="{Binding PropertyName}" VerticalAlignment="Center" FontSize="10" Margin="5,0,10,0" FontWeight="Bold" Foreground="{StaticResource BodyTextColor}"/>
+		<TextBlock Text="{Binding IP}" VerticalAlignment="Center" FontSize="10" Foreground="{StaticResource BodyTextColor}"/>
+	</StackPanel>
+</UserControl>
