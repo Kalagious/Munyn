@@ -122,24 +122,8 @@ namespace Munyn.ViewModels
             foreach (var propertyDto in propertyDtos)
             {
                 NodePropertyBasic newProperty = null;
-                if (propertyDto.PropertyType == 1)
-                {
-                    newProperty = new NodePropertyList
-                    {
-                        PropertyName = propertyDto.PropertyName,
-                        ListContent = new List<NodePropertyBasic>()
-                    };
-                    foreach (var innerPropertyDto in propertyDto.ListContent)
-                    {
-                        //This is not ideal, but it will work for now, it will not correctly load list properties within list properties
-                        ((NodePropertyList)newProperty).ListContent.Add(new NodePropertyBasic
-                        {
-                            PropertyName = innerPropertyDto.PropertyName,
-                            Value = innerPropertyDto.Value
-                        });
-                    }
-                }
-                else if (propertyDto.PropertyType == 2)
+
+                 if (propertyDto.PropertyType == 2)
                 {
                     newProperty = new NodePropertyText
                     {
@@ -196,20 +180,7 @@ namespace Munyn.ViewModels
                     IconColorString = property.IconColorString
                 };
 
-                if (property is NodePropertyList listProperty)
-                {
-                    propertyDto.PropertyType = 1;
-                    propertyDto.ListContent = new List<NodePropertyDto>();
-                    foreach (var innerProperty in listProperty.ListContent)
-                    {
-                        propertyDto.ListContent.Add(new NodePropertyDto
-                        {
-                            PropertyName = innerProperty.PropertyName,
-                            Value = innerProperty.Value
-                        });
-                    }
-                }
-                else if (property is NodePropertyText textProperty)
+               if (property is NodePropertyText textProperty)
                 {
                     propertyDto.PropertyType = 2;
                     propertyDto.TextContent = textProperty.TextContent;
