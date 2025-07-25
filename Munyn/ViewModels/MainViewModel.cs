@@ -132,12 +132,26 @@ public partial class MainViewModel : ViewModelBase
         }
     }
 
+    private Point GetCenterOfViewport()
+    {
+        if (NodeCanvasBase == null) return new Point(100, 100);
+
+        var transform = (TranslateTransform)NodeCanvasBase.RenderTransform;
+        var invertedTransform = new TranslateTransform(-transform.X, -transform.Y);
+
+        var viewport = new Rect(NodeCanvasBase.Bounds.Size);
+        var centerOfViewport = viewport.Center;
+
+        return invertedTransform.Transform(centerOfViewport);
+    }
+
     [RelayCommand]
     private void NewNetworkDrag()
     {
         if (NodeCanvasBase != null)
         {
-            NodeBaseViewModel newNode = new NetworkNodeViewModel("10.10.14.0/24", 30, 50, currentContext, NodeCanvasBase, this);
+            var center = GetCenterOfViewport();
+            NodeBaseViewModel newNode = new NetworkNodeViewModel("10.10.14.0/24", (int)center.X, (int)center.Y, currentContext, NodeCanvasBase, this);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
 
             currentContext.contextNodes.Add(newNode);
@@ -151,7 +165,8 @@ public partial class MainViewModel : ViewModelBase
     {
         if (NodeCanvasBase != null)
         {
-            NodeBaseViewModel newNode = new HostNodeViewModel("Mailing.htb", 30, 50, currentContext, NodeCanvasBase, this);
+            var center = GetCenterOfViewport();
+            NodeBaseViewModel newNode = new HostNodeViewModel("Mailing.htb", (int)center.X, (int)center.Y, currentContext, NodeCanvasBase, this);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
             currentContext.contextNodes.Add(newNode);
@@ -166,7 +181,8 @@ public partial class MainViewModel : ViewModelBase
     {
         if (NodeCanvasBase != null)
         {
-            NodeBaseViewModel newNode = new UserNodeViewModel("Jeff",  30, 50, NodeCanvasBase);
+            var center = GetCenterOfViewport();
+            NodeBaseViewModel newNode = new UserNodeViewModel("Jeff", (int)center.X, (int)center.Y, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
             newNode._mainVM = this;
@@ -181,7 +197,8 @@ public partial class MainViewModel : ViewModelBase
     {
         if (NodeCanvasBase != null)
         {
-            NodeBaseViewModel newNode = new ServiceNodeViewModel("Apache Tomcat", 30, 50, NodeCanvasBase);
+            var center = GetCenterOfViewport();
+            NodeBaseViewModel newNode = new ServiceNodeViewModel("Apache Tomcat", (int)center.X, (int)center.Y, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
             newNode._mainVM = this;
@@ -198,8 +215,8 @@ public partial class MainViewModel : ViewModelBase
     {
         if (NodeCanvasBase != null)
         {
-
-            NodeBaseViewModel newNode = new AssetNodeViewModel("id_rsa", 30, 50, NodeCanvasBase);
+            var center = GetCenterOfViewport();
+            NodeBaseViewModel newNode = new AssetNodeViewModel("id_rsa", (int)center.X, (int)center.Y, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
             newNode._mainVM = this;
@@ -215,8 +232,8 @@ public partial class MainViewModel : ViewModelBase
     {
         if (NodeCanvasBase != null)
         {
-
-            NodeBaseViewModel newNode = new ReconNodeViewModel("Nmap", 30, 50, NodeCanvasBase);
+            var center = GetCenterOfViewport();
+            NodeBaseViewModel newNode = new ReconNodeViewModel("Nmap", (int)center.X, (int)center.Y, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
             newNode._mainVM = this;
@@ -232,8 +249,8 @@ public partial class MainViewModel : ViewModelBase
     {
         if (NodeCanvasBase != null)
         {
-
-            NodeBaseViewModel newNode = new AttackNodeViewModel("PHP File Include", 30, 50, NodeCanvasBase);
+            var center = GetCenterOfViewport();
+            NodeBaseViewModel newNode = new AttackNodeViewModel("PHP File Include", (int)center.X, (int)center.Y, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
             newNode._mainVM = this;
@@ -249,8 +266,8 @@ public partial class MainViewModel : ViewModelBase
     {
         if (NodeCanvasBase != null)
         {
-
-            NodeBaseViewModel newNode = new CheckpointNodeViewModel("Jeff SSH", 30, 50, NodeCanvasBase);
+            var center = GetCenterOfViewport();
+            NodeBaseViewModel newNode = new CheckpointNodeViewModel("Jeff SSH", (int)center.X, (int)center.Y, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
             newNode._mainVM = this;
