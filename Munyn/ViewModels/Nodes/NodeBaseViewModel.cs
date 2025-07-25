@@ -4,6 +4,7 @@ using Avalonia.Input;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DynamicData;
 using Munyn.ViewModels.Data;
 using Munyn.ViewModels.Nodes.Properties;
 using System;
@@ -106,12 +107,50 @@ namespace Munyn.ViewModels
 
         public void GetGraphViewProperties()
         {
+
+            List<NodePropertyInterface> unGroupedInterfaces = new List<NodePropertyInterface>();
+            NodePropertyMultiInterface existingMultiInterface = null;
+
+            foreach (NodePropertyBasic property in Properties)
+                if (property.GetType() == typeof(NodePropertyMultiInterface))
+                    existingMultiInterface = property as NodePropertyMultiInterface;
+
+
+            if (existingMultiInterface != null)
+                existingMultiInterface.Interfaces.Clear();
+
+
             PropertiesInNodeView.Clear();
             foreach (NodePropertyBasic property in Properties)
             {
                 if (property.IsVisableOnGraphNode)
                 {
-                    PropertiesInNodeView.Add(property);
+                    switch (property)
+                    {
+                        case NodePropertyInterface nodePropertyInterface:
+                            if (existingMultiInterface != null)
+                                existingMultiInterface.Interfaces.Add(property as NodePropertyInterface);
+                            else
+                                unGroupedInterfaces.Add(property as NodePropertyInterface);
+                            break;
+
+                        default:
+                            PropertiesInNodeView.Add(property);
+                            break;
+                    }
+
+                }
+            }
+
+            if (unGroupedInterfaces.Count() > 0)
+            {
+                if (existingMultiInterface != null)
+                    existingMultiInterface.Interfaces.AddRange(unGroupedInterfaces);
+                else
+                {
+                    Properties.Insert(0, new NodePropertyMultiInterface { PropertyName = "Interfaces", Interfaces = new ObservableCollection<NodePropertyInterface>(unGroupedInterfaces), IsVisableOnGraphNode = true });
+                    PropertiesInNodeView.Insert(0,Properties[0]);
+
                 }
             }
         }

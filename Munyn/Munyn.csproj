@@ -49,6 +49,9 @@
     <Compile Update="Views\Nodes\NodeDetails\Properties\DetailsView\NodeDetailsPropertyCommandView.axaml.cs">
       <DependentUpon>NodeDetailsPropertyCommandView.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Nodes\NodeDetails\Properties\DetailsView\NodeDetailsPropertyInterfaceView.axaml.cs">
+      <DependentUpon>NodeDetailsPropertyInterfaceView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Nodes\NodeDetails\Properties\DetailsView\NodeDetailsPropertyVulnerabilitiyView.axaml.cs">
       <DependentUpon>NodeDetailsPropertyVulnerabilitiyView.axaml</DependentUpon>
     </Compile>
@@ -63,6 +66,9 @@
     </Compile>
     <Compile Update="Views\Nodes\NodeDetails\Properties\GraphView\NodeGraphPropertyCommandView.axaml.cs">
       <DependentUpon>NodeGraphPropertyCommandView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Nodes\NodeDetails\Properties\GraphView\NodeGraphPropertyMultiInterfaceView.axaml.cs">
+      <DependentUpon>NodeGraphPropertyMultiInterfaceView.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Nodes\NodeDetails\Properties\GraphView\NodeGraphPropertyTextView.axaml.cs">
       <DependentUpon>NodeGraphPropertyTextView.axaml</DependentUpon>

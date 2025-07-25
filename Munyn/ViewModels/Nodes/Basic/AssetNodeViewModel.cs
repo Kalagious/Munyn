@@ -22,7 +22,7 @@ namespace Munyn.ViewModels
             X = x;
             Y = y;
 
-            IconName = "gold-icon-white";
+            IconName = "gold-icon";
             NodeTheme = makeTheme("#eab900", "#fa8700");
 
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Location", true, true));

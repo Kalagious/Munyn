@@ -43,6 +43,14 @@
 			<DataTemplate DataType="properties:NodePropertyCommand">
 				<nodedetails:NodeDetailsPropertyCommandView DataContext="{Binding}"/>
 			</DataTemplate>
+			
+			<DataTemplate DataType="properties:NodePropertyMultiInterface">
+			</DataTemplate>
+			
+			
+			<DataTemplate DataType="properties:NodePropertyInterface">
+				<nodedetails:NodeDetailsPropertyInterfaceView DataContext="{Binding}"/>
+			</DataTemplate>
 
 			<DataTemplate DataType="properties:NodePropertyVulnerability">
 				<nodedetails:NodeDetailsPropertyVulnerabilityView DataContext="{Binding}"/>

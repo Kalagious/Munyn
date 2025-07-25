@@ -45,13 +45,13 @@ namespace Munyn.ViewModels.Nodes.Properties
                 PropertyType = typeof(NodePropertyText),
                 PropertyName = "Text",
                 PropertyIcon = (StreamGeometry)Application.Current.Resources["text"]
-            });
-            //List
+            });            
+            //Interface
             PropertiesList.Add(new PropertySelectionItem
             {
-                PropertyType = typeof(NodePropertyList),
-                PropertyName = "List WIP",
-                PropertyIcon = (StreamGeometry)Application.Current.Resources["list"]
+                PropertyType = typeof(NodePropertyInterface),
+                PropertyName = "Interface",
+                PropertyIcon = (StreamGeometry)Application.Current.Resources["sitemap-icon"]
             });
             //Command
             PropertiesList.Add(new PropertySelectionItem

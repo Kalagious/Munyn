@@ -1,0 +1,55 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Munyn.Views.Nodes.NodeDetails.NodeGraphPropertyMultiInterfaceView">
+
+
+	<StackPanel Margin="10">
+		<Border BorderThickness="3" CornerRadius="5,5,0,0">
+			<Border.Background>
+				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+					<GradientStop Color="#c531a5" Offset="0.0"/>
+					<GradientStop Color="#4c78ea" Offset="0.5"/>
+					<GradientStop Color="#64FFAF" Offset="1.0"/>
+				</LinearGradientBrush>
+			</Border.Background>
+			<Border.BorderBrush>
+				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+					<GradientStop Color="#c531a5" Offset="0.0"/>
+					<GradientStop Color="#4c78ea" Offset="0.5"/>
+					<GradientStop Color="#64FFAF" Offset="1.0"/>
+				</LinearGradientBrush>
+			</Border.BorderBrush>
+			<StackPanel Orientation="Horizontal" Grid.Column="0">
+				<PathIcon HorizontalAlignment="Center" Margin="10,2,0,2" Data="{Binding Icon}" Foreground="#f2f2f2"/>
+				<TextBlock Margin="5,5,0,5" IsVisible="" Text="Interfaces" Foreground="#f2f2f2" VerticalAlignment="Center"></TextBlock>
+			</StackPanel>
+		</Border>
+		<Border BorderBrush="#e5e5e5" Background="#e5e5e5" BorderThickness="3" CornerRadius="0,0,5,5" MaxHeight="75" >
+			<ScrollViewer>
+				<ItemsControl x:Name="Interfaces" ItemsSource="{Binding Interfaces}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Button>
+								<Grid ColumnDefinitions="auto,auto,*">
+									<TextBlock Grid.Column="0" Foreground="Black" VerticalAlignment="Center" Text="{Binding PropertyName}"></TextBlock>
+									<TextBlock Grid.Column="1" Foreground="Black" VerticalAlignment="Center" Text=":"></TextBlock>
+									<TextBlock Grid.Column="2" Foreground="Black" VerticalAlignment="Center" Text="{Binding Ip}"></TextBlock>
+								</Grid>
+							</Button>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel></StackPanel>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+				</ItemsControl>
+			</ScrollViewer>
+		</Border>
+	</StackPanel>
+
+</UserControl>

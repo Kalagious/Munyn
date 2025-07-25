@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -113,8 +114,26 @@ namespace Munyn.ViewModels.Nodes.Properties
 
         public NodePropertyCommand() : base() { IconName = "command"; Refresh(); IsVisableOnGraphNode = true; }
     }
+    
+    public partial class NodePropertyInterface : NodePropertyBasic
+    {
+        [ObservableProperty]
+        private string? _ip;
+        [ObservableProperty]
+        private string? _mac;
 
-    public partial class NodePropertyLink : NodePropertyBasic
+        public NodePropertyInterface() : base() { IconName = "sitemap-icon"; Refresh(); IsVisableOnGraphNode = true; }
+    }
+
+    public partial class NodePropertyMultiInterface : NodePropertyBasic
+    {
+        [ObservableProperty]
+        private ObservableCollection<NodePropertyInterface> _interfaces;
+
+        public NodePropertyMultiInterface() : base() { IconName = "sitemap-icon"; Refresh(); IsVisableOnGraphNode = true; }
+}
+
+public partial class NodePropertyLink : NodePropertyBasic
     {
         [ObservableProperty]
         private string? _url;

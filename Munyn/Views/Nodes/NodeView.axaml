@@ -46,6 +46,10 @@
 							<DataTemplate DataType="properties:NodePropertyCommand">
 								<nodedetails:NodeGraphPropertyCommandView/>
 							</DataTemplate>
+
+							<DataTemplate DataType="properties:NodePropertyMultiInterface">
+								<nodedetails:NodeGraphPropertyMultiInterfaceView/>
+							</DataTemplate>
 							
 							<DataTemplate DataType="properties:NodePropertyCompromised">
 								<nodedetails:NodeGraphPropertyCompromisedView/>
