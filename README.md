@@ -1,4 +1,7 @@
+
+
 # Munyn
+<img width="1917" height="1167" alt="image" src="https://github.com/user-attachments/assets/6605e8af-d662-430b-94c7-047a22cf8cd6" />
 
 Munyn is a desktop application for creating visual maps of computer networks and security assessments. It functions as a digital whiteboard where you can drag and drop nodes to represent various components of a network and the relationships between them.
 
