@@ -22,6 +22,10 @@ public partial class MainView : UserControl
     private StackPanel categoriesPanel;
     private Grid topPanel;
 
+    private TransformGroup transformGroup;
+    private ScaleTransform scaleTransform;
+    private TranslateTransform translateTransform;
+
     public MainView()
     {
         InitializeComponent();
@@ -68,8 +72,9 @@ public partial class MainView : UserControl
                 mainVm.NodeCanvasBase = (Canvas)presenter.Panel;
                 _NodeCanvasBase = mainVm.NodeCanvasBase;
 
-                var transformGroup = (TransformGroup)_NodeCanvasBase.RenderTransform;
-                var translateTransform = (TranslateTransform)transformGroup.Children[1];
+                transformGroup = (TransformGroup)_NodeCanvasBase.RenderTransform;
+                scaleTransform = (ScaleTransform)transformGroup.Children[0];
+                translateTransform = (TranslateTransform)transformGroup.Children[1];
                 translateTransform.X = 0;
                 translateTransform.Y = 0;
 
@@ -139,9 +144,6 @@ public partial class MainView : UserControl
                 var delta = currentPosition - panStart;
                 panStart = currentPosition;
 
-                var transformGroup = (TransformGroup)_NodeCanvasBase.RenderTransform;
-                var translateTransform = (TranslateTransform)transformGroup.Children[1];
-
                 var newX = translateTransform.X + delta.X;
                 var newY = translateTransform.Y + delta.Y;
 
@@ -149,15 +151,15 @@ public partial class MainView : UserControl
 
                 if (categoriesPanel != null)
                 {
-                    newX = Math.Min(newX, (_NodeCanvasBase.Width - viewportSize.Width + categoriesPanel.Bounds.Width) / 2);
-                    newX = Math.Max(newX, (-_NodeCanvasBase.Width + viewportSize.Width - categoriesPanel.Bounds.Width) / 2);
+                    newX = Math.Min(newX, (_NodeCanvasBase.Width * scaleTransform.ScaleX - viewportSize.Width  + categoriesPanel.Bounds.Width) / 2);
+                    newX = Math.Max(newX, (-_NodeCanvasBase.Width * scaleTransform.ScaleX + viewportSize.Width  - categoriesPanel.Bounds.Width) / 2);
 
                 }
 
                 if (topPanel != null)
                 {
-                    newY = Math.Min(newY, (_NodeCanvasBase.Height - viewportSize.Height + topPanel.Bounds.Height) / 2);
-                    newY = Math.Max(newY, (-_NodeCanvasBase.Height + viewportSize.Height - topPanel.Bounds.Height) / 2);
+                    newY = Math.Min(newY, (_NodeCanvasBase.Height * scaleTransform.ScaleY - viewportSize.Height + topPanel.Bounds.Height) / 2);
+                    newY = Math.Max(newY, (-_NodeCanvasBase.Height * scaleTransform.ScaleY + viewportSize.Height - topPanel.Bounds.Height) / 2);
                 }
                 translateTransform.X = newX;
                 translateTransform.Y = newY;
@@ -197,11 +199,9 @@ public partial class MainView : UserControl
     {
         if (_NodeCanvasBase == null) return;
 
-        var transformGroup = (TransformGroup)_NodeCanvasBase.RenderTransform;
-        var scaleTransform = (ScaleTransform)transformGroup.Children[0];
-        var translateTransform = (TranslateTransform)transformGroup.Children[1];
 
-        double zoomFactor = 1.1;
+
+        double zoomFactor = 1.02;
         double zoom = e.Delta.Y > 0 ? zoomFactor : 1 / zoomFactor;
 
         var newScale = scaleTransform.ScaleX * zoom;
@@ -210,11 +210,28 @@ public partial class MainView : UserControl
         var position = e.GetPosition(this);
         var relativePosition = e.GetPosition(_NodeCanvasBase);
 
-        var newX = position.X - (relativePosition.X - translateTransform.X) * (newScale / scaleTransform.ScaleX);
-        var newY = position.Y - (relativePosition.Y - translateTransform.Y) * (newScale / scaleTransform.ScaleY);
+        var newX = (translateTransform.X / scaleTransform.ScaleX) * newScale;
+        var newY = (translateTransform.Y / scaleTransform.ScaleY) * newScale;
+
 
         scaleTransform.ScaleX = newScale;
         scaleTransform.ScaleY = newScale;
+
+
+        if (categoriesPanel != null)
+        {
+            newX = Math.Min(newX, (_NodeCanvasBase.Width * scaleTransform.ScaleX - viewportSize.Width + categoriesPanel.Bounds.Width) / 2);
+            newX = Math.Max(newX, (-_NodeCanvasBase.Width * scaleTransform.ScaleX + viewportSize.Width - categoriesPanel.Bounds.Width) / 2);
+
+        }
+
+        if (topPanel != null)
+        {
+            newY = Math.Min(newY, (_NodeCanvasBase.Height * scaleTransform.ScaleY - viewportSize.Height + topPanel.Bounds.Height) / 2);
+            newY = Math.Max(newY, (-_NodeCanvasBase.Height * scaleTransform.ScaleY + viewportSize.Height - topPanel.Bounds.Height) / 2);
+        }
+
+
         translateTransform.X = newX;
         translateTransform.Y = newY;
 
