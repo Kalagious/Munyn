@@ -175,7 +175,10 @@
 									<ItemsPanelTemplate>
 										<Canvas Name="NodeCanvas" Background="#232339" Width="10000" Height="10000">
 											<Canvas.RenderTransform>
-												<TranslateTransform X="0" Y="0" />
+												<TransformGroup>
+													<ScaleTransform ScaleX="1.0" ScaleY="1.0" />
+													<TranslateTransform X="0" Y="0" />
+												</TransformGroup>
 											</Canvas.RenderTransform>
 										</Canvas>
 									</ItemsPanelTemplate>
