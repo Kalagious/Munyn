@@ -35,7 +35,7 @@
 
 
 			<!-- INFO PANEL -->
-			<Border BorderBrush="#f7f7f7" BorderThickness="3" CornerRadius="0,0,5,5" >
+			<Border BorderBrush="#f7f7f7" Background="#f7f7f7" BorderThickness="3" CornerRadius="0,0,5,5" >
 				<StackPanel Background="#f7f7f7">
 					<ItemsControl x:Name="PropertiesItemControl" ItemsSource="{Binding PropertiesInNodeView}" Margin="0,0,0,5">
 						<ItemsControl.DataTemplates>
