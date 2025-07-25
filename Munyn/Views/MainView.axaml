@@ -173,7 +173,11 @@
 								
 								<ItemsControl.ItemsPanel>
 									<ItemsPanelTemplate>
-										<Canvas x:Name="NodeCanvasBase"  RenderTransformOrigin="0,0" Background="#303040"/>
+										<Canvas Name="NodeCanvas" Background="#303040" Width="4000" Height="3000">
+											<Canvas.RenderTransform>
+												<TranslateTransform X="0" Y="0" />
+											</Canvas.RenderTransform>
+										</Canvas>
 									</ItemsPanelTemplate>
 								</ItemsControl.ItemsPanel>
 							</ItemsControl>
