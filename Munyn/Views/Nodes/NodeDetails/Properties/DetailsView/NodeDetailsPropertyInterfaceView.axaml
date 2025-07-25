@@ -39,6 +39,12 @@
 						<TextBlock Margin="5,5,0,5" IsVisible="{Binding IsDefault}" Text="{Binding PropertyName}" Foreground="#f2f2f2" VerticalAlignment="Center"></TextBlock>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal" Grid.Column="1">
+						<Button  Command="{Binding ToggleGraphVisabilityCommand}" VerticalAlignment="Center" Background="Transparent" >
+							<StackPanel>
+								<PathIcon Data="{StaticResource star-nofill}" Width="17" Height="17" Foreground="#fac900" IsVisible="{Binding !IsVisableOnGraphNode}"/>
+								<PathIcon Data="{StaticResource star}" Width="17" Height="17" Foreground="#fac900" IsVisible="{Binding IsVisableOnGraphNode}"/>
+							</StackPanel>
+						</Button>
 						<Button Command="{Binding DeletePropertyCommand}" VerticalAlignment="Center" Background="Transparent" HorizontalAlignment="Right">
 							<PathIcon Data="{StaticResource delete}" Width="17" Height="17" Foreground="#f2f2f2"/>
 						</Button>

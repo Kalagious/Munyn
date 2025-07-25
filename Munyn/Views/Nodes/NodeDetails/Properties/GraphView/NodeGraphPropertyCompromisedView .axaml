@@ -6,7 +6,7 @@
              x:Class="Munyn.Views.Nodes.NodeDetails.NodeGraphPropertyCompromisedView">
 
 
-	<StackPanel Margin="10">
+	<StackPanel Margin="10,5,10,0">
 		<Border BorderThickness="3" CornerRadius="5" >
 			<Border.Background>
 				<LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">

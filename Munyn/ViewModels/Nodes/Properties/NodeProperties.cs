@@ -35,6 +35,13 @@ namespace Munyn.ViewModels.Nodes.Properties
         [ObservableProperty] private bool _isIconSelectionOpen;
         public IconSelectionViewModel IconSelectionViewModel { get; set; }
 
+        [RelayCommand]
+        private void ToggleGraphVisability()
+        {
+            IsVisableOnGraphNode = !IsVisableOnGraphNode;
+            ParentNode.GetGraphViewProperties();
+        }
+
 
         public NodePropertyBasic(string propertyName = "New Property", bool isDefault = false, bool isVisiableOnGraphNode = false, bool isEditable = true)
         {
@@ -88,17 +95,6 @@ namespace Munyn.ViewModels.Nodes.Properties
         {
             ParentNode?.RemoveProperty(this);
         }
-    }
-    public partial class NodePropertyInterface : NodePropertyBasic
-    {
-        [ObservableProperty]
-        private string? _interfaceName;
-        [ObservableProperty]
-        private string? _ip;
-        [ObservableProperty]
-        private string? _mac;
-
-        public NodePropertyInterface() : base() { IconName = "link"; Refresh(); }
     }
 
     public partial class NodePropertyText : NodePropertyBasic
