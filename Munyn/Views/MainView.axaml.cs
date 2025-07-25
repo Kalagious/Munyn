@@ -38,6 +38,7 @@ public partial class MainView : UserControl
     private void OnSizeChanged(object? sender, SizeChangedEventArgs e)
     {
         viewportSize = e.NewSize;
+        DrawGridLines();
     }
 
     private void InitializeComponent()
@@ -64,6 +65,7 @@ public partial class MainView : UserControl
 
                 mainVm.NodeCanvasBase = (Canvas)presenter.Panel; 
                 _NodeCanvasBase = mainVm.NodeCanvasBase;
+                DrawGridLines();
 
         
             }
@@ -72,6 +74,48 @@ public partial class MainView : UserControl
                 System.Diagnostics.Debug.WriteLine("Error: Canvas '_NodeCanvasBase' not found.");
                 return;
             }
+        }
+    }
+
+    private void DrawGridLines()
+    {
+        if (_NodeCanvasBase == null) return;
+
+        // Remove existing grid lines
+        for (int i = _NodeCanvasBase.Children.Count - 1; i >= 0; i--)
+        {
+            if (_NodeCanvasBase.Children[i] is Line)
+            {
+                _NodeCanvasBase.Children.RemoveAt(i);
+            }
+        }
+
+        double gridSpacing = 20;
+        var strokeColor = Color.Parse("#2f2c32");
+        double strokeThickness = 1;
+
+        for (double x = 0; x < _NodeCanvasBase.Bounds.Width; x += gridSpacing)
+        {
+            var line = new Line
+            {
+                StartPoint = new Point(x, 0),
+                EndPoint = new Point(x, _NodeCanvasBase.Bounds.Height),
+                Stroke = new SolidColorBrush(strokeColor),
+                StrokeThickness = strokeThickness
+            };
+            _NodeCanvasBase.Children.Insert(0, line);
+        }
+
+        for (double y = 0; y < _NodeCanvasBase.Bounds.Height; y += gridSpacing)
+        {
+            var line = new Line
+            {
+                StartPoint = new Point(0, y),
+                EndPoint = new Point(_NodeCanvasBase.Bounds.Width, y),
+                Stroke = new SolidColorBrush(strokeColor),
+                StrokeThickness = strokeThickness
+            };
+            _NodeCanvasBase.Children.Insert(0, line);
         }
     }
     
