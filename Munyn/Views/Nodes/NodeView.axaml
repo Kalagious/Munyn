@@ -39,6 +39,8 @@
 				<StackPanel Background="#f7f7f7">
 					<ItemsControl x:Name="PropertiesItemControl" ItemsSource="{Binding PropertiesInNodeView}" Margin="0,0,0,5">
 						<ItemsControl.DataTemplates>
+
+
 							<DataTemplate DataType="properties:NodePropertyText">
 								<nodedetails:NodeGraphPropertyTextView/>
 							</DataTemplate>
