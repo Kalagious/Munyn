@@ -29,7 +29,7 @@ public partial class MainViewModel : ViewModelBase
     public Canvas? NodeCanvasBase;
 
     [ObservableProperty]
-    private Size _viewportSize;
+    private Avalonia.Size _viewportSize;
 
     [ObservableProperty]
     private bool _pathTool = false;
@@ -144,7 +144,7 @@ public partial class MainViewModel : ViewModelBase
 
         if (transform != null)
         {
-            var centerOfViewport = new Point(ViewportSize.Width / 2, ViewportSize.Height / 2);
+            var centerOfViewport = new Avalonia.Point(ViewportSize.Width / 2, ViewportSize.Height / 2);
 
             return new Avalonia.Point((centerOfViewport.X - transform.X) / scale.ScaleX, (centerOfViewport.Y - transform.Y) /scale.ScaleY);
         }
