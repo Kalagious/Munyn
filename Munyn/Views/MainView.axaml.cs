@@ -44,6 +44,10 @@ public partial class MainView : UserControl
     private void OnSizeChanged(object? sender, SizeChangedEventArgs e)
     {
         viewportSize = e.NewSize;
+        if (DataContext is MainViewModel mainVm)
+        {
+            mainVm.ViewportSize = e.NewSize;
+        }
         DrawGridLines();
     }
 

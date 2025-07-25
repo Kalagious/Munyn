@@ -29,6 +29,9 @@ public partial class MainViewModel : ViewModelBase
     public Canvas? NodeCanvasBase;
 
     [ObservableProperty]
+    private Size _viewportSize;
+
+    [ObservableProperty]
     private bool _pathTool = false;
     [ObservableProperty]
     private IBrush _pathToolBorderColor;
@@ -136,13 +139,14 @@ public partial class MainViewModel : ViewModelBase
     {
         if (NodeCanvasBase == null || NodeCanvasBase.RenderTransform == null || NodeCanvasBase.Parent == null) return new Avalonia.Point(100, 100);
 
-        var transform = NodeCanvasBase.RenderTransform as TranslateTransform;
+        var transform = (NodeCanvasBase.RenderTransform as TransformGroup).Children[1] as TranslateTransform;
+        var scale = (NodeCanvasBase.RenderTransform as TransformGroup).Children[0] as ScaleTransform;
+
         if (transform != null)
         {
-            var viewport = new Rect(NodeCanvasBase.Bounds.Size);
-            var centerOfViewport = viewport.Center;
+            var centerOfViewport = new Point(ViewportSize.Width / 2, ViewportSize.Height / 2);
 
-            return new Avalonia.Point(centerOfViewport.X - transform.X, centerOfViewport.Y - transform.Y);
+            return new Avalonia.Point((centerOfViewport.X - transform.X) / scale.ScaleX, (centerOfViewport.Y - transform.Y) /scale.ScaleY);
         }
 
         return new Avalonia.Point(100, 100);
