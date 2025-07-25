@@ -19,10 +19,15 @@ public partial class MainView : UserControl
     private bool isPannable;
     private Point panStart;
     private Size viewportSize;
+    private StackPanel categoriesPanel;
+    private Grid topPanel;
 
     public MainView()
     {
         InitializeComponent();
+
+        categoriesPanel = this.GetControl<StackPanel>("NodeCategories");
+        topPanel = this.GetControl<Grid>("TopBar");
         this.Loaded += OnLoaded;
         this.PointerMoved += MainView_OnPointerMoved;
         this.PointerReleased += MainView_OnPointerReleased;
@@ -85,11 +90,19 @@ public partial class MainView : UserControl
                 var newY = transform.Y + delta.Y;
 
                 // Constrain panning
-                newX = Math.Min(newX, 0);
-                newY = Math.Min(newY, 0);
-                newX = Math.Max(newX, viewportSize.Width - _NodeCanvasBase.Width);
-                newY = Math.Max(newY, viewportSize.Height - _NodeCanvasBase.Height);
 
+                if (categoriesPanel != null)
+                {
+                    newX = Math.Min(newX, (_NodeCanvasBase.Width - viewportSize.Width + categoriesPanel.Bounds.Width) / 2);
+                    newX = Math.Max(newX, (-_NodeCanvasBase.Width + viewportSize.Width - categoriesPanel.Bounds.Width) / 2);
+
+                }
+
+                if (topPanel != null)
+                {
+                    newY = Math.Min(newY, (_NodeCanvasBase.Height - viewportSize.Height + topPanel.Bounds.Height) / 2);
+                    newY = Math.Max(newY, (-_NodeCanvasBase.Height + viewportSize.Height - topPanel.Bounds.Height) / 2);
+                }
                 transform.X = newX;
                 transform.Y = newY;
 
@@ -98,7 +111,6 @@ public partial class MainView : UserControl
             }
             mainVm.HandlePointerMoved(e);
         }
-
         e.Handled = true;
     }
 

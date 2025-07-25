@@ -132,9 +132,9 @@ public partial class MainViewModel : ViewModelBase
         }
     }
 
-    private Point GetCenterOfViewport()
+    private Avalonia.Point GetCenterOfViewport()
     {
-        if (NodeCanvasBase == null || NodeCanvasBase.RenderTransform == null || NodeCanvasBase.Parent == null) return new Point(100, 100);
+        if (NodeCanvasBase == null || NodeCanvasBase.RenderTransform == null || NodeCanvasBase.Parent == null) return new Avalonia.Point(100, 100);
 
         var transform = NodeCanvasBase.RenderTransform as TranslateTransform;
         if (transform != null)
@@ -142,10 +142,10 @@ public partial class MainViewModel : ViewModelBase
             var viewport = new Rect(NodeCanvasBase.Bounds.Size);
             var centerOfViewport = viewport.Center;
 
-            return new Point(centerOfViewport.X - transform.X, centerOfViewport.Y - transform.Y);
+            return new Avalonia.Point(centerOfViewport.X - transform.X, centerOfViewport.Y - transform.Y);
         }
 
-        return new Point(100, 100);
+        return new Avalonia.Point(100, 100);
     }
 
     [RelayCommand]
