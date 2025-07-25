@@ -28,6 +28,7 @@ public partial class MainView : UserControl
 
         categoriesPanel = this.GetControl<StackPanel>("NodeCategories");
         topPanel = this.GetControl<Grid>("TopBar");
+
         this.Loaded += OnLoaded;
         this.PointerMoved += MainView_OnPointerMoved;
         this.PointerReleased += MainView_OnPointerReleased;
@@ -65,6 +66,9 @@ public partial class MainView : UserControl
 
                 mainVm.NodeCanvasBase = (Canvas)presenter.Panel; 
                 _NodeCanvasBase = mainVm.NodeCanvasBase;
+                var transform = (TranslateTransform)_NodeCanvasBase.RenderTransform;
+                transform.X = 0;
+                transform.Y = 0;
                 DrawGridLines();
 
         
@@ -90,9 +94,9 @@ public partial class MainView : UserControl
             }
         }
 
-        double gridSpacing = 20;
-        var strokeColor = Color.Parse("#2f2c32");
-        double strokeThickness = 1;
+        double gridSpacing = 30;
+        var strokeColor = Color.Parse("#303040");
+        double strokeThickness = 1.5;
 
         for (double x = 0; x < _NodeCanvasBase.Bounds.Width; x += gridSpacing)
         {
@@ -101,7 +105,8 @@ public partial class MainView : UserControl
                 StartPoint = new Point(x, 0),
                 EndPoint = new Point(x, _NodeCanvasBase.Bounds.Height),
                 Stroke = new SolidColorBrush(strokeColor),
-                StrokeThickness = strokeThickness
+                StrokeThickness = strokeThickness,
+                ZIndex = -10
             };
             _NodeCanvasBase.Children.Insert(0, line);
         }
@@ -113,7 +118,8 @@ public partial class MainView : UserControl
                 StartPoint = new Point(0, y),
                 EndPoint = new Point(_NodeCanvasBase.Bounds.Width, y),
                 Stroke = new SolidColorBrush(strokeColor),
-                StrokeThickness = strokeThickness
+                StrokeThickness = strokeThickness,
+                ZIndex = -10
             };
             _NodeCanvasBase.Children.Insert(0, line);
         }
