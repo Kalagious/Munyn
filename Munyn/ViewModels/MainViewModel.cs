@@ -144,9 +144,9 @@ public partial class MainViewModel : ViewModelBase
 
         if (transform != null)
         {
-            var centerOfViewport = new Avalonia.Point(ViewportSize.Width / 2, ViewportSize.Height / 2);
+            Avalonia.Point temp = new Avalonia.Point((transform.X / -scale.ScaleX + NodeCanvasBase.Width/2) - 200, (transform.Y / -scale.ScaleY + NodeCanvasBase.Height/2) - 200);
 
-            return new Avalonia.Point((centerOfViewport.X - transform.X) / scale.ScaleX, (centerOfViewport.Y - transform.Y) /scale.ScaleY);
+            return temp;
         }
 
         return new Avalonia.Point(100, 100);
