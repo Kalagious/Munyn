@@ -34,6 +34,7 @@ public partial class MainView : UserControl
         this.PointerReleased += MainView_OnPointerReleased;
         this.PointerPressed += OnPointerPressed;
         this.SizeChanged += OnSizeChanged;
+        this.PointerWheelChanged += MainView_PointerWheelChanged;
     }
 
     private void OnSizeChanged(object? sender, SizeChangedEventArgs e)
@@ -64,11 +65,14 @@ public partial class MainView : UserControl
             if (presenter.Panel != null && DataContext is MainViewModel mainVm)
             {
 
-                mainVm.NodeCanvasBase = (Canvas)presenter.Panel; 
+                mainVm.NodeCanvasBase = (Canvas)presenter.Panel;
                 _NodeCanvasBase = mainVm.NodeCanvasBase;
-                var transform = (TranslateTransform)_NodeCanvasBase.RenderTransform;
-                transform.X = 0;
-                transform.Y = 0;
+
+                var transformGroup = (TransformGroup)_NodeCanvasBase.RenderTransform;
+                var translateTransform = (TranslateTransform)transformGroup.Children[1];
+                translateTransform.X = 0;
+                translateTransform.Y = 0;
+
                 DrawGridLines();
 
         
@@ -135,9 +139,11 @@ public partial class MainView : UserControl
                 var delta = currentPosition - panStart;
                 panStart = currentPosition;
 
-                var transform = (TranslateTransform)_NodeCanvasBase.RenderTransform;
-                var newX = transform.X + delta.X;
-                var newY = transform.Y + delta.Y;
+                var transformGroup = (TransformGroup)_NodeCanvasBase.RenderTransform;
+                var translateTransform = (TranslateTransform)transformGroup.Children[1];
+
+                var newX = translateTransform.X + delta.X;
+                var newY = translateTransform.Y + delta.Y;
 
                 // Constrain panning
 
@@ -153,8 +159,8 @@ public partial class MainView : UserControl
                     newY = Math.Min(newY, (_NodeCanvasBase.Height - viewportSize.Height + topPanel.Bounds.Height) / 2);
                     newY = Math.Max(newY, (-_NodeCanvasBase.Height + viewportSize.Height - topPanel.Bounds.Height) / 2);
                 }
-                transform.X = newX;
-                transform.Y = newY;
+                translateTransform.X = newX;
+                translateTransform.Y = newY;
 
 
                 return;
@@ -183,6 +189,34 @@ public partial class MainView : UserControl
 
         if (DataContext is MainViewModel mainVm)
             mainVm.OnEndConnectionDragFromNode(e);
+
+        e.Handled = true;
+    }
+
+    private void MainView_PointerWheelChanged(object? sender, PointerWheelEventArgs e)
+    {
+        if (_NodeCanvasBase == null) return;
+
+        var transformGroup = (TransformGroup)_NodeCanvasBase.RenderTransform;
+        var scaleTransform = (ScaleTransform)transformGroup.Children[0];
+        var translateTransform = (TranslateTransform)transformGroup.Children[1];
+
+        double zoomFactor = 1.1;
+        double zoom = e.Delta.Y > 0 ? zoomFactor : 1 / zoomFactor;
+
+        var newScale = scaleTransform.ScaleX * zoom;
+        newScale = Math.Max(0.2, Math.Min(newScale, 2.0)); // Zoom constraints
+
+        var position = e.GetPosition(this);
+        var relativePosition = e.GetPosition(_NodeCanvasBase);
+
+        var newX = position.X - (relativePosition.X - translateTransform.X) * (newScale / scaleTransform.ScaleX);
+        var newY = position.Y - (relativePosition.Y - translateTransform.Y) * (newScale / scaleTransform.ScaleY);
+
+        scaleTransform.ScaleX = newScale;
+        scaleTransform.ScaleY = newScale;
+        translateTransform.X = newX;
+        translateTransform.Y = newY;
 
         e.Handled = true;
     }
