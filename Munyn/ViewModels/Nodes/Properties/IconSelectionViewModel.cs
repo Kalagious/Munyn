@@ -33,9 +33,6 @@ namespace Munyn.ViewModels.Nodes.Properties
                     .Select(r => r.Key.ToString())
                     .ToList();
             }
-
-            foreach (string name in Icons)
-                Debug.WriteLine($"Icon: {name}");
         }
 
         [RelayCommand]
