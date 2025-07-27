@@ -19,6 +19,7 @@ namespace Munyn.ViewModels.Nodes.Properties
         [ObservableProperty] private string? _propertyName;
         [ObservableProperty] private string? _value;
         [ObservableProperty] private string? _propertyValue;
+        [property: JsonIgnore]
         [ObservableProperty] private StreamGeometry _icon;
         [ObservableProperty] private IBrush _iconColor;
         [ObservableProperty] private string _iconName;
