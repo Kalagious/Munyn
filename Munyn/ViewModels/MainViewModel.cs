@@ -309,7 +309,6 @@ public partial class MainViewModel : ViewModelBase
     {
         
         CurrentContextName = currentContext.contextName;
-        VisableNodes.Clear();
         VisableNodes = currentContext.contextNodes;
 
         if (currentContext != null)
