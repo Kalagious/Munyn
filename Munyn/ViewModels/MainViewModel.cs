@@ -309,6 +309,7 @@ public partial class MainViewModel : ViewModelBase
     {
         
         CurrentContextName = currentContext.contextName;
+        VisableNodes.Clear();
         VisableNodes = currentContext.contextNodes;
 
         if (currentContext != null)
@@ -396,6 +397,19 @@ public partial class MainViewModel : ViewModelBase
 
     public void OnClickedNode(NodeBaseViewModel node, PointerReleasedEventArgs e)
     {
+        if (SelectedNode != null && SelectedNode == node)
+        {
+            node.SetSelected(false);
+            SelectedNode = null;
+            IsNodeSelected = false;
+
+            return;
+        }
+        node.SetSelected(true);
+
+        if (SelectedNode != null)
+            SelectedNode.SetSelected(false);
+
         SelectedNode = node;
         IsNodeSelected = true;
     }
