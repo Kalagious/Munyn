@@ -26,6 +26,11 @@ namespace Munyn.ViewModels
         private string? _nodeName;
 
         [ObservableProperty]
+        IBrush selectedBorderBrush;
+        [ObservableProperty]
+        private bool isSelected = false;
+
+        [ObservableProperty]
         ObservableCollection<NodePropertyBasic> _properties = new ObservableCollection<NodePropertyBasic>();
         [ObservableProperty]
         ObservableCollection<NodePropertyBasic> _propertiesInNodeView = new ObservableCollection<NodePropertyBasic>();
@@ -81,6 +86,17 @@ namespace Munyn.ViewModels
         {
             if (_mainVM != null)
             _mainVM.DeleteNode(this);
+        }
+
+
+        public void SetSelected(bool selected)
+        {
+            IsSelected = selected;
+            if (selected)
+                SelectedBorderBrush = new SolidColorBrush(Color.Parse("#F2F2F2")); 
+            else
+                SelectedBorderBrush = new SolidColorBrush(Color.Parse("#00F2F2F2")); 
+
         }
 
         public void AddNodeProperty(NodePropertyBasic property)
