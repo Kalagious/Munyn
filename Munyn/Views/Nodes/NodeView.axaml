@@ -9,7 +9,10 @@
 			 xmlns:nodedetails="clr-namespace:Munyn.Views.Nodes.NodeDetails;assembly=Munyn"
 			 xmlns:properties="clr-namespace:Munyn.ViewModels.Nodes.Properties;assembly=Munyn"
 			 Canvas.Left="{Binding X}"
-			 Canvas.Top="{Binding Y}">
+			 Canvas.Top="{Binding Y}"
+			 PointerPressed="Node_PointerPressed"
+			 PointerMoved="Node_PointerMoved"
+			 PointerReleased="Node_PointerReleased">
 
 
 
@@ -21,9 +24,7 @@
 
 
 
-	<Panel PointerPressed="Node_PointerPressed"
-		   PointerMoved="Node_PointerMoved"
-		   PointerReleased="Node_PointerReleased">
+	<Panel>
 		<Border Background="Transparent" BorderThickness="3" CornerRadius="5" BorderBrush="{Binding SelectedBorderBrush}">
 			<Border Background="Transparent" BorderThickness="3" CornerRadius="5" BorderBrush="Transparent">
 				<StackPanel MinWidth="200" MaxWidth="250">
