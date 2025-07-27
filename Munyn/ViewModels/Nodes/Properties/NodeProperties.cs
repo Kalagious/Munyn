@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Munyn.ViewModels.Nodes.Properties
 {
@@ -18,11 +19,12 @@ namespace Munyn.ViewModels.Nodes.Properties
         [ObservableProperty] private string? _propertyName;
         [ObservableProperty] private string? _value;
         [ObservableProperty] private string? _propertyValue;
+        [property: JsonIgnore]
         [ObservableProperty] private StreamGeometry _icon;
         [ObservableProperty] private IBrush _iconColor;
         [ObservableProperty] private string _iconName;
-        public string IconColorString;
 
+        [JsonIgnore]
         public NodeBaseViewModel ParentNode { get; set; }
 
         [ObservableProperty] private bool _isDefault;
@@ -66,7 +68,6 @@ namespace Munyn.ViewModels.Nodes.Properties
             else if (e.PropertyName == nameof(IconSelectionViewModel.IconColor))
             {
                 IconColor = new SolidColorBrush(IconSelectionViewModel.IconColor);
-                IconColorString = IconSelectionViewModel.IconColor.ToString();
             }
         }
 
@@ -76,18 +77,8 @@ namespace Munyn.ViewModels.Nodes.Properties
             {
                 Icon = (StreamGeometry)resource;
             }
-
-            if (!string.IsNullOrEmpty(IconColorString))
-            {
-                if (Color.TryParse(IconColorString, out var color))
-                {
-                    IconColor = new SolidColorBrush(color);
-                }
-            }
-            else
-            {
+            if (IconColor == null)
                 IconColor = new SolidColorBrush(Colors.Black);
-            }
         }
 
         [RelayCommand]

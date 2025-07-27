@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using Munyn.ViewModels.Nodes.Properties;
 
 namespace Munyn.ViewModels.Data
 {
@@ -17,10 +19,11 @@ namespace Munyn.ViewModels.Data
     public class NodePropertyDto
     {
         public string PropertyName { get; set; }
+        public List<string> PropertyColors { get; set; } = new List<string>();
         public bool IsVisableOnGraphNode { get; set; }
         public bool IsSecret { get; set; }
         public bool IsDeletable { get; set; }
-        public int PropertyType { get; set; }
+        public string PropertyType { get; set; }
         public string Value { get; set; }
 
         // For list properties
@@ -29,21 +32,21 @@ namespace Munyn.ViewModels.Data
         // For text properties
         public string TextContent { get; set; }
 
-        // For executable properties
-        public string ExecutableCommand { get; set; }
-        public int ExecutableType { get; set; }
-
         // For command properties
         public string Command { get; set; }
         public string Description { get; set; }
-
+        public string IP { get; set; }
+        public string MAC { get; set; }
+        public ObservableCollection<NodePropertyInterface> Interfaces { get; set; }
+        public double? Score { get; set; }
+        public string Location { get; set; }
+        public string Resource { get; set; }
+        public double? CompromiseLevel { get; set; }
         // For link properties
         public string Url { get; set; }
         public string DisplayText { get; set; }
 
         // For code properties
-        public string Code { get; set; }
         public string IconName { get; set; }
-        public string IconColorString { get; set; }
     }
 }
