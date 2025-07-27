@@ -12,10 +12,7 @@
 			 
 			 
 			 Canvas.Left="{Binding X}"
-			 Canvas.Top="{Binding Y}"
-			 PointerPressed="Node_PointerPressed"
-			 PointerMoved="Node_PointerMoved"
-			 PointerReleased="Node_PointerReleased">
+			 Canvas.Top="{Binding Y}">
 
 
 		<UserControl.Styles>
@@ -66,48 +63,45 @@
 			</DataTemplate>
 		</UserControl.DataTemplates>
 			
-		<StackPanel MinWidth="200" MaxWidth="400">			
+		<StackPanel MinWidth="200" MaxWidth="400" Background="Transparent">
 				<Border BorderThickness="3" CornerRadius="5,5,0,0" BorderBrush="{Binding NodeTheme}" Background="{Binding NodeTheme}">
 					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 						<TextBox Text="{Binding NodeName}"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="24" Margin="10" Background="#00000000" BorderBrush="#00000000" BorderThickness="2"></TextBox>
 					</StackPanel>
 				</Border>
 
-			<Border BorderBrush="#f7f7f7" BorderThickness="3" CornerRadius="0,0,5,5" >
-				<Border Margin="5" BorderBrush="#c2c2c2" CornerRadius="5" BorderThickness="1" MaxHeight="700">
-					<ScrollViewer>
-						<StackPanel>
-							<TextBlock Margin="7,3,0,3" Text="Node Properties:" FontSize="16" FontWeight="Bold" Foreground="{StaticResource BodyTextColor}"></TextBlock>
-							<ItemsControl x:Name="ContextPath" ItemsSource="{Binding Properties}">
-								<ItemsControl.ItemTemplate>
+			<Border BorderBrush="#f7f7f7" Background="#f7f7f7" BorderThickness="3" CornerRadius="0,0,5,5" >
+				<ScrollViewer Margin="5" MaxHeight="700">
+					<StackPanel>
+						<TextBlock Margin="7,3,0,3" Text="Node Properties:" FontSize="16" FontWeight="Bold" Foreground="{StaticResource BodyTextColor}"></TextBlock>
+						<ItemsControl x:Name="ContextPath" ItemsSource="{Binding Properties}">
+							<ItemsControl.ItemTemplate>
 
-								</ItemsControl.ItemTemplate>
+							</ItemsControl.ItemTemplate>
 
-								<ItemsControl.ItemsPanel>
-									<ItemsPanelTemplate>
-										<StackPanel></StackPanel>
-									</ItemsPanelTemplate>
-								</ItemsControl.ItemsPanel>
-							</ItemsControl>
-							<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-								<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10" Command="{Binding OpenProperySelectionCommand}" Background="{Binding NodeTheme}">
-									<StackPanel>
-										<TextBlock Text="Add Property"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="12" Margin="5"></TextBlock>
-										<Popup IsOpen="{Binding IsPropertySelectionOpen}" Placement="Bottom"  MaxWidth="400" >
-											<panels:PropertySelectionView/>
-										</Popup>
-									</StackPanel>
-								</Button>
-	
-								<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10" Command="{Binding DeleteNodeCommand}" Background="#F25555">
-									<TextBlock Text="Delete Node"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="12" Margin="5"></TextBlock>
-								</Button>
-							</StackPanel>
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<StackPanel></StackPanel>
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+						</ItemsControl>
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+							<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10" Command="{Binding OpenProperySelectionCommand}" Background="{Binding NodeTheme}">
+								<StackPanel>
+									<TextBlock Text="Add Property"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="12" Margin="5"></TextBlock>
+									<Popup IsOpen="{Binding IsPropertySelectionOpen}" Placement="Bottom"  MaxWidth="400" >
+										<panels:PropertySelectionView/>
+									</Popup>
+								</StackPanel>
+							</Button>
+
+							<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10" Command="{Binding DeleteNodeCommand}" Background="#F25555">
+								<TextBlock Text="Delete Node"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="12" Margin="5"></TextBlock>
+							</Button>
 						</StackPanel>
-					</ScrollViewer>
-				</Border>
+					</StackPanel>
+				</ScrollViewer>
 			</Border>
-			
 		</StackPanel>
 		
 
