@@ -17,6 +17,17 @@ public partial class MainView : UserControl
     private Canvas? _NodeCanvasBase;
 
     private bool isPannable;
+    private bool isSelecting;
+    Rectangle selectionBox = new Rectangle()
+    {
+        Stroke = new SolidColorBrush(Color.Parse("#909090A0")),
+        StrokeThickness = 1.5,
+        Fill = new SolidColorBrush(Color.Parse("#90303040")),
+        ZIndex = 10
+    };
+
+
+    private Point[] selectionPoints = new Point[2];
     private Point panStart;
     private Size viewportSize;
     private StackPanel categoriesPanel;
@@ -32,6 +43,7 @@ public partial class MainView : UserControl
 
         categoriesPanel = this.GetControl<StackPanel>("NodeCategories");
         topPanel = this.GetControl<Grid>("TopBar");
+        
 
         this.Loaded += OnLoaded;
         this.PointerMoved += MainView_OnPointerMoved;
@@ -81,6 +93,7 @@ public partial class MainView : UserControl
                 translateTransform = (TranslateTransform)transformGroup.Children[1];
                 translateTransform.X = 0;
                 translateTransform.Y = 0;
+                mainVm.NodeCanvasBase.Children.Add(selectionBox);
 
                 DrawGridLines();
 
@@ -171,6 +184,27 @@ public partial class MainView : UserControl
 
                 return;
             }
+            else if (isSelecting)
+            {
+                selectionPoints[1] = e.GetPosition(this);
+                if (selectionPoints[1].X < selectionPoints[0].X)
+                    Canvas.SetLeft(selectionBox, selectionPoints[1].X / scaleTransform.ScaleX);
+                else
+                    Canvas.SetLeft(selectionBox, selectionPoints[0].X / scaleTransform.ScaleX);
+
+
+                if (selectionPoints[1].Y < selectionPoints[0].Y)
+                    Canvas.SetTop(selectionBox, selectionPoints[1].Y / scaleTransform.ScaleY);
+                else
+                    Canvas.SetTop(selectionBox, selectionPoints[0].Y / scaleTransform.ScaleY);
+
+
+                selectionBox.Width = Math.Abs((e.GetPosition(this).X - selectionPoints[0].X) / scaleTransform.ScaleX);
+                selectionBox.Height = Math.Abs((e.GetPosition(this).Y - selectionPoints[0].Y) / scaleTransform.ScaleY);
+
+            }
+
+
             mainVm.HandlePointerMoved(e);
         }
         e.Handled = true;
@@ -183,6 +217,12 @@ public partial class MainView : UserControl
             isPannable = true;
             panStart = e.GetPosition(this);
         }
+        else if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+        {
+            isSelecting = true;
+            selectionPoints[0] = e.GetPosition(this);
+        }
+
     }
 
     private void MainView_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
@@ -190,6 +230,15 @@ public partial class MainView : UserControl
         if (isPannable)
         {
             isPannable = false;
+            return;
+        }
+
+        if (isSelecting)
+        {
+            isSelecting = false;
+            selectionPoints[1] = e.GetPosition(this);
+            selectionBox.Width = 0;
+            selectionBox.Height = 0;
             return;
         }
 
