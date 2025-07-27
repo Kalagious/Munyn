@@ -178,7 +178,7 @@ namespace Munyn.ViewModels
             {
                 NodePropertyBasic newProperty = null;
 
-                 if (propertyDto.PropertyType == "NodePropertyText")
+                 if (propertyDto.PropertyType == 2)
                 {
                     newProperty = new NodePropertyText
                     {
@@ -186,7 +186,7 @@ namespace Munyn.ViewModels
                         TextContent = propertyDto.TextContent
                     };
                 }
-                else if (propertyDto.PropertyType == "NodePropertyCommand")
+                else if (propertyDto.PropertyType == 4)
                 {
                     newProperty = new NodePropertyCommand
                     {
@@ -195,7 +195,7 @@ namespace Munyn.ViewModels
                         Description = propertyDto.Description
                     };
                 }
-                else if (propertyDto.PropertyType == "NodePropertyLink")
+                else if (propertyDto.PropertyType == 5)
                 {
                     newProperty = new NodePropertyLink
                     {
@@ -216,6 +216,7 @@ namespace Munyn.ViewModels
                 if (newProperty != null)
                 {
                     newProperty.IconName = propertyDto.IconName;
+                    newProperty.IconColorString = propertyDto.IconColorString;
                     AddNodeProperty(newProperty);
                 }
             }
@@ -231,27 +232,31 @@ namespace Munyn.ViewModels
                     PropertyName = property.PropertyName,
                     IsVisableOnGraphNode = property.IsVisableOnGraphNode,
                     IconName = property.IconName,
+                    IconColorString = property.IconColorString
                 };
 
                if (property is NodePropertyText textProperty)
                 {
+                    propertyDto.PropertyType = 2;
                     propertyDto.TextContent = textProperty.TextContent;
                 }
                 else if (property is NodePropertyCommand commandProperty)
                 {
+                    propertyDto.PropertyType = 4;
                     propertyDto.Command = commandProperty.Command;
                     propertyDto.Description = commandProperty.Description;
                 }
                 else if (property is NodePropertyLink linkProperty)
                 {
+                    propertyDto.PropertyType = 5;
                     propertyDto.Url = linkProperty.Url;
                     propertyDto.DisplayText = linkProperty.DisplayText;
                 }
                 else
                 {
+                    propertyDto.PropertyType = 0;
                     propertyDto.Value = property.Value;
                 }
-                propertyDto.PropertyType = property.GetType().Name;
                 propertyDtos.Add(propertyDto);
             }
             return propertyDtos;

@@ -19,11 +19,10 @@ namespace Munyn.ViewModels.Data
     public class NodePropertyDto
     {
         public string PropertyName { get; set; }
-        public List<string> PropertyColors { get; set; } = new List<string>();
         public bool IsVisableOnGraphNode { get; set; }
         public bool IsSecret { get; set; }
         public bool IsDeletable { get; set; }
-        public string PropertyType { get; set; }
+        public int PropertyType { get; set; }
         public string Value { get; set; }
 
         // For list properties
@@ -31,6 +30,10 @@ namespace Munyn.ViewModels.Data
 
         // For text properties
         public string TextContent { get; set; }
+
+        // For executable properties
+        public string ExecutableCommand { get; set; }
+        public int ExecutableType { get; set; }
 
         // For command properties
         public string Command { get; set; }
@@ -47,6 +50,8 @@ namespace Munyn.ViewModels.Data
         public string DisplayText { get; set; }
 
         // For code properties
+        public string Code { get; set; }
         public string IconName { get; set; }
+        public string IconColorString { get; set; }
     }
 }
