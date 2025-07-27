@@ -559,13 +559,49 @@ public partial class MainViewModel : ViewModelBase
         dto.NodeType = context.GetType().Name;
         dto.X = context.X;
         dto.Y = context.Y;
-        dto.Properties = context.Properties.Select(p => new NodePropertyDto
+        dto.Properties = context.Properties.Select(p =>
         {
-            PropertyName = p.PropertyName,
-            IsVisableOnGraphNode = p.IsVisableOnGraphNode,
-            Value = p.PropertyValue,
-            IconName = p.IconName,
-            IconColorString = p.IconColorString,
+            var propDto = new NodePropertyDto
+            {
+                PropertyName = p.PropertyName,
+                IsVisableOnGraphNode = p.IsVisableOnGraphNode,
+                Value = p.PropertyValue,
+                IconName = p.IconName,
+                IconColorString = p.IconColorString,
+            };
+
+            switch (p)
+            {
+                case NodePropertyText text:
+                    propDto.TextContent = text.TextContent;
+                    break;
+                case NodePropertyCommand command:
+                    propDto.Command = command.Command;
+                    propDto.Description = command.Description;
+                    break;
+                case NodePropertyInterface intrface:
+                    propDto.IP = intrface.Ip;
+                    propDto.MAC = intrface.Mac;
+                    break;
+                case NodePropertyMultiInterface multiInterface:
+                    propDto.Interfaces = multiInterface.Interfaces;
+                    break;
+                case NodePropertyLink link:
+                    propDto.Url = link.Url;
+                    propDto.DisplayText = link.DisplayText;
+                    break;
+                case NodePropertyVulnerability vulnerability:
+                    propDto.Score = vulnerability.Score;
+                    propDto.Location = vulnerability.Location;
+                    propDto.Resource = vulnerability.Resource;
+                    propDto.Description = vulnerability.Description;
+                    break;
+                case NodePropertyCompromised compromised:
+                    propDto.CompromiseLevel = compromised.CompromiseLevel;
+                    break;
+            }
+
+            return propDto;
         }).ToList();
 
         if (context.NodeTheme is LinearGradientBrush contextBrush)
@@ -603,13 +639,49 @@ public partial class MainViewModel : ViewModelBase
                     NodeName = vm.NodeName,
                     X = vm.X,
                     Y = vm.Y,
-                    Properties = vm.Properties.Select(p => new NodePropertyDto
+                    Properties = vm.Properties.Select(p =>
                     {
-                        PropertyName = p.PropertyName,
-                        IsVisableOnGraphNode = p.IsVisableOnGraphNode,
-                        Value = p.PropertyValue,
-                        IconName = p.IconName,
-                        IconColorString = p.IconColorString
+                        var propDto = new NodePropertyDto
+                        {
+                            PropertyName = p.PropertyName,
+                            IsVisableOnGraphNode = p.IsVisableOnGraphNode,
+                            Value = p.PropertyValue,
+                            IconName = p.IconName,
+                            IconColorString = p.IconColorString,
+                        };
+
+                        switch (p)
+                        {
+                            case NodePropertyText text:
+                                propDto.TextContent = text.TextContent;
+                                break;
+                            case NodePropertyCommand command:
+                                propDto.Command = command.Command;
+                                propDto.Description = command.Description;
+                                break;
+                            case NodePropertyInterface intrface:
+                                propDto.IP = intrface.Ip;
+                                propDto.MAC = intrface.Mac;
+                                break;
+                            case NodePropertyMultiInterface multiInterface:
+                                propDto.Interfaces = multiInterface.Interfaces;
+                                break;
+                            case NodePropertyLink link:
+                                propDto.Url = link.Url;
+                                propDto.DisplayText = link.DisplayText;
+                                break;
+                            case NodePropertyVulnerability vulnerability:
+                                propDto.Score = vulnerability.Score;
+                                propDto.Location = vulnerability.Location;
+                                propDto.Resource = vulnerability.Resource;
+                                propDto.Description = vulnerability.Description;
+                                break;
+                            case NodePropertyCompromised compromised:
+                                propDto.CompromiseLevel = compromised.CompromiseLevel;
+                                break;
+                        }
+
+                        return propDto;
                     }).ToList()
                 };
 
@@ -707,26 +779,11 @@ public partial class MainViewModel : ViewModelBase
         context.Y = dto.Y;
         context._mainVM = this;
 
+        context.Properties.Clear();
         foreach (var propDto in dto.Properties)
         {
-            var existingProp = context.GetNodePropertyFromName(propDto.PropertyName);
-            if (existingProp != null)
-            {
-                existingProp.PropertyValue = propDto.Value;
-                existingProp.IconName = propDto.IconName;
-                existingProp.IconColorString = propDto.IconColorString;
-                existingProp.Refresh();
-            }
-            else
-            {
-                var newProp = new NodePropertyBasic(propDto.PropertyName, propDto.IsVisableOnGraphNode);
-                newProp.PropertyValue = propDto.Value;
-                newProp.IconName = propDto.IconName;
-                newProp.IconColorString = propDto.IconColorString;
-                newProp.Refresh();
-                context.AddNodeProperty(newProp);
-
-            }
+            NodePropertyBasic newProp = CreatePropertyFromDto(propDto);
+            context.AddNodeProperty(newProp);
         }
         context.GetGraphViewProperties();
 
@@ -787,23 +844,11 @@ public partial class MainViewModel : ViewModelBase
                 newNode.OnClickedNode = OnClickedNode;
                 newNode._mainVM = this;
 
+                newNode.Properties.Clear();
                 foreach (var propDto in nodeDto.Properties)
                 {
-                    var existingProp = newNode.GetNodePropertyFromName(propDto.PropertyName);
-                    if (existingProp != null)
-                    {
-                        existingProp.PropertyValue = propDto.Value;
-                        existingProp.IconName = propDto.IconName;
-                        existingProp.IconColorString = propDto.IconColorString;
-                    }
-                    else
-                    {
-                        var newProp = new NodePropertyBasic(propDto.PropertyName, propDto.IsVisableOnGraphNode);
-                        newProp.PropertyValue = propDto.Value;
-                        newProp.IconName = propDto.IconName;
-                        newProp.IconColorString = propDto.IconColorString;
-                        newNode.AddNodeProperty(newProp);
-                    }
+                    NodePropertyBasic newProp = CreatePropertyFromDto(propDto);
+                    newNode.AddNodeProperty(newProp);
                 }
 
                 if (!string.IsNullOrEmpty(nodeDto.ThemeColor1) && !string.IsNullOrEmpty(nodeDto.ThemeColor2))
@@ -848,5 +893,53 @@ public partial class MainViewModel : ViewModelBase
                 context.contextNodes.Add(childContext);
             }
         }
+    }
+
+    private NodePropertyBasic CreatePropertyFromDto(NodePropertyDto dto)
+    {
+        NodePropertyBasic newProp = null;
+
+        // Guess property type based on available fields in DTO
+        if (dto.Interfaces != null)
+        {
+            newProp = new NodePropertyMultiInterface { Interfaces = dto.Interfaces };
+        }
+        else if (!string.IsNullOrEmpty(dto.IP))
+        {
+            newProp = new NodePropertyInterface { Ip = dto.IP, Mac = dto.MAC };
+        }
+        else if (!string.IsNullOrEmpty(dto.Command))
+        {
+            newProp = new NodePropertyCommand { Command = dto.Command, Description = dto.Description };
+        }
+        else if (!string.IsNullOrEmpty(dto.Url))
+        {
+            newProp = new NodePropertyLink { Url = dto.Url, DisplayText = dto.DisplayText };
+        }
+        else if (dto.Score.HasValue)
+        {
+            newProp = new NodePropertyVulnerability { Score = dto.Score.Value, Location = dto.Location, Resource = dto.Resource, Description = dto.Description };
+        }
+        else if (dto.CompromiseLevel.HasValue)
+        {
+            newProp = new NodePropertyCompromised { CompromiseLevel = dto.CompromiseLevel };
+        }
+        else if (!string.IsNullOrEmpty(dto.TextContent))
+        {
+            newProp = new NodePropertyText { TextContent = dto.TextContent };
+        }
+        else
+        {
+            newProp = new NodePropertyBasic();
+        }
+
+        newProp.PropertyName = dto.PropertyName;
+        newProp.IsVisableOnGraphNode = dto.IsVisableOnGraphNode;
+        newProp.PropertyValue = dto.Value;
+        newProp.IconName = dto.IconName;
+        newProp.IconColorString = dto.IconColorString;
+        newProp.Refresh();
+
+        return newProp;
     }
 }

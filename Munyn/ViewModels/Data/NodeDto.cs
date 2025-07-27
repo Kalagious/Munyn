@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using Munyn.ViewModels.Nodes.Properties;
 
 namespace Munyn.ViewModels.Data
 {
@@ -36,7 +38,13 @@ namespace Munyn.ViewModels.Data
         // For command properties
         public string Command { get; set; }
         public string Description { get; set; }
-
+        public string IP { get; set; }
+        public string MAC { get; set; }
+        public ObservableCollection<NodePropertyInterface> Interfaces { get; set; }
+        public double? Score { get; set; }
+        public string Location { get; set; }
+        public string Resource { get; set; }
+        public double? CompromiseLevel { get; set; }
         // For link properties
         public string Url { get; set; }
         public string DisplayText { get; set; }
