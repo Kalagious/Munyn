@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Munyn.ViewModels.Nodes.Properties
 {
@@ -23,6 +24,7 @@ namespace Munyn.ViewModels.Nodes.Properties
         [ObservableProperty] private string _iconName;
         public string IconColorString;
 
+        [JsonIgnore]
         public NodeBaseViewModel ParentNode { get; set; }
 
         [ObservableProperty] private bool _isDefault;
