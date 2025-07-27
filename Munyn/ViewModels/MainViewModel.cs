@@ -911,9 +911,13 @@ public partial class MainViewModel : ViewModelBase
         {
             newProp = new NodePropertyCompromised { CompromiseLevel = dto.CompromiseLevel };
         }
-        else if (!string.IsNullOrEmpty(dto.TextContent))
+        else if (dto.PropertyName == "Text")
         {
             newProp = new NodePropertyText { TextContent = dto.TextContent };
+        }
+        else if (dto.PropertyName == "Command")
+        {
+            newProp = new NodePropertyCommand { Command = dto.Command, Description = dto.Description };
         }
         else
         {
