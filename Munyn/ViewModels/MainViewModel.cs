@@ -559,50 +559,7 @@ public partial class MainViewModel : ViewModelBase
         dto.NodeType = context.GetType().Name;
         dto.X = context.X;
         dto.Y = context.Y;
-        dto.Properties = context.Properties.Select(p =>
-        {
-            var propDto = new NodePropertyDto
-            {
-                PropertyName = p.PropertyName,
-                IsVisableOnGraphNode = p.IsVisableOnGraphNode,
-                Value = p.PropertyValue,
-                IconName = p.IconName,
-                IconColorString = p.IconColorString,
-            };
-
-            switch (p)
-            {
-                case NodePropertyText text:
-                    propDto.TextContent = text.TextContent;
-                    break;
-                case NodePropertyCommand command:
-                    propDto.Command = command.Command;
-                    propDto.Description = command.Description;
-                    break;
-                case NodePropertyInterface intrface:
-                    propDto.IP = intrface.Ip;
-                    propDto.MAC = intrface.Mac;
-                    break;
-                case NodePropertyMultiInterface multiInterface:
-                    propDto.Interfaces = multiInterface.Interfaces;
-                    break;
-                case NodePropertyLink link:
-                    propDto.Url = link.Url;
-                    propDto.DisplayText = link.DisplayText;
-                    break;
-                case NodePropertyVulnerability vulnerability:
-                    propDto.Score = vulnerability.Score;
-                    propDto.Location = vulnerability.Location;
-                    propDto.Resource = vulnerability.Resource;
-                    propDto.Description = vulnerability.Description;
-                    break;
-                case NodePropertyCompromised compromised:
-                    propDto.CompromiseLevel = compromised.CompromiseLevel;
-                    break;
-            }
-
-            return propDto;
-        }).ToList();
+        dto.Properties = context.Properties.Select(p => CreateDtoFromProperty(p)).ToList();
 
         if (context.NodeTheme is LinearGradientBrush contextBrush)
         {
@@ -639,50 +596,7 @@ public partial class MainViewModel : ViewModelBase
                     NodeName = vm.NodeName,
                     X = vm.X,
                     Y = vm.Y,
-                    Properties = vm.Properties.Select(p =>
-                    {
-                        var propDto = new NodePropertyDto
-                        {
-                            PropertyName = p.PropertyName,
-                            IsVisableOnGraphNode = p.IsVisableOnGraphNode,
-                            Value = p.PropertyValue,
-                            IconName = p.IconName,
-                            IconColorString = p.IconColorString,
-                        };
-
-                        switch (p)
-                        {
-                            case NodePropertyText text:
-                                propDto.TextContent = text.TextContent;
-                                break;
-                            case NodePropertyCommand command:
-                                propDto.Command = command.Command;
-                                propDto.Description = command.Description;
-                                break;
-                            case NodePropertyInterface intrface:
-                                propDto.IP = intrface.Ip;
-                                propDto.MAC = intrface.Mac;
-                                break;
-                            case NodePropertyMultiInterface multiInterface:
-                                propDto.Interfaces = multiInterface.Interfaces;
-                                break;
-                            case NodePropertyLink link:
-                                propDto.Url = link.Url;
-                                propDto.DisplayText = link.DisplayText;
-                                break;
-                            case NodePropertyVulnerability vulnerability:
-                                propDto.Score = vulnerability.Score;
-                                propDto.Location = vulnerability.Location;
-                                propDto.Resource = vulnerability.Resource;
-                                propDto.Description = vulnerability.Description;
-                                break;
-                            case NodePropertyCompromised compromised:
-                                propDto.CompromiseLevel = compromised.CompromiseLevel;
-                                break;
-                        }
-
-                        return propDto;
-                    }).ToList()
+                    Properties = vm.Properties.Select(p => CreateDtoFromProperty(p)).ToList()
                 };
 
                 if (vm.NodeTheme is LinearGradientBrush brush)
@@ -895,42 +809,92 @@ public partial class MainViewModel : ViewModelBase
         }
     }
 
+
+    private NodePropertyDto CreateDtoFromProperty(NodePropertyBasic property)
+    {
+        List<string> colors = new List<string>();
+        if (property.IconColor is LinearGradientBrush brush)
+        {
+            foreach (var gradient in brush.GradientStops)
+                colors.Add(gradient.Color.ToString());
+        }
+        var propDto = new NodePropertyDto
+        {
+            PropertyName = property.PropertyName,
+            PropertyColors = colors,
+            PropertyType = property.GetType().Name,
+            IsVisableOnGraphNode = property.IsVisableOnGraphNode,
+            Value = property.PropertyValue,
+            IconName = property.IconName,
+        };
+
+        switch (property)
+        {
+            case NodePropertyText text:
+                propDto.TextContent = text.TextContent;
+                break;
+            case NodePropertyCommand command:
+                propDto.Command = command.Command;
+                propDto.Description = command.Description;
+                break;
+            case NodePropertyInterface intrface:
+                propDto.IP = intrface.Ip;
+                propDto.MAC = intrface.Mac;
+                break;
+            case NodePropertyMultiInterface multiInterface:
+                propDto.Interfaces = multiInterface.Interfaces;
+                break;
+            case NodePropertyLink link:
+                propDto.Url = link.Url;
+                propDto.DisplayText = link.DisplayText;
+                break;
+            case NodePropertyVulnerability vulnerability:
+                propDto.Score = vulnerability.Score;
+                propDto.Location = vulnerability.Location;
+                propDto.Resource = vulnerability.Resource;
+                propDto.Description = vulnerability.Description;
+                break;
+            case NodePropertyCompromised compromised:
+                propDto.CompromiseLevel = compromised.CompromiseLevel;
+                break;
+        }
+
+        return propDto;
+    }
+
+
     private NodePropertyBasic CreatePropertyFromDto(NodePropertyDto dto)
     {
         NodePropertyBasic newProp = null;
 
         // Guess property type based on available fields in DTO
-        if (dto.Interfaces != null)
+        if (dto.PropertyType == "NodePropertyMultiInterface")
         {
             newProp = new NodePropertyMultiInterface { Interfaces = dto.Interfaces };
         }
-        else if (!string.IsNullOrEmpty(dto.IP))
+        else if (dto.PropertyType == "NodePropertyInterface")
         {
             newProp = new NodePropertyInterface { Ip = dto.IP, Mac = dto.MAC };
         }
-        else if (!string.IsNullOrEmpty(dto.Command))
+        else if (dto.PropertyType == "NodePropertyCommand")
         {
             newProp = new NodePropertyCommand { Command = dto.Command, Description = dto.Description };
         }
-        else if (!string.IsNullOrEmpty(dto.Url))
+        else if (dto.PropertyType == "NodePropertyLink")
         {
             newProp = new NodePropertyLink { Url = dto.Url, DisplayText = dto.DisplayText };
         }
-        else if (dto.Score.HasValue)
+        else if (dto.PropertyType == "NodePropertyVulnerability")
         {
             newProp = new NodePropertyVulnerability { Score = dto.Score.Value, Location = dto.Location, Resource = dto.Resource, Description = dto.Description };
         }
-        else if (dto.CompromiseLevel.HasValue)
+        else if (dto.PropertyType == "NodePropertyCompromised")
         {
             newProp = new NodePropertyCompromised { CompromiseLevel = dto.CompromiseLevel };
         }
-        else if (dto.PropertyName == "Text")
+        else if (dto.PropertyType == "NodePropertyText")
         {
             newProp = new NodePropertyText { TextContent = dto.TextContent };
-        }
-        else if (dto.PropertyName == "Command")
-        {
-            newProp = new NodePropertyCommand { Command = dto.Command, Description = dto.Description };
         }
         else
         {
@@ -941,8 +905,27 @@ public partial class MainViewModel : ViewModelBase
         newProp.IsVisableOnGraphNode = dto.IsVisableOnGraphNode;
         newProp.PropertyValue = dto.Value;
         newProp.IconName = dto.IconName;
-        newProp.IconColorString = dto.IconColorString;
         newProp.Refresh();
+
+        if (dto.PropertyColors.Count > 1)
+        {
+            LinearGradientBrush propertyColor = new LinearGradientBrush();
+            propertyColor.StartPoint = new RelativePoint(0, 0, RelativeUnit.Relative);
+            propertyColor.EndPoint = new RelativePoint(1, 1, RelativeUnit.Relative);
+
+            double gradientStopOffset = 0.0;
+            foreach (var color in dto.PropertyColors)
+            {
+                if (Avalonia.Media.Color.TryParse(color, out var parsedColor))
+                {
+                    propertyColor.GradientStops.Add(new GradientStop(parsedColor, gradientStopOffset));
+                    gradientStopOffset += 1.0 / ((double)dto.PropertyColors.Count-1.0);
+                }
+            }
+            newProp.IconColor = propertyColor;
+        }
+
+
 
         return newProp;
     }
