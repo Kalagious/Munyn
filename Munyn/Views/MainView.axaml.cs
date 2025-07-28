@@ -316,25 +316,43 @@ public partial class MainView : UserControl
 
     private void UpdateWisps()
     {
+        if (_NodeCanvasBase == null) return;
+
+        var transform = _NodeCanvasBase.RenderTransform;
+
         foreach (var wisp in wisps)
         {
             wisp.Position += wisp.Velocity;
-            wisp.Opacity += 0.01;
 
-            if (wisp.Position.X < 0 || wisp.Position.X > viewportSize.Width ||
-                wisp.Position.Y < 0 || wisp.Position.Y > viewportSize.Height)
+            var screenPos = wisp.Position * transform.Value;
+
+            if (screenPos.X < 0 || screenPos.X > viewportSize.Width ||
+                screenPos.Y < 0 || screenPos.Y > viewportSize.Height)
             {
-                wisp.Opacity -= 0.02;
-                if (wisp.Opacity <= 0)
+                wisp.Position = new Vector(
+                    random.NextDouble() * _NodeCanvasBase.Bounds.Width,
+                    random.NextDouble() * _NodeCanvasBase.Bounds.Height
+                );
+                wisp.Velocity = new Vector(random.NextDouble() * 2 - 1, random.NextDouble() * 2 - 1);
+            }
+
+            if (wisp.FadingIn)
+            {
+                wisp.Opacity += 0.01;
+                if (wisp.Opacity >= 1)
                 {
-                    wisp.Position = new Vector(random.NextDouble() * viewportSize.Width, random.NextDouble() * viewportSize.Height);
-                    wisp.Velocity = new Vector(random.NextDouble() * 2 - 1, random.NextDouble() * 2 - 1);
-                    wisp.Opacity = 0;
+                    wisp.Opacity = 1;
+                    wisp.FadingIn = false;
                 }
             }
-            else if (wisp.Opacity > 1)
+            else
             {
-                wisp.Opacity = 1;
+                wisp.Opacity -= 0.01;
+                if (wisp.Opacity <= 0)
+                {
+                    wisp.Opacity = 0;
+                    wisp.FadingIn = true;
+                }
             }
 
             wisp.Shape.Opacity = wisp.Opacity;
