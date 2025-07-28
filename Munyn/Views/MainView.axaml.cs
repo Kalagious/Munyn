@@ -7,7 +7,9 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Threading;
 using Munyn.ViewModels;
+using Munyn.Views.Misc;
 using System;
+using System.Collections.Generic;
 using System.Reactive.Linq;
 
 namespace Munyn.Views;
@@ -36,6 +38,10 @@ public partial class MainView : UserControl
     private TransformGroup transformGroup;
     private ScaleTransform scaleTransform;
     private TranslateTransform translateTransform;
+
+    private List<Wisp> wisps;
+    private DispatcherTimer wispTimer;
+    private Random random = new Random();
 
     public MainView()
     {
@@ -96,8 +102,8 @@ public partial class MainView : UserControl
                 mainVm.NodeCanvasBase.Children.Add(selectionBox);
 
                 DrawGridLines();
+                InitializeWisps();
 
-        
             }
             else
             {
@@ -289,6 +295,52 @@ public partial class MainView : UserControl
         translateTransform.Y = newY;
 
         e.Handled = true;
+    }
+
+    private void InitializeWisps()
+    {
+        wisps = new List<Wisp>();
+        for (int i = 0; i < 20; i++)
+        {
+            var wisp = new Wisp(
+                new Vector(random.NextDouble() * viewportSize.Width, random.NextDouble() * viewportSize.Height),
+                new Vector(random.NextDouble() * 2 - 1, random.NextDouble() * 2 - 1)
+            );
+            wisps.Add(wisp);
+            _NodeCanvasBase.Children.Add(wisp.Shape);
+        }
+
+        wispTimer = new DispatcherTimer(TimeSpan.FromMilliseconds(16), DispatcherPriority.Background, (sender, e) => UpdateWisps());
+        wispTimer.Start();
+    }
+
+    private void UpdateWisps()
+    {
+        foreach (var wisp in wisps)
+        {
+            wisp.Position += wisp.Velocity;
+            wisp.Opacity += 0.01;
+
+            if (wisp.Position.X < 0 || wisp.Position.X > viewportSize.Width ||
+                wisp.Position.Y < 0 || wisp.Position.Y > viewportSize.Height)
+            {
+                wisp.Opacity -= 0.02;
+                if (wisp.Opacity <= 0)
+                {
+                    wisp.Position = new Vector(random.NextDouble() * viewportSize.Width, random.NextDouble() * viewportSize.Height);
+                    wisp.Velocity = new Vector(random.NextDouble() * 2 - 1, random.NextDouble() * 2 - 1);
+                    wisp.Opacity = 0;
+                }
+            }
+            else if (wisp.Opacity > 1)
+            {
+                wisp.Opacity = 1;
+            }
+
+            wisp.Shape.Opacity = wisp.Opacity;
+            Canvas.SetLeft(wisp.Shape, wisp.Position.X);
+            Canvas.SetTop(wisp.Shape, wisp.Position.Y);
+        }
     }
 }
 
