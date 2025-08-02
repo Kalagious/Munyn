@@ -34,6 +34,11 @@ public partial class NodeView : UserControl
     public void Node_PointerPressed(object sender, PointerPressedEventArgs e)
     {
         // Only start dragging with the left mouse button
+        if (sender.GetType() == typeof(Munyn.Views.Nodes.NodeDetails.NodeDetailsView))
+        {
+            e.Handled = true;
+            return;
+        }
         if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
         {
             _startDragPoint = e.GetPosition(this);
@@ -67,6 +72,13 @@ public partial class NodeView : UserControl
 
     public void Node_PointerMoved(object sender, PointerEventArgs e)
     {
+
+        if (sender.GetType() == typeof(Munyn.Views.Nodes.NodeDetails.NodeDetailsView))
+        {
+            e.Handled = true;
+            return;
+        }
+
         if (DataContext is not NodeBaseViewModel viewModel) return;
 
         if (_rootDrawingCanvas == null)
@@ -142,6 +154,20 @@ public partial class NodeView : UserControl
 
     public void Node_PointerReleased(object sender, PointerReleasedEventArgs e)
     {
+        if (DataContext is NodeBaseViewModel viewModel)
+            if (viewModel.mainVM.isPannable)
+            {
+                viewModel.mainVM.isPannable = false;
+                e.Handled = true;
+                return;
+            }
+
+        if (sender.GetType() == typeof(Munyn.Views.Nodes.NodeDetails.NodeDetailsView))
+        {
+            e.Handled = true;
+            return;
+        }
+
         if (!_isDragging)
             if (DataContext is NodeBaseViewModel nodeVm) // Cast DataContext to its ViewModel
                 nodeVm.OnClickedNode?.Invoke(nodeVm, e);
@@ -149,7 +175,6 @@ public partial class NodeView : UserControl
 
         _isDragging = false;
         e.Pointer.Capture(null); // Release mouse capture
-
         e.Handled = true; // Mark as handled
     }
 }

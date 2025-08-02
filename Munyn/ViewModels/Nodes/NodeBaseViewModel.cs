@@ -49,7 +49,7 @@ namespace Munyn.ViewModels
         [RelayCommand]
         private void ToggleEditName() { EditName = !EditName; }
 
-        public MainViewModel _mainVM;
+        public MainViewModel mainVM;
         public Canvas parentCanvas;
 
         public List<PathBaseViewModel> connectedPaths = new List<PathBaseViewModel>();
@@ -84,8 +84,8 @@ namespace Munyn.ViewModels
         [RelayCommand]
         private void DeleteNode()
         {
-            if (_mainVM != null)
-            _mainVM.DeleteNode(this);
+            if (mainVM != null)
+            mainVM.DeleteNode(this);
         }
 
 

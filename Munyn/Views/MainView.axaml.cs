@@ -16,8 +16,7 @@ public partial class MainView : UserControl
 {
     private Canvas? _NodeCanvasBase;
 
-    private bool isPannable;
-    private bool isSelecting;
+
     Rectangle selectionBox = new Rectangle()
     {
         Stroke = new SolidColorBrush(Color.Parse("#909090A0")),
@@ -57,9 +56,8 @@ public partial class MainView : UserControl
     {
         viewportSize = e.NewSize;
         if (DataContext is MainViewModel mainVm)
-        {
             mainVm.ViewportSize = e.NewSize;
-        }
+        
         DrawGridLines();
     }
 
@@ -155,7 +153,7 @@ public partial class MainView : UserControl
     {
         if (DataContext is MainViewModel mainVm)
         {
-            if (isPannable)
+            if (((MainViewModel)DataContext).isPannable)
             {
                 var currentPosition = e.GetPosition(this);
                 var delta = currentPosition - panStart;
@@ -184,7 +182,7 @@ public partial class MainView : UserControl
 
                 return;
             }
-            else if (isSelecting)
+            else if (((MainViewModel)DataContext).isSelecting)
             {
                 selectionPoints[1] = e.GetPosition(this);
                 if (selectionPoints[1].X < selectionPoints[0].X)
@@ -214,28 +212,29 @@ public partial class MainView : UserControl
     {
         if (e.GetCurrentPoint(this).Properties.IsRightButtonPressed)
         {
-            isPannable = true;
+            ((MainViewModel)DataContext).isPannable = true;
             panStart = e.GetPosition(this);
+            
         }
         else if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
         {
-            isSelecting = true;
+            ((MainViewModel)DataContext).isSelecting = true;
             selectionPoints[0] = e.GetPosition(this);
         }
-
+        e.Handled = true;
     }
 
     private void MainView_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
-        if (isPannable)
+        if (((MainViewModel)DataContext).isPannable)
         {
-            isPannable = false;
+            ((MainViewModel)DataContext).isPannable = false;
             return;
         }
 
-        if (isSelecting)
+        if (((MainViewModel)DataContext).isSelecting)
         {
-            isSelecting = false;
+            ((MainViewModel)DataContext).isSelecting = false;
             selectionPoints[1] = e.GetPosition(this);
             selectionBox.Width = 0;
             selectionBox.Height = 0;

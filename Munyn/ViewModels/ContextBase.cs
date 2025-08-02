@@ -26,7 +26,7 @@ namespace Munyn.ViewModels
         private void EnterContextButton()
         {
             contextName = NodeName;
-            _mainVM.EnterContext(this);
+            mainVM.EnterContext(this);
         }
 
 

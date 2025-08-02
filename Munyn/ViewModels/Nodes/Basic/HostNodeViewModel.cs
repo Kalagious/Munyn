@@ -76,7 +76,7 @@ namespace Munyn.ViewModels
 
 
 
-            _mainVM = mainVM;
+            base.mainVM = mainVM;
             parentContext = parent;
         }
 

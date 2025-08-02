@@ -23,7 +23,7 @@ namespace Munyn.ViewModels
         [RelayCommand]
         private void EnterLinkedContextButton()
         {
-            _mainVM.EnterContext(targetContext);
+            mainVM.EnterContext(targetContext);
         }
 
         public LinkNodeViewModel(string name, float x, float y, ContextBase parent, ContextBase targetContextTmp, Canvas tmpParentCanvas, MainViewModel mainVM)
@@ -33,7 +33,7 @@ namespace Munyn.ViewModels
             Y = y;
             parentCanvas = tmpParentCanvas;
             targetContext = targetContextTmp;
-            _mainVM = mainVM;
+            base.mainVM = mainVM;
         }
     }
 }

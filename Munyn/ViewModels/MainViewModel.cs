@@ -23,6 +23,9 @@ namespace Munyn.ViewModels;
 public partial class MainViewModel : ViewModelBase
 {
 
+    public bool isPannable;
+    public bool isSelecting;
+
     public ContextBase? rootContext;
     public ContextBase? currentContext;
 
@@ -192,7 +195,7 @@ public partial class MainViewModel : ViewModelBase
             NodeBaseViewModel newNode = new UserNodeViewModel("Jeff",  (float)center.X, (float)center.Y, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
-            newNode._mainVM = this;
+            newNode.mainVM = this;
 
             currentContext.contextNodes.Add(newNode);
             RefreshContext();
@@ -208,7 +211,7 @@ public partial class MainViewModel : ViewModelBase
             NodeBaseViewModel newNode = new ServiceNodeViewModel("Apache Tomcat", (float)center.X, (float)center.Y, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
-            newNode._mainVM = this;
+            newNode.mainVM = this;
 
 
             currentContext.contextNodes.Add(newNode);
@@ -226,7 +229,7 @@ public partial class MainViewModel : ViewModelBase
             NodeBaseViewModel newNode = new AssetNodeViewModel("id_rsa", (float)center.X, (float)center.Y, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
-            newNode._mainVM = this;
+            newNode.mainVM = this;
 
             currentContext.contextNodes.Add(newNode);
             RefreshContext();
@@ -243,7 +246,7 @@ public partial class MainViewModel : ViewModelBase
             NodeBaseViewModel newNode = new ReconNodeViewModel("Nmap", (float)center.X, (float)center.Y, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
-            newNode._mainVM = this;
+            newNode.mainVM = this;
 
             currentContext.contextNodes.Add(newNode);
             RefreshContext();
@@ -260,7 +263,7 @@ public partial class MainViewModel : ViewModelBase
             NodeBaseViewModel newNode = new AttackNodeViewModel("PHP File Include", (float)center.X, (float)center.Y, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
-            newNode._mainVM = this;
+            newNode.mainVM = this;
 
             currentContext.contextNodes.Add(newNode);
             RefreshContext();
@@ -277,7 +280,7 @@ public partial class MainViewModel : ViewModelBase
             NodeBaseViewModel newNode = new CheckpointNodeViewModel("Jeff SSH", (float)center.X, (float)center.Y, NodeCanvasBase);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
-            newNode._mainVM = this;
+            newNode.mainVM = this;
 
             currentContext.contextNodes.Add(newNode);
             RefreshContext();
@@ -691,7 +694,7 @@ public partial class MainViewModel : ViewModelBase
         context.NodeName = dto.NodeName;
         context.X = dto.X;
         context.Y = dto.Y;
-        context._mainVM = this;
+        context.mainVM = this;
 
         context.Properties.Clear();
         foreach (var propDto in dto.Properties)
@@ -723,7 +726,7 @@ public partial class MainViewModel : ViewModelBase
                         parentCanvas = NodeCanvasBase,
                         contextNodes = new ObservableCollection<ViewModelBase>(),
                         parentContext = context,
-                        _mainVM = this
+                        mainVM = this
                     };
                     hostNode.InitializeProperties();
                     newNode = hostNode;
@@ -756,7 +759,7 @@ public partial class MainViewModel : ViewModelBase
                 newNode.Id = Guid.Parse(nodeDto.Id);
                 newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
                 newNode.OnClickedNode = OnClickedNode;
-                newNode._mainVM = this;
+                newNode.mainVM = this;
 
                 newNode.Properties.Clear();
                 foreach (var propDto in nodeDto.Properties)
@@ -792,7 +795,7 @@ public partial class MainViewModel : ViewModelBase
                     parentCanvas = NodeCanvasBase,
                     contextNodes = new ObservableCollection<ViewModelBase>(),
                     parentContext = context,
-                    _mainVM = this,
+                    mainVM = this,
                     OnClickedNode = OnClickedNode,
                     OnStartConnectionDragNode = OnStartConnectionDragFromNode
                 };

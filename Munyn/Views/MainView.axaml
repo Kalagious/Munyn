@@ -34,7 +34,7 @@
 	<Grid Background="White" ColumnDefinitions="Auto,*">
 
 		<!--Leftside Panel-->
-		<StackPanel x:Name="NodeCategories" Grid.Column="0" >
+		<StackPanel x:Name="NodeCategories" Grid.Column="0">
 			<StackPanel.Background>
 				<LinearGradientBrush StartPoint="10%,0%" EndPoint="0%,100%">
 					<GradientStop Color="#FC466B" Offset="0.0"/>
@@ -173,7 +173,7 @@
 								
 								<ItemsControl.ItemsPanel>
 									<ItemsPanelTemplate>
-										<Canvas Name="NodeCanvas" Background="#232339" Width="15000" Height="15000">
+										<Canvas Name="NodeCanvas" Background="#232339" Width="15000" Height="15000" Focusable="True">
 											<Canvas.RenderTransform>
 												<TransformGroup>
 													<ScaleTransform ScaleX="1.0" ScaleY="1.0" />

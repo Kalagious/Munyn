@@ -19,5 +19,20 @@ public partial class NodeDetailsView : NodeView
 
     }
 
+
+    public void Details_PointerPressed(object sender, PointerPressedEventArgs e)
+    {
+        return;
+    }
     
+    public void Details_PointerMoved(object sender, PointerEventArgs e)
+    {
+        return;
+    }
+
+    public void Details_PointerReleased(object sender, PointerReleasedEventArgs e)
+    {
+        return;
+    }
+
 } 

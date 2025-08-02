@@ -30,7 +30,7 @@ namespace Munyn.ViewModels
             parentCanvas = tmpParentCanvas;
             contextNodes = new ObservableCollection<ViewModelBase>();
 
-            _mainVM = mainVM;
+            base.mainVM = mainVM;
             parentContext = parent;
         }
 
