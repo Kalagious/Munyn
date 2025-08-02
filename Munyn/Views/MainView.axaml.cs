@@ -50,6 +50,7 @@ public partial class MainView : UserControl
         this.PointerPressed += OnPointerPressed;
         this.SizeChanged += OnSizeChanged;
         this.PointerWheelChanged += MainView_PointerWheelChanged;
+        this.KeyDown += MainView_OnKeyDown;
     }
 
     private void OnSizeChanged(object? sender, SizeChangedEventArgs e)
@@ -288,6 +289,29 @@ public partial class MainView : UserControl
         translateTransform.Y = newY;
 
         e.Handled = true;
+    }
+
+    private void MainView_OnKeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Back)
+        {
+            if (DataContext is MainViewModel mainVm)
+            {
+                mainVm.DeleteSelectedPathCommand.Execute(null);
+                mainVm.DeleteSelectedNodeCommand.Execute(null);
+            }
+        }
+    }
+
+    private void Path_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (sender is Path path && path.DataContext is PathBaseViewModel pathVm)
+        {
+            if (DataContext is MainViewModel mainVm)
+            {
+                mainVm.OnClickedPath(pathVm, e);
+            }
+        }
     }
 }
 

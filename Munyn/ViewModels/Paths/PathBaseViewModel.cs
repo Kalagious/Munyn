@@ -2,6 +2,8 @@
 using Avalonia; // For Point, Rect
 using System;
 using System.Globalization; // For InvariantCulture
+using Avalonia.Input;
+using Avalonia.Media;
 
 namespace Munyn.ViewModels
 {
@@ -16,6 +18,23 @@ namespace Munyn.ViewModels
         [ObservableProperty]
         private string _pathData = "M 0,0 C 0,0 0,0 0,0"; // Default empty path
 
+        [ObservableProperty]
+        private bool _isSelected = false;
+
+        [ObservableProperty]
+        private IBrush _selectedStrokeBrush;
+
+        public Action<PathBaseViewModel, PointerPressedEventArgs> OnClickedPath { get; internal set; }
+
+
+        public void SetSelected(bool selected)
+        {
+            IsSelected = selected;
+            if (IsSelected)
+                SelectedStrokeBrush = new SolidColorBrush(Color.Parse("#A0A0FF"));
+            else
+                SelectedStrokeBrush = new SolidColorBrush(Color.Parse("#f2f2f2"));
+        }
         // Properties for XAML binding to draw the line (now primarily for calculating PathData)
 
 
@@ -31,7 +50,7 @@ namespace Munyn.ViewModels
             StartNode = startNode;
             StartPoint = new Point(StartNode.X, StartNode.Y);
             EndPoint = endPoint;
-
+            SetSelected(false);
 
 
             RecalculatePathData(); // Initial calculation
