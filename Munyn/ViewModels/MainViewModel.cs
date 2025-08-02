@@ -64,6 +64,9 @@ public partial class MainViewModel : ViewModelBase
     [ObservableProperty]
     private bool _isNodeSelected = false;
 
+    [ObservableProperty]
+    private PathBaseViewModel _selectedPath;
+
     enum TrayStates
     {
         Closed,
@@ -379,6 +382,7 @@ public partial class MainViewModel : ViewModelBase
                 e.Pointer.Capture(NodeCanvasBase);
 
             _currentPath = new PathBaseViewModel(sourceNode, CurrentConnectionEndPoint, this);
+            _currentPath.OnClickedPath = OnClickedPath;
             sourceNode.connectedPaths.Add(_currentPath);
             currentContext.contextNodes.Add(_currentPath);
         }
@@ -399,6 +403,12 @@ public partial class MainViewModel : ViewModelBase
 
     public void OnClickedNode(NodeBaseViewModel node, PointerReleasedEventArgs e)
     {
+        if (SelectedPath != null)
+        {
+            SelectedPath.SetSelected(false);
+            SelectedPath = null;
+        }
+
         if (SelectedNode != null && SelectedNode == node)
         {
             node.SetSelected(false);
@@ -416,12 +426,49 @@ public partial class MainViewModel : ViewModelBase
         IsNodeSelected = true;
     }
 
+    public void OnClickedPath(PathBaseViewModel path, PointerPressedEventArgs e)
+    {
+        if (SelectedNode != null)
+        {
+            SelectedNode.SetSelected(false);
+            SelectedNode = null;
+            IsNodeSelected = false;
+        }
+
+        if (SelectedPath != null && SelectedPath == path)
+        {
+            path.SetSelected(false);
+            SelectedPath = null;
+            return;
+        }
+        path.SetSelected(true);
+
+        if (SelectedPath != null)
+            SelectedPath.SetSelected(false);
+
+        SelectedPath = path;
+
+    }
+
     [RelayCommand]
     public void DeleteSelectedNode()
     {
         if (SelectedNode != null)
         {
             DeleteNode(SelectedNode);
+        }
+    }
+
+    [RelayCommand]
+    public void DeleteSelectedPath()
+    {
+        if (SelectedPath != null)
+        {
+            currentContext.contextNodes.Remove(SelectedPath);
+            SelectedPath.StartNode.connectedPaths.Remove(SelectedPath);
+            if (SelectedPath.EndNode != null)
+                SelectedPath.EndNode.connectedPaths.Remove(SelectedPath);
+            SelectedPath = null;
         }
     }
 
@@ -652,6 +699,7 @@ public partial class MainViewModel : ViewModelBase
                         {
                             EndNode = endNode
                         };
+                        path.OnClickedPath = OnClickedPath;
                         path._mainVm = this;
                         startNode.connectedPaths.Add(path);
                         endNode.connectedPaths.Add(path);
