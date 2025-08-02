@@ -211,6 +211,15 @@ public partial class MainView : UserControl
 
     private void OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
+        if (DataContext is MainViewModel mainView)
+        {
+            if (mainView.SelectedPath != null)
+            {
+                mainView.SelectedPath.SetSelected(false);
+                mainView.SelectedPath = null;
+            }
+        }
+
         if (e.GetCurrentPoint(this).Properties.IsRightButtonPressed)
         {
             ((MainViewModel)DataContext).isPannable = true;

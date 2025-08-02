@@ -67,6 +67,8 @@ public partial class MainViewModel : ViewModelBase
     [ObservableProperty]
     private PathBaseViewModel _selectedPath;
 
+
+    
     enum TrayStates
     {
         Closed,
@@ -117,6 +119,7 @@ public partial class MainViewModel : ViewModelBase
     [RelayCommand]
     private void BackContext()
     {
+
         if (currentContext != null && currentContext.parentContext != null)
         {
             currentContext = currentContext.parentContext;
@@ -447,6 +450,7 @@ public partial class MainViewModel : ViewModelBase
             SelectedPath.SetSelected(false);
 
         SelectedPath = path;
+        e.Handled = true;
 
     }
 
