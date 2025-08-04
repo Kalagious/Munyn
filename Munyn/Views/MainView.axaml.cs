@@ -263,7 +263,7 @@ public partial class MainView : UserControl
 
 
 
-        double zoomFactor = 1.02;
+        double zoomFactor = 1.08;
         double zoom = e.Delta.Y > 0 ? zoomFactor : 1 / zoomFactor;
 
         var newScale = scaleTransform.ScaleX * zoom;
