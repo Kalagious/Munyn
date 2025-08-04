@@ -45,6 +45,10 @@ namespace Munyn.ViewModels.Nodes.Properties
         }
 
 
+        public NodePropertyBasic() : this("New Property")
+        {
+        }
+
         public NodePropertyBasic(string propertyName = "New Property", bool isDefault = false, bool isVisiableOnGraphNode = false, bool isEditable = true)
         {
             PropertyName = propertyName;
