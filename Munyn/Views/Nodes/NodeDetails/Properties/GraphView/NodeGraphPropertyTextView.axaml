@@ -4,22 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Munyn.Views.Nodes.NodeDetails.Properties.GraphView.NodeGraphPropertyTextView"
-             PointerPressed="Property_PointerPressed"
              Background="Transparent">
 
 
-	<StackPanel Margin="10,5,10,0">
-		<Border BorderThickness="3" CornerRadius="5,5,0,0" BorderBrush="{Binding IconColor}" Background="{Binding IconColor}">
-			<StackPanel Orientation="Horizontal" Grid.Column="0">
-				<PathIcon HorizontalAlignment="Center" Margin="10,2,0,2" Data="{Binding Icon}" Foreground="#f2f2f2"/>
-				<TextBlock Margin="5,5,0,5" IsVisible="" Text="{Binding PropertyName}" Foreground="#f2f2f2" VerticalAlignment="Center"></TextBlock>
-			</StackPanel>
-		</Border>
-		<Border BorderBrush="#e5e5e5" Background="#e5e5e5" BorderThickness="3" CornerRadius="0,0,5,5" MaxHeight="100" >
-			<ScrollViewer>
-				<TextBlock Margin="0,0,0,0" Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" TextWrapping="Wrap"/>
-			</ScrollViewer>
-		</Border>
-	</StackPanel>
+	<Button Click="Property_Click" Background="Transparent" BorderThickness="0" Padding="0" Margin="0">
+		<StackPanel Margin="10,5,10,0">
+			<Border BorderThickness="3" CornerRadius="5,5,0,0" BorderBrush="{Binding IconColor}" Background="{Binding IconColor}">
+				<StackPanel Orientation="Horizontal" Grid.Column="0">
+					<PathIcon HorizontalAlignment="Center" Margin="10,2,0,2" Data="{Binding Icon}" Foreground="#f2f2f2"/>
+					<TextBlock Margin="5,5,0,5" IsVisible="" Text="{Binding PropertyName}" Foreground="#f2f2f2" VerticalAlignment="Center"></TextBlock>
+				</StackPanel>
+			</Border>
+			<Border BorderBrush="#e5e5e5" Background="#e5e5e5" BorderThickness="3" CornerRadius="0,0,5,5" MaxHeight="100" >
+				<ScrollViewer>
+					<TextBlock Margin="0,0,0,0" Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" TextWrapping="Wrap"/>
+				</ScrollViewer>
+			</Border>
+		</StackPanel>
+	</Button>
 
 </UserControl>
