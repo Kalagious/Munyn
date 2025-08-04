@@ -8,7 +8,7 @@
 			 xmlns:views="clr-namespace:Munyn.Views;assembly=Munyn"
 			 xmlns:misc="clr-namespace:Munyn.Views.Misc;assembly=Munyn"
 			 xmlns:converters="clr-namespace:Munyn.Converters;assembly=Munyn"
-			 xmlns:panels="clr-namespace:Munyn.Views.Panels;assembly=Munyn"
+			 xmlns:panels="clr-namespace:Munyn.Panels;assembly=Munyn"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Munyn.Views.MainView"
              x:DataType="vm:MainViewModel"
