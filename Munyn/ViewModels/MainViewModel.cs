@@ -67,8 +67,28 @@ public partial class MainViewModel : ViewModelBase
     [ObservableProperty]
     private PathBaseViewModel _selectedPath;
 
+    [ObservableProperty]
+    private string _notificationText;
 
-    
+    [ObservableProperty]
+    private bool _isNotificationVisible;
+
+    [ObservableProperty]
+    private double _notificationX;
+
+    [ObservableProperty]
+    private double _notificationY;
+
+    public async void ShowNotification(string text, double x, double y)
+    {
+        NotificationText = text;
+        NotificationX = x;
+        NotificationY = y;
+        IsNotificationVisible = true;
+        await Task.Delay(2000);
+        IsNotificationVisible = false;
+    }
+
     enum TrayStates
     {
         Closed,
@@ -598,6 +618,7 @@ public partial class MainViewModel : ViewModelBase
             await using var stream = await _lastSavedFile.OpenWriteAsync();
             await using var writer = new StreamWriter(stream);
             await writer.WriteAsync(json);
+            ShowNotification("Saved!", _viewportSize.Width - 100, 20);
         }
         else
         {
@@ -641,6 +662,7 @@ public partial class MainViewModel : ViewModelBase
             await using var stream = await file.OpenWriteAsync();
             await using var writer = new StreamWriter(stream);
             await writer.WriteAsync(json);
+            ShowNotification("Saved!", _viewportSize.Width - 100, 20);
         }
     }
 
