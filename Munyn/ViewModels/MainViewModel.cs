@@ -820,7 +820,7 @@ public partial class MainViewModel : ViewModelBase
                     newNode = new AttackNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase, context);
                     break;
                 case nameof(CheckpointNodeViewModel):
-                    newNode = new CheckpointNodeViewModel(nodeDto.NodeName, (float)nodeDto.x, (float)nodeDto.Y, NodeCanvasBase, context);
+                    newNode = new CheckpointNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase, context);
                     break;
             }
 
