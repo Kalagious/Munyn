@@ -12,22 +12,13 @@ namespace Munyn.Views.Nodes.NodeDetails.Properties.GraphView
             InitializeComponent();
         }
 
-        private async void Property_PointerPressed(object? sender, PointerPressedEventArgs e)
+        private async void Property_Tapped(object? sender, Avalonia.Input.TappedEventArgs e)
         {
-            if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+            var property = (NodePropertyCompromised)this.DataContext;
+            if (property != null && property.CompromiseLevel.HasValue)
             {
-                var property = (NodePropertyCompromised)this.DataContext;
-                if (property != null && property.CompromiseLevel.HasValue)
-                {
-                    await TopLevel.GetTopLevel(this).Clipboard.SetTextAsync(property.CompromiseLevel.Value.ToString());
-                    var mainViewModel = (this.VisualRoot as TopLevel)?.DataContext as Munyn.ViewModels.MainViewModel;
-                    if (mainViewModel != null)
-                    {
-                        var position = e.GetPosition(this.VisualRoot as Visual);
-                        mainViewModel.ShowNotification("Copied!", position.X, position.Y);
-                    }
-                    e.Handled = true;
-                }
+                await TopLevel.GetTopLevel(this).Clipboard.SetTextAsync(property.CompromiseLevel.Value.ToString());
+                e.Handled = true;
             }
         }
     }

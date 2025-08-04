@@ -67,27 +67,7 @@ public partial class MainViewModel : ViewModelBase
     [ObservableProperty]
     private PathBaseViewModel _selectedPath;
 
-    [ObservableProperty]
-    private string _notificationText;
 
-    [ObservableProperty]
-    private bool _isNotificationVisible;
-
-    [ObservableProperty]
-    private double _notificationX;
-
-    [ObservableProperty]
-    private double _notificationY;
-
-    public async void ShowNotification(string text, double x, double y)
-    {
-        NotificationText = text;
-        NotificationX = x;
-        NotificationY = y;
-        IsNotificationVisible = true;
-        await Task.Delay(2000);
-        IsNotificationVisible = false;
-    }
 
     enum TrayStates
     {

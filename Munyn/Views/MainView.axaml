@@ -200,11 +200,7 @@
 			</Grid>
 		</Grid>
 
-		<Canvas>
-			<misc:NotificationPopup Canvas.Left="{Binding NotificationX}"
-									Canvas.Top="{Binding NotificationY}"
-									IsVisible="{Binding IsNotificationVisible}"/>
-		</Canvas>
+
 	</Grid>
  
 </UserControl>
