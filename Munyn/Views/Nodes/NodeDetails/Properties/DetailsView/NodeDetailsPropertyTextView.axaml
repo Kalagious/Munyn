@@ -40,7 +40,7 @@
 
 				</Grid>
 			</Border>
-			<Border BorderBrush="#e5e5e5" Background="#e5e5e5" BorderThickness="3" CornerRadius="0,0,5,5" >
+			<Border BorderBrush="#e5e5e5" Background="#e5e5e5" BorderThickness="3" CornerRadius="0,0,5,5" PointerPressed="Property_PointerPressed">
 				<TextBox Margin="0,0,0,0" Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" AcceptsReturn="True" TextWrapping="Wrap"/>
 			</Border>
 		</StackPanel>

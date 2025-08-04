@@ -14,6 +14,9 @@
              x:DataType="vm:MainViewModel"
 			 Focusable="True">
 
+	<UserControl.KeyBindings>
+		<KeyBinding Gesture="Ctrl+S" Command="{Binding SaveToLastFileCommand}" />
+	</UserControl.KeyBindings>
 
 	<UserControl.Resources>
 		<converters:IntEqualityConverter x:Key="intEqualityConverter" />
@@ -132,7 +135,10 @@
 				<StackPanel Grid.Column="1" Orientation="Horizontal" Background="Transparent">
 
 
-					<Button Command="{Binding SaveCommand}">
+					<Button Command="{Binding SaveToLastFileCommand}">
+						<PathIcon Data="{StaticResource save-icon}" Width="20" Foreground="#f2f2f2"/>
+					</Button>
+					<Button Command="{Binding SaveAsCommand}">
 						<PathIcon Data="{StaticResource save-arrow}" Width="20" Foreground="#f2f2f2"/>
 					</Button>
 					<Button Command="{Binding LoadCommand}">

@@ -1,12 +1,26 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+using Avalonia.Input;
+using Munyn.ViewModels.Nodes.Properties;
 
-namespace Munyn.Views.Nodes.NodeDetails;
-public partial class NodeDetailsPropertyTextView : UserControl
+namespace Munyn.Views.Nodes.NodeDetails
 {
-    public NodeDetailsPropertyTextView()
+    public partial class NodeDetailsPropertyTextView : UserControl
     {
-        InitializeComponent();
+        public NodeDetailsPropertyTextView()
+        {
+            InitializeComponent();
+        }
+
+        private async void Property_PointerPressed(object? sender, PointerPressedEventArgs e)
+        {
+            if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+            {
+                var property = (NodePropertyText)this.DataContext;
+                if (property != null && !string.IsNullOrEmpty(property.PropertyValue))
+                {
+                    await TopLevel.GetTopLevel(this).Clipboard.SetTextAsync(property.PropertyValue);
+                }
+            }
+        }
     }
 }

@@ -38,7 +38,7 @@
 					</StackPanel>
 				</Grid>
 			</Border>
-			<Border BorderBrush="#e5e5e5" Background="#e5e5e5" BorderThickness="3" CornerRadius="0,0,5,5" >
+			<Border BorderBrush="#e5e5e5" Background="#e5e5e5" BorderThickness="3" CornerRadius="0,0,5,5" PointerPressed="Property_PointerPressed">
 				<Border.Styles>
 					<Style Selector="TextBox:focus-within /template/ Border">
 						<Setter Property="BorderBrush" Value="#858595" />
