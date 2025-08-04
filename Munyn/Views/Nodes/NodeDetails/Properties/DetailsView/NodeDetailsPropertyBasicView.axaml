@@ -11,7 +11,7 @@
 		<StackPanel>
 			<Border Height="1" Background="LightGray" Margin="15,5,15,5"/>
 			<Grid ColumnDefinitions="*,Auto">
-				<StackPanel Orientation="Horizontal" Grid.Column="0" PointerPressed="Property_PointerPressed">
+				<StackPanel Orientation="Horizontal" Grid.Column="0" PointerPressed="Property_PointerPressed" Background="Transparent">
             <ToggleButton IsChecked="{Binding IsIconSelectionOpen}" Background="Transparent" BorderThickness="0" Margin="15,0,0,0">
                 <PathIcon HorizontalAlignment="Center" Margin="0,2,0,2" Data="{Binding Icon}" Foreground="{Binding IconColor}"/>
             </ToggleButton>

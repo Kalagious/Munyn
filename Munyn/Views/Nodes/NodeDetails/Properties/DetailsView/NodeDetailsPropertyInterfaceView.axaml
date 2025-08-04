@@ -55,7 +55,7 @@
 			
 			<Border BorderBrush="#e5e5e5" Background="#e5e5e5" BorderThickness="3" CornerRadius="0,0,5,5" >
 				<StackPanel>
-					<StackPanel Orientation="Horizontal" PointerPressed="Ip_PointerPressed">
+					<StackPanel Orientation="Horizontal" PointerPressed="Ip_PointerPressed" Background="Transparent">
 						<TextBlock Margin="20,0,0,0" Text="Ip" Foreground="Black" VerticalAlignment="Center"></TextBlock>
 						<TextBlock Text=":" Foreground="Black" VerticalAlignment="Center"></TextBlock>
 
