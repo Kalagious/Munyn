@@ -30,9 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaXaml Update="Views\Nodes\NodeDetails\Properties\DetailsView\NodeDetailsPropertyCompromisedView.axaml">
-      <SubType>Designer</SubType>
-    </AvaloniaXaml>
   </ItemGroup>
 
   <ItemGroup>
@@ -61,9 +58,6 @@
     <Compile Update="Views\Nodes\NodeDetails\Properties\DetailsView\NodeDetailsPropertyBasicView.axaml.cs">
       <DependentUpon>NodeDetailsPropertyBasicView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Nodes\NodeDetails\Properties\GraphView\NodeGraphPropertyCompromisedView .axaml.cs">
-      <DependentUpon>NodeGraphPropertyCompromisedView .axaml</DependentUpon>
-    </Compile>
     <Compile Update="Views\Nodes\NodeDetails\Properties\GraphView\NodeGraphPropertyCommandView.axaml.cs">
       <DependentUpon>NodeGraphPropertyCommandView.axaml</DependentUpon>
     </Compile>
@@ -75,6 +69,9 @@
     </Compile>
     <Compile Update="Views\Nodes\NodeDetails\Properties\GraphView\NodeGraphPropertyBasicView.axaml.cs">
       <DependentUpon>NodeGraphPropertyBasicView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Nodes\NodeDetails\Properties\GraphView\NodeGraphPropertyCompromisedView.axaml.cs">
+      <DependentUpon>NodeGraphPropertyCompromisedView.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Panels\AttackTray.axaml.cs">
       <DependentUpon>AttackTray.axaml</DependentUpon>

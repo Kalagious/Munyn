@@ -598,7 +598,6 @@ public partial class MainViewModel : ViewModelBase
             await using var stream = await _lastSavedFile.OpenWriteAsync();
             await using var writer = new StreamWriter(stream);
             await writer.WriteAsync(json);
-            ShowNotification("Saved!", _viewportSize.Width - 100, 20);
         }
         else
         {
@@ -642,7 +641,6 @@ public partial class MainViewModel : ViewModelBase
             await using var stream = await file.OpenWriteAsync();
             await using var writer = new StreamWriter(stream);
             await writer.WriteAsync(json);
-            ShowNotification("Saved!", _viewportSize.Width - 100, 20);
         }
     }
 
