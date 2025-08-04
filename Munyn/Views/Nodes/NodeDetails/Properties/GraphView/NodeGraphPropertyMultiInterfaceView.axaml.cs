@@ -23,7 +23,7 @@ namespace Munyn.Views.Nodes.NodeDetails.Properties.GraphView
                         var mainViewModel = (this.VisualRoot as TopLevel)?.DataContext as Munyn.ViewModels.MainViewModel;
                         if (mainViewModel != null)
                         {
-                            var position = e.GetPosition(this.VisualRoot);
+                            var position = e.GetPosition(this.VisualRoot as Visual);
                             mainViewModel.ShowNotification("Copied!", position.X, position.Y);
                         }
                         e.Handled = true;
