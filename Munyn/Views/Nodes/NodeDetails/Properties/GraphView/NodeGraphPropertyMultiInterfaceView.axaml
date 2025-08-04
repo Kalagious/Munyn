@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Munyn.Views.Nodes.NodeDetails.Properties.GraphView.NodeGraphPropertyMultiInterfaceView"
-             Tapped="Interface_Tapped"
              Background="Transparent">
 
 
@@ -31,10 +30,10 @@
 		</Border>
 		<Border BorderBrush="#e5e5e5" Background="#e5e5e5" BorderThickness="3" CornerRadius="0,0,5,5" MaxHeight="75" >
 			<ScrollViewer>
-				<ItemsControl x:Name="InterfacesItemsControl" ItemsSource="{Binding Interfaces}">
+				<ItemsControl ItemsSource="{Binding Interfaces}">
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<Button PointerPressed="Interface_PointerPressed" Background="Transparent" BorderThickness="0">
+							<Button Tapped="Interface_Tapped" Background="Transparent" BorderThickness="0">
 								<Grid ColumnDefinitions="auto,auto,*">
 									<TextBlock Grid.Column="0" Foreground="Black" VerticalAlignment="Center" Text="{Binding PropertyName}"></TextBlock>
 									<TextBlock Grid.Column="1" Foreground="Black" VerticalAlignment="Center" Text=":"></TextBlock>
