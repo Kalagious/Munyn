@@ -33,6 +33,10 @@ public partial class NodeView : UserControl
     }
     public void Node_PointerPressed(object sender, PointerPressedEventArgs e)
     {
+        if (e.Source is Control sourceControl && sourceControl.DataContext is ViewModels.Nodes.Properties.NodePropertyBasic)
+        {
+            return;
+        }
         // Only start dragging with the left mouse button
         if (sender.GetType() == typeof(Munyn.Views.Nodes.NodeDetails.NodeDetailsView))
         {
