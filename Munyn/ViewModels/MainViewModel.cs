@@ -198,7 +198,7 @@ public partial class MainViewModel : ViewModelBase
         if (NodeCanvasBase != null)
         {
             var center = GetCenterOfViewport();
-            NodeBaseViewModel newNode = new UserNodeViewModel("Jeff",  (float)center.X, (float)center.Y, NodeCanvasBase);
+            NodeBaseViewModel newNode = new UserNodeViewModel("Jeff",  (float)center.X, (float)center.Y, NodeCanvasBase, currentContext);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
             newNode.mainVM = this;
@@ -214,7 +214,7 @@ public partial class MainViewModel : ViewModelBase
         if (NodeCanvasBase != null)
         {
             var center = GetCenterOfViewport();
-            NodeBaseViewModel newNode = new ServiceNodeViewModel("Apache Tomcat", (float)center.X, (float)center.Y, NodeCanvasBase);
+            NodeBaseViewModel newNode = new ServiceNodeViewModel("Apache Tomcat", (float)center.X, (float)center.Y, NodeCanvasBase, currentContext);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
             newNode.mainVM = this;
@@ -232,7 +232,7 @@ public partial class MainViewModel : ViewModelBase
         if (NodeCanvasBase != null)
         {
             var center = GetCenterOfViewport();
-            NodeBaseViewModel newNode = new AssetNodeViewModel("id_rsa", (float)center.X, (float)center.Y, NodeCanvasBase);
+            NodeBaseViewModel newNode = new AssetNodeViewModel("id_rsa", (float)center.X, (float)center.Y, NodeCanvasBase, currentContext);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
             newNode.mainVM = this;
@@ -249,7 +249,7 @@ public partial class MainViewModel : ViewModelBase
         if (NodeCanvasBase != null)
         {
             var center = GetCenterOfViewport();
-            NodeBaseViewModel newNode = new ReconNodeViewModel("Nmap", (float)center.X, (float)center.Y, NodeCanvasBase);
+            NodeBaseViewModel newNode = new ReconNodeViewModel("Nmap", (float)center.X, (float)center.Y, NodeCanvasBase, currentContext);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
             newNode.mainVM = this;
@@ -266,7 +266,7 @@ public partial class MainViewModel : ViewModelBase
         if (NodeCanvasBase != null)
         {
             var center = GetCenterOfViewport();
-            NodeBaseViewModel newNode = new AttackNodeViewModel("PHP File Include", (float)center.X, (float)center.Y, NodeCanvasBase);
+            NodeBaseViewModel newNode = new AttackNodeViewModel("PHP File Include", (float)center.X, (float)center.Y, NodeCanvasBase, currentContext);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
             newNode.mainVM = this;
@@ -283,7 +283,7 @@ public partial class MainViewModel : ViewModelBase
         if (NodeCanvasBase != null)
         {
             var center = GetCenterOfViewport();
-            NodeBaseViewModel newNode = new CheckpointNodeViewModel("Jeff SSH", (float)center.X, (float)center.Y, NodeCanvasBase);
+            NodeBaseViewModel newNode = new CheckpointNodeViewModel("Jeff SSH", (float)center.X, (float)center.Y, NodeCanvasBase, currentContext);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
             newNode.OnClickedNode = OnClickedNode;
             newNode.mainVM = this;
@@ -468,7 +468,17 @@ public partial class MainViewModel : ViewModelBase
     {
         if (SelectedPath != null)
         {
-            currentContext.contextNodes.Remove(SelectedPath);
+            var context = SelectedPath.StartNode.parentContext;
+            if (context != null)
+            {
+                context.contextNodes.Remove(SelectedPath);
+            }
+            else
+            {
+                // Fallback or error handling
+                currentContext.contextNodes.Remove(SelectedPath);
+            }
+
             SelectedPath.StartNode.connectedPaths.Remove(SelectedPath);
             if (SelectedPath.EndNode != null)
                 SelectedPath.EndNode.connectedPaths.Remove(SelectedPath);
@@ -481,8 +491,16 @@ public partial class MainViewModel : ViewModelBase
     {
         if (node != null)
         {
-            // Find all paths connected to the node
-            var pathsToRemove = currentContext.contextNodes
+            var context = node.parentContext;
+            if (context == null)
+            {
+                // Fallback for nodes that might not have a parent context (like root)
+                // or for safety.
+                context = currentContext;
+            }
+
+            // Find all paths connected to the node within its own context
+            var pathsToRemove = context.contextNodes
                 .OfType<PathBaseViewModel>()
                 .Where(p => p.StartNode == node || p.EndNode == node)
                 .ToList();
@@ -490,11 +508,11 @@ public partial class MainViewModel : ViewModelBase
             // Remove the paths from the context
             foreach (var path in pathsToRemove)
             {
-                currentContext.contextNodes.Remove(path);
+                context.contextNodes.Remove(path);
             }
 
-            // Remove the node itself
-            currentContext.contextNodes.Remove(node);
+            // Remove the node itself from its context
+            context.contextNodes.Remove(node);
 
             // If the deleted node was the selected node, clear the selection
             if (SelectedNode == node)

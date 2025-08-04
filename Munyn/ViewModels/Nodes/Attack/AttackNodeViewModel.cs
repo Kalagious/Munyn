@@ -15,7 +15,7 @@ namespace Munyn.ViewModels
 {
     public partial class AttackNodeViewModel : NodeBaseViewModel
     {
-        public AttackNodeViewModel(string name, float x, float y, Canvas tmpParentCanvas)
+        public AttackNodeViewModel(string name, float x, float y, Canvas tmpParentCanvas, ContextBase parent)
         {
             NodeName = name;
             X = x;
@@ -28,6 +28,7 @@ namespace Munyn.ViewModels
             AddNodeProperty(new Nodes.Properties.NodePropertyText { PropertyName = "Result", IsDefault=true, IsEditable=true});
             AddNodeProperty(new Nodes.Properties.NodePropertyText { PropertyName = "Description", IsDefault = true, IsEditable = true, IsVisableOnGraphNode = true, IconColor = NodeTheme});
             parentCanvas = tmpParentCanvas;
+            parentContext = parent;
         }
 
     }
