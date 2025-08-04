@@ -805,22 +805,22 @@ public partial class MainViewModel : ViewModelBase
                     newNode = new NetworkNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, context, NodeCanvasBase, this);
                     break;
                 case nameof(UserNodeViewModel):
-                    newNode = new UserNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase);
+                    newNode = new UserNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase, context);
                     break;
                 case nameof(ServiceNodeViewModel):
-                    newNode = new ServiceNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase);
+                    newNode = new ServiceNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase, context);
                     break;
                 case nameof(AssetNodeViewModel):
-                    newNode = new AssetNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase);
+                    newNode = new AssetNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase, context);
                     break;
                 case nameof(ReconNodeViewModel):
-                    newNode = new ReconNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase);
+                    newNode = new ReconNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase, context);
                     break;
                 case nameof(AttackNodeViewModel):
-                    newNode = new AttackNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase);
+                    newNode = new AttackNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase, context);
                     break;
                 case nameof(CheckpointNodeViewModel):
-                    newNode = new CheckpointNodeViewModel(nodeDto.NodeName, (float)nodeDto.X, (float)nodeDto.Y, NodeCanvasBase);
+                    newNode = new CheckpointNodeViewModel(nodeDto.NodeName, (float)nodeDto.x, (float)nodeDto.Y, NodeCanvasBase, context);
                     break;
             }
 
