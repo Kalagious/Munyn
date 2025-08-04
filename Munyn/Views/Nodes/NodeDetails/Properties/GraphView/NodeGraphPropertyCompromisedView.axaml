@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Munyn.Views.Nodes.NodeDetails.Properties.GraphView.NodeGraphPropertyCompromisedView"
-             PointerPressed="Property_PointerPressed"
+             Tapped="Property_Tapped"
              Background="Transparent">
     <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
         <PathIcon Data="{Binding Icon}" Width="15" Foreground="{Binding IconColor}"/>
