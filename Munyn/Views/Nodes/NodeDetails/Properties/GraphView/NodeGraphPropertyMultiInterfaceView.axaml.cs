@@ -14,7 +14,7 @@ namespace Munyn.Views.Nodes.NodeDetails.Properties.GraphView
 
         private async void Interface_Tapped(object? sender, Avalonia.Input.TappedEventArgs e)
         {
-            if (e.Source is Control source && source.DataContext is NodePropertyInterface property)
+            if (sender is Button button && button.DataContext is NodePropertyInterface property)
             {
                 if (property != null && !string.IsNullOrEmpty(property.Ip))
                 {
