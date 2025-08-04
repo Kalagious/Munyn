@@ -3,8 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Munyn.Views.Nodes.NodeDetails.Properties.GraphView.NodeGraphPropertyMultiInterfaceView"
-             Background="Transparent">
+             x:Class="Munyn.Views.Nodes.NodeDetails.NodeGraphPropertyMultiInterfaceView">
 
 
 	<StackPanel Margin="10">
@@ -30,10 +29,10 @@
 		</Border>
 		<Border BorderBrush="#e5e5e5" Background="#e5e5e5" BorderThickness="3" CornerRadius="0,0,5,5" MaxHeight="75" >
 			<ScrollViewer>
-				<ItemsControl ItemsSource="{Binding Interfaces}">
+				<ItemsControl x:Name="Interfaces" ItemsSource="{Binding Interfaces}">
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<Button PointerPressed="Interface_PointerPressed" Background="Transparent" BorderThickness="0">
+							<Button>
 								<Grid ColumnDefinitions="auto,auto,*">
 									<TextBlock Grid.Column="0" Foreground="Black" VerticalAlignment="Center" Text="{Binding PropertyName}"></TextBlock>
 									<TextBlock Grid.Column="1" Foreground="Black" VerticalAlignment="Center" Text=":"></TextBlock>

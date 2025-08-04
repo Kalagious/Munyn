@@ -4,11 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Munyn.Views.Nodes.NodeDetails.Properties.GraphView.NodeGraphPropertyBasicView"
-             PointerPressed="Property_PointerPressed"
              Background="Transparent">
 
 
-		<StackPanel>
+		<Button Click="Property_Click" Background="Transparent" BorderThickness="0" Padding="0" Margin="0">
 			<StackPanel Orientation="Horizontal">
 				<PathIcon Margin="10,2,3,2" Data="{Binding Icon}" Foreground="Black"/>
 				<TextBlock  Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center"></TextBlock> 
@@ -17,7 +16,6 @@
 				<TextBlock Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent"></TextBlock>
 
 			</StackPanel>
-			
-		</StackPanel>
+		</Button>
 
 </UserControl>
