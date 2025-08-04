@@ -12,13 +12,17 @@ namespace Munyn.Views.Nodes.NodeDetails.Properties.GraphView
             InitializeComponent();
         }
 
-        private async void Property_Tapped(object? sender, Avalonia.Input.TappedEventArgs e)
+        private async void Property_PointerPressed(object? sender, PointerPressedEventArgs e)
         {
-            var property = (NodePropertyCommand)this.DataContext;
-            if (property != null && !string.IsNullOrEmpty(property.PropertyValue))
+            if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             {
-                await TopLevel.GetTopLevel(this).Clipboard.SetTextAsync(property.PropertyValue);
-                e.Handled = true;
+                var property = (NodePropertyCommand)this.DataContext;
+                if (property != null && !string.IsNullOrEmpty(property.PropertyValue))
+                {
+                    await TopLevel.GetTopLevel(this).Clipboard.SetTextAsync(property.PropertyValue);
+                    e.PreventGestureRecognition();
+                    e.Handled = true;
+                }
             }
         }
     }

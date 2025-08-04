@@ -33,7 +33,7 @@
 				<ItemsControl ItemsSource="{Binding Interfaces}">
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<Button Tapped="Interface_Tapped" Background="Transparent" BorderThickness="0">
+							<Button PointerPressed="Interface_PointerPressed" Background="Transparent" BorderThickness="0">
 								<Grid ColumnDefinitions="auto,auto,*">
 									<TextBlock Grid.Column="0" Foreground="Black" VerticalAlignment="Center" Text="{Binding PropertyName}"></TextBlock>
 									<TextBlock Grid.Column="1" Foreground="Black" VerticalAlignment="Center" Text=":"></TextBlock>
