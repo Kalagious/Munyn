@@ -8,6 +8,7 @@
 			 x:DataType="vm:NodeBaseViewModel"
 			 xmlns:nodedetails="clr-namespace:Munyn.Views.Nodes.NodeDetails;assembly=Munyn"
 			 xmlns:properties="clr-namespace:Munyn.ViewModels.Nodes.Properties;assembly=Munyn"
+			 xmlns:graphviews="clr-namespace:Munyn.Views.Nodes.NodeDetails.Properties.GraphView;assembly=Munyn"
 			 Canvas.Left="{Binding X}"
 			 Canvas.Top="{Binding Y}"
 			 PointerPressed="Node_PointerPressed"
@@ -44,23 +45,23 @@
 
 
 									<DataTemplate DataType="properties:NodePropertyText">
-										<nodedetails:NodeGraphPropertyTextView/>
+										<graphviews:NodeGraphPropertyTextView/>
 									</DataTemplate>
 
 									<DataTemplate DataType="properties:NodePropertyCommand">
-										<nodedetails:NodeGraphPropertyCommandView/>
+										<graphviews:NodeGraphPropertyCommandView/>
 									</DataTemplate>
 
 									<DataTemplate DataType="properties:NodePropertyMultiInterface">
-										<nodedetails:NodeGraphPropertyMultiInterfaceView/>
+										<graphviews:NodeGraphPropertyMultiInterfaceView/>
 									</DataTemplate>
 									
 									<DataTemplate DataType="properties:NodePropertyCompromised">
-										<nodedetails:NodeGraphPropertyCompromisedView/>
+										<graphviews:NodeGraphPropertyCompromisedView/>
 									</DataTemplate>
 
 									<DataTemplate DataType="properties:NodePropertyBasic">
-										<nodedetails:NodeGraphPropertyBasicView/>
+										<graphviews:NodeGraphPropertyBasicView/>
 									</DataTemplate>
 								</ItemsControl.DataTemplates>
 
