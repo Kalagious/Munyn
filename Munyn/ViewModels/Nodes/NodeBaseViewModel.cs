@@ -51,6 +51,7 @@ namespace Munyn.ViewModels
 
         public MainViewModel mainVM;
         public Canvas parentCanvas;
+        public ContextBase parentContext;
 
         public List<PathBaseViewModel> connectedPaths = new List<PathBaseViewModel>();
 

@@ -15,7 +15,7 @@ namespace Munyn.ViewModels
 {
     public partial class ServiceNodeViewModel : NodeBaseViewModel
     {
-        public ServiceNodeViewModel(string name, float x, float y, Canvas tmpParentCanvas)
+        public ServiceNodeViewModel(string name, float x, float y, Canvas tmpParentCanvas, ContextBase parent)
         {
             NodeName = name;
             X = x;
@@ -30,6 +30,7 @@ namespace Munyn.ViewModels
             AddNodeProperty(new Nodes.Properties.NodePropertyText { PropertyName = "Description", IsDefault = true, IsEditable = true, IsVisableOnGraphNode = true, IconColor = NodeTheme });
 
             parentCanvas = tmpParentCanvas;
+            parentContext = parent;
         }
 
     }

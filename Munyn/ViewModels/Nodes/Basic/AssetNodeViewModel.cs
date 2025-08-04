@@ -16,7 +16,7 @@ namespace Munyn.ViewModels
     public partial class AssetNodeViewModel : NodeBaseViewModel
     {
 
-        public AssetNodeViewModel(string name, float x, float y, Canvas tmpParentCanvas)
+        public AssetNodeViewModel(string name, float x, float y, Canvas tmpParentCanvas, ContextBase parent)
         {
             NodeName = name;
             X = x;
@@ -30,6 +30,7 @@ namespace Munyn.ViewModels
 
 
             parentCanvas = tmpParentCanvas;
+            parentContext = parent;
         }
 
     }

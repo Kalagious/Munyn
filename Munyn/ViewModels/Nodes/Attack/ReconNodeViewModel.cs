@@ -15,7 +15,7 @@ namespace Munyn.ViewModels
 {
     public partial class ReconNodeViewModel : NodeBaseViewModel
     {
-        public ReconNodeViewModel(string name, float x, float y, Canvas tmpParentCanvas)
+        public ReconNodeViewModel(string name, float x, float y, Canvas tmpParentCanvas, ContextBase parent)
         {
             NodeName = name;
             X = x;
@@ -29,6 +29,7 @@ namespace Munyn.ViewModels
             AddNodeProperty(new Nodes.Properties.NodePropertyText { PropertyName = "Description", IsDefault = true, IsEditable = true, IsVisableOnGraphNode = true, IconColor = NodeTheme });
 
             parentCanvas = tmpParentCanvas;
+            parentContext = parent;
         }
 
     }
