@@ -585,10 +585,30 @@ public partial class MainViewModel : ViewModelBase
         RefreshContext();
     }
 
+    private IStorageFile? _lastSavedFile;
+
     [RelayCommand]
-    private async void Save()
+    private async Task SaveToLastFile()
     {
-        await SaveAsync();
+        if (_lastSavedFile is not null)
+        {
+            var saveData = new ContextDto();
+            BuildDtoFromContext(rootContext, saveData);
+            string json = JsonConvert.SerializeObject(saveData, Formatting.Indented);
+            await using var stream = await _lastSavedFile.OpenWriteAsync();
+            await using var writer = new StreamWriter(stream);
+            await writer.WriteAsync(json);
+        }
+        else
+        {
+            await SaveAsAsync();
+        }
+    }
+
+    [RelayCommand]
+    private async void SaveAs()
+    {
+        await SaveAsAsync();
     }
 
     [RelayCommand]
@@ -597,7 +617,7 @@ public partial class MainViewModel : ViewModelBase
         await LoadAsync();
     }
 
-    private async Task SaveAsync()
+    private async Task SaveAsAsync()
     {
         var topLevel = TopLevel.GetTopLevel(NodeCanvasBase);
         if (topLevel == null) return;
@@ -613,6 +633,7 @@ public partial class MainViewModel : ViewModelBase
 
         if (file is not null)
         {
+            _lastSavedFile = file;
             var saveData = new ContextDto();
             BuildDtoFromContext(rootContext, saveData);
             LoadedFileName = file.Name;
@@ -696,6 +717,7 @@ public partial class MainViewModel : ViewModelBase
         if (files.Count > 0)
         {
             var file = files[0];
+            _lastSavedFile = file;
             LoadedFileName = file.Name;
             await using var stream = await file.OpenReadAsync();
             using var reader = new StreamReader(stream);
