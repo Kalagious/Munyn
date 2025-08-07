@@ -31,6 +31,9 @@ namespace Munyn.ViewModels
         private bool isSelected = false;
 
         [ObservableProperty]
+        private bool _isCompromised = false;
+
+        [ObservableProperty]
         ObservableCollection<NodePropertyBasic> _properties = new ObservableCollection<NodePropertyBasic>();
         [ObservableProperty]
         ObservableCollection<NodePropertyBasic> _propertiesInNodeView = new ObservableCollection<NodePropertyBasic>();
@@ -105,6 +108,7 @@ namespace Munyn.ViewModels
             if (property == null) throw new ArgumentNullException(nameof(property));
             property.ParentNode = this;
             Properties.Add(property);
+            if (property is NodePropertyCompromised) IsCompromised = true;
             GetGraphViewProperties();
         }
 
@@ -112,6 +116,7 @@ namespace Munyn.ViewModels
         {
             if (property == null) throw new ArgumentNullException(nameof(property));
             Properties.Remove(property);
+            if (property is NodePropertyCompromised) IsCompromised = Properties.Any(p => p is NodePropertyCompromised);
             GetGraphViewProperties();
         }
 
@@ -175,6 +180,7 @@ namespace Munyn.ViewModels
         public void UpdatePropertiesFromDto(List<NodePropertyDto> propertyDtos)
         {
             Properties.Clear();
+            IsCompromised = false;
             foreach (var propertyDto in propertyDtos)
             {
                 NodePropertyBasic newProperty = null;
