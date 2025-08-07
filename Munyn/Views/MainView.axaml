@@ -28,7 +28,24 @@
 			<nodes:NodeView DataContext="{Binding}"/>
 		</DataTemplate>
 		<DataTemplate DataType="vm:PathBaseViewModel">
-			<Path Data="{Binding PathData}" Stroke="{Binding SelectedStrokeBrush}" StrokeThickness="4" PointerPressed="Path_OnPointerPressed"/>
+			<Path Data="{Binding PathData}" Stroke="{Binding StrokeBrush}" StrokeThickness="4" PointerPressed="Path_OnPointerPressed" Classes.compromised="{Binding IsCompromised}">
+				<Path.Styles>
+					<Style Selector="Path.compromised">
+						<Style.Animations>
+							<Animation Duration="0:0:2" IterationCount="Infinite">
+								<KeyFrame Cue="0%">
+									<Setter Property="StrokeDashArray" Value="10, 5"/>
+									<Setter Property="StrokeDashOffset" Value="15"/>
+								</KeyFrame>
+								<KeyFrame Cue="100%">
+									<Setter Property="StrokeDashArray" Value="10, 5"/>
+									<Setter Property="StrokeDashOffset" Value="0"/>
+								</KeyFrame>
+							</Animation>
+						</Style.Animations>
+					</Style>
+				</Path.Styles>
+			</Path>
 		</DataTemplate>
 	</UserControl.DataTemplates>
 	

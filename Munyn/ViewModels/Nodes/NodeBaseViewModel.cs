@@ -106,6 +106,11 @@ namespace Munyn.ViewModels
             property.ParentNode = this;
             Properties.Add(property);
             GetGraphViewProperties();
+
+            foreach (var path in connectedPaths)
+            {
+                path.UpdateCompromisedStatus();
+            }
         }
 
         public void RemoveProperty(NodePropertyBasic property)
@@ -113,6 +118,11 @@ namespace Munyn.ViewModels
             if (property == null) throw new ArgumentNullException(nameof(property));
             Properties.Remove(property);
             GetGraphViewProperties();
+
+            foreach (var path in connectedPaths)
+            {
+                path.UpdateCompromisedStatus();
+            }
         }
 
         public NodePropertyBasic GetNodePropertyFromName(string name)
