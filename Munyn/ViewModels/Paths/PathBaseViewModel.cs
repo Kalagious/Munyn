@@ -71,6 +71,7 @@ namespace Munyn.ViewModels
             StartNode = startNode;
             StartPoint = new Point(StartNode.X, StartNode.Y);
             EndPoint = endPoint;
+            StrokeBrush = new SolidColorBrush(Color.Parse("#f2f2f2"));
 
             UpdateCompromisedStatus();
             SetSelected(false);
