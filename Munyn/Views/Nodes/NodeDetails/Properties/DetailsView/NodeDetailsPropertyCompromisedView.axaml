@@ -25,16 +25,10 @@
 				
 				<Grid ColumnDefinitions="*,Auto">
 					<StackPanel Orientation="Horizontal" Grid.Column="0">
-						<PathIcon HorizontalAlignment="Center" Margin="10,2,0,2" Data="{StaticResource skull}" Foreground="#f2f2f2"/>
+						<PathIcon HorizontalAlignment="Center" Margin="10,2,0,2" Data="{StaticResource bolt}" Foreground="#f2f2f2"/>
 						<TextBlock Margin="5,5,0,5" Text="Compromised" Foreground="#f2f2f2" VerticalAlignment="Center"></TextBlock>
 					</StackPanel>
 					<StackPanel Grid.Column="1" Orientation="Horizontal">
-						<Button Command="{Binding ToggleGraphVisabilityCommand}" VerticalAlignment="Center" Background="Transparent">
-							<StackPanel>
-								<PathIcon Data="{StaticResource star-nofill}" Width="17" Height="17" Foreground="#fac900" IsVisible="{Binding !IsVisableOnGraphNode}"/>
-								<PathIcon Data="{StaticResource star}" Width="17" Height="17" Foreground="#fac900" IsVisible="{Binding IsVisableOnGraphNode}"/>
-							</StackPanel>
-						</Button>
 						<Button Command="{Binding DeletePropertyCommand}" VerticalAlignment="Center" Background="Transparent" HorizontalAlignment="Right" Margin="5,0,15,0">
 							<PathIcon Data="{StaticResource delete}" Width="17" Height="17" Foreground="#f2f2f2"/>
 						</Button>

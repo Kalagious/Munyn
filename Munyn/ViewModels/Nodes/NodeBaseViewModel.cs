@@ -46,6 +46,9 @@ namespace Munyn.ViewModels
         [ObservableProperty]
         private bool _editName = false;
 
+        [ObservableProperty]
+        private bool _isCompromised = false;
+
         [RelayCommand]
         private void ToggleEditName() { EditName = !EditName; }
 
@@ -107,6 +110,9 @@ namespace Munyn.ViewModels
             Properties.Add(property);
             GetGraphViewProperties();
 
+            if (property.GetType() == typeof(NodePropertyCompromised))
+                IsCompromised = true;
+
             foreach (var path in connectedPaths)
             {
                 path.UpdateCompromisedStatus();
@@ -119,6 +125,9 @@ namespace Munyn.ViewModels
             Properties.Remove(property);
             GetGraphViewProperties();
 
+            if (GetNodePropertyFromType(typeof(NodePropertyCompromised)) == null)
+                IsCompromised = false;
+
             foreach (var path in connectedPaths)
             {
                 path.UpdateCompromisedStatus();
@@ -129,6 +138,13 @@ namespace Munyn.ViewModels
         {
             foreach (var property in Properties)
                 if (property.PropertyName == name) return property;
+            return null;
+        }
+
+        public NodePropertyBasic GetNodePropertyFromType(Type type)
+        {
+            foreach (var property in Properties)
+                if (property.GetType() == type) return property;
             return null;
         }
 

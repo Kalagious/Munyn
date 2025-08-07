@@ -154,15 +154,15 @@
 
 
 					<Button Command="{Binding SaveToLastFileCommand}">
-						<PathIcon Data="{StaticResource save-icon}" Width="20" Foreground="#f2f2f2"/>
+						<PathIcon Data="{StaticResource save}" Width="20" Foreground="#f2f2f2"/>
 					</Button>
 					<Button Command="{Binding SaveAsCommand}">
-						<PathIcon Data="{StaticResource save-arrow}" Width="20" Foreground="#f2f2f2"/>
+						<PathIcon Data="{StaticResource save-as}" Width="20" Foreground="#f2f2f2"/>
 					</Button>
 					<Button Command="{Binding LoadCommand}">
 						<PathIcon Data="{StaticResource open}" Width="20" Foreground="#f2f2f2"/>
 					</Button>
-					<TextBlock Grid.Column="0" Text="{Binding LoadedFileName}" FontSize="16" Margin="10,0,15,0" VerticalAlignment="Center"/>
+					<TextBlock Grid.Column="0" Foreground="#f2f2f2" Text="{Binding LoadedFileName}" FontSize="16" Margin="10,0,15,0" VerticalAlignment="Center"/>
 				</StackPanel>
 			</Grid>
 
