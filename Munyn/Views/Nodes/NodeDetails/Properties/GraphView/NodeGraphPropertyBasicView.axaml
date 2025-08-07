@@ -7,7 +7,7 @@
              Background="Transparent">
 
 
-		<Button Click="Property_Click" Background="Transparent" BorderThickness="0" Padding="0" Margin="0">
+		<Button Click="Property_Click" Background="Transparent" BorderThickness="0" Padding="0" Margin="0" HorizontalAlignment="Stretch">
 			<StackPanel Orientation="Horizontal">
 				<PathIcon Margin="10,2,3,2" Data="{Binding Icon}" Foreground="Black"/>
 				<TextBlock  Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center"></TextBlock> 

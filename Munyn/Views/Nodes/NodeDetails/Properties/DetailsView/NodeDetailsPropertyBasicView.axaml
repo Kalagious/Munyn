@@ -23,10 +23,12 @@
 					<TextBox IsVisible="{Binding !IsDefault}" Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" BorderThickness="0"></TextBox>
 					<TextBlock Margin="5,5,0,5" IsVisible="{Binding IsDefault}" Text="{Binding PropertyName}" Foreground="Black" VerticalAlignment="Center"></TextBlock>
 					<TextBlock Text=":" Foreground="Black" VerticalAlignment="Center"></TextBlock>
-
-					<TextBox Margin="0,0,0,0" Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" IsVisible="{Binding IsEditable}"></TextBox>
-					<TextBlock Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" IsVisible="{Binding !IsEditable}"></TextBlock>
-
+					<ScrollViewer Width="200" HorizontalScrollBarVisibility="Auto">
+						<StackPanel Orientation="Horizontal">
+							<TextBox Margin="0,0,0,0" Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" IsVisible="{Binding IsEditable}"></TextBox>
+							<TextBlock Text="{Binding PropertyValue}" Foreground="Black" VerticalAlignment="Center" Background="Transparent" IsVisible="{Binding !IsEditable}"></TextBlock>
+						</StackPanel>
+					</ScrollViewer>
 				</StackPanel>
 				<StackPanel Grid.Column="1" Orientation="Horizontal">
 					<Button Command="{Binding ToggleGraphVisabilityCommand}" VerticalAlignment="Center" Background="Transparent">
