@@ -9,6 +9,7 @@
 			 xmlns:misc="clr-namespace:Munyn.Views.Misc;assembly=Munyn"
 			 xmlns:converters="clr-namespace:Munyn.Converters;assembly=Munyn"
 			 xmlns:panels="clr-namespace:Munyn.Panels;assembly=Munyn"
+			 xmlns:paths="clr-namespace:Munyn.Views.Paths;assembly=Munyn"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Munyn.Views.MainView"
              x:DataType="vm:MainViewModel"
@@ -28,22 +29,24 @@
 			<nodes:NodeView DataContext="{Binding}"/>
 		</DataTemplate>
 		<DataTemplate DataType="vm:PathBaseViewModel">
-			<Path Data="{Binding PathData}" Stroke="{Binding StrokeBrush}" StrokeThickness="4" PointerPressed="Path_OnPointerPressed" Classes.compromised="{Binding IsCompromised}" StrokeDashArray="10,5">
-				<Path.Styles>
-					<Style Selector="Path.compromised">
-						<Style.Animations>
-							<Animation Duration="0:0:2" IterationCount="Infinite">
-								<KeyFrame Cue="0%">
-									<Setter Property="StrokeDashOffset" Value="15"/>
-								</KeyFrame>
-								<KeyFrame Cue="100%">
-									<Setter Property="StrokeDashOffset" Value="0"/>
-								</KeyFrame>
-							</Animation>
-						</Style.Animations>
+			<ContentControl Content="{Binding}" Tag="{Binding IsCompromised}">
+				<ContentControl.Styles>
+					<Style Selector="ContentControl[Tag=false]">
+						<Setter Property="ContentTemplate">
+							<DataTemplate>
+								<Path Data="{Binding PathData}" Stroke="{Binding StrokeBrush}" StrokeThickness="4" PointerPressed="Path_OnPointerPressed"/>
+							</DataTemplate>
+						</Setter>
 					</Style>
-				</Path.Styles>
-			</Path>
+					<Style Selector="ContentControl[Tag=true]">
+						<Setter Property="ContentTemplate">
+							<DataTemplate>
+								<paths:CompromisedPathView />
+							</DataTemplate>
+						</Setter>
+					</Style>
+				</ContentControl.Styles>
+			</ContentControl>
 		</DataTemplate>
 	</UserControl.DataTemplates>
 	
