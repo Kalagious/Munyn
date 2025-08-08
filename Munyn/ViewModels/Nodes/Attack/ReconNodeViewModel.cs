@@ -20,6 +20,8 @@ namespace Munyn.ViewModels
             NodeName = name;
             X = x;
             Y = y;
+            Width = 220;
+            Height = 100;
 
             IconName = "radar";
             NodeTheme = makeTheme("#55DD55", "#22AA22");

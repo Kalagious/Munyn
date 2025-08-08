@@ -20,6 +20,8 @@ namespace Munyn.ViewModels
             NodeName = name;
             X = x;
             Y = y;
+            Width = 220;
+            Height = 100;
 
             IconName = "striking-arrows";
             NodeTheme = makeTheme("#FF3333", "#DD2222");

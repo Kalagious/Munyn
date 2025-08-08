@@ -21,6 +21,8 @@ namespace Munyn.ViewModels
             NodeName = name;
             X = x;
             Y = y;
+            Width = 220;
+            Height = 100;
 
             IconName = "person-bounding-box";
             NodeTheme = makeTheme("#ef3f79", "#d511d5");

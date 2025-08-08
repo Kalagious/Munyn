@@ -20,6 +20,8 @@ namespace Munyn.ViewModels
             NodeName = name;
             X = x;
             Y = y;
+            Width = 220;
+            Height = 100;
 
             IconName = "start-cog";
             NodeTheme = makeTheme("#FF3333", "#BB5599");

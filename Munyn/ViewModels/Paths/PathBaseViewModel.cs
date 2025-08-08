@@ -79,16 +79,14 @@ namespace Munyn.ViewModels
         {
             if (_mainVm == null || StartNode == null) return;
 
-            var startNodeView = _mainVm.FindNodeViewByViewModel(StartNode);
-            if (startNodeView == null) return;
+            if (StartNode.Width == 0) return; // Don't draw if the node hasn't been rendered yet
 
-            StartPoint = new Point(StartNode.X + startNodeView.Bounds.Width / 2, StartNode.Y+7);
+            StartPoint = new Point(StartNode.X + StartNode.Width / 2, StartNode.Y + 7);
 
             if (EndNode != null)
             {
-                var endNodeView = _mainVm.FindNodeViewByViewModel(EndNode);
-                if (endNodeView == null) return;
-                EndPoint = new Point(EndNode.X + endNodeView.Bounds.Width / 2, EndNode.Y-7);
+                if (EndNode.Width == 0) return; // Don't draw if the node hasn't been rendered yet
+                EndPoint = new Point(EndNode.X + EndNode.Width / 2, EndNode.Y - 7);
             }
 
             if (StartPoint == null || EndPoint == null)
@@ -106,7 +104,7 @@ namespace Munyn.ViewModels
             
             if (EndNode != null)
             {
-                y2 += _mainVm.FindNodeViewByViewModel(EndNode).Bounds.Height;
+                y2 += EndNode.Height;
             }
             
             bool startNodeTop = y1 < y2;

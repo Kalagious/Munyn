@@ -20,6 +20,8 @@ namespace Munyn.ViewModels
             NodeName = name;
             X = x;
             Y = y;
+            Width = 220;
+            Height = 100;
 
             IconName = "database-fill-gear";
             NodeTheme = makeTheme("#b613d0", "#6524f3");

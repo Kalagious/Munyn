@@ -21,6 +21,8 @@ namespace Munyn.ViewModels
             NodeName = name;
             X = x;
             Y = y;
+            Width = 220;
+            Height = 100;
 
             IconName = "gold-icon";
             NodeTheme = makeTheme("#eab900", "#fa8700");

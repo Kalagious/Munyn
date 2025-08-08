@@ -65,6 +65,8 @@ namespace Munyn.ViewModels
             contextName = name;
             X = x;
             Y = y;
+            Width = 220;
+            Height = 100;
             parentCanvas = tmpParentCanvas;
             contextNodes = new ObservableCollection<ViewModelBase>();
 

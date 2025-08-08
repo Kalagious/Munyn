@@ -21,6 +21,16 @@ public partial class NodeView : UserControl
     {
         InitializeComponent();
         this.LayoutUpdated += NodeView_LayoutUpdated;
+        this.SizeChanged += NodeView_SizeChanged;
+    }
+
+    private void NodeView_SizeChanged(object? sender, SizeChangedEventArgs e)
+    {
+        if (DataContext is NodeBaseViewModel viewModel)
+        {
+            viewModel.Width = e.NewSize.Width;
+            viewModel.Height = e.NewSize.Height;
+        }
     }
 
     private void NodeView_LayoutUpdated(object? sender, EventArgs e)

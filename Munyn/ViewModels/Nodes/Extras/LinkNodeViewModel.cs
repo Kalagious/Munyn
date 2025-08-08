@@ -31,6 +31,8 @@ namespace Munyn.ViewModels
             NodeName = name;
             X = x;
             Y = y;
+            Width = 250;
+            Height = 150;
             parentCanvas = tmpParentCanvas;
             targetContext = targetContextTmp;
             base.mainVM = mainVM;

@@ -44,6 +44,12 @@ namespace Munyn.ViewModels
         private double _y;
 
         [ObservableProperty]
+        private double _width;
+
+        [ObservableProperty]
+        private double _height;
+
+        [ObservableProperty]
         private bool _editName = false;
 
         [RelayCommand]
