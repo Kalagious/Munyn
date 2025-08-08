@@ -119,7 +119,6 @@ public partial class MainViewModel : ViewModelBase
     [RelayCommand]
     private void BackContext()
     {
-
         if (currentContext != null && currentContext.parentContext != null)
         {
             currentContext = currentContext.parentContext;

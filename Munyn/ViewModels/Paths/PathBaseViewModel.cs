@@ -167,6 +167,7 @@ namespace Munyn.ViewModels
                 "M {0},{1} C {2},{3} {4},{5} {6},{7}",
                 x1, y1, cp1x, cp1y, cp2x, cp2y, x2, y2
             );
+            UpdateCompromisedStatus();
         }
 
         // IMPORTANT: Implement IDisposable if you create a lot of connections dynamically
