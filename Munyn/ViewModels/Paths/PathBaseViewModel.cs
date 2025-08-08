@@ -4,6 +4,8 @@ using System;
 using System.Globalization; // For InvariantCulture
 using Avalonia.Input;
 using Avalonia.Media;
+using Munyn.ViewModels.Nodes.Properties;
+using System.Linq;
 
 namespace Munyn.ViewModels
 {
@@ -22,7 +24,10 @@ namespace Munyn.ViewModels
         private bool _isSelected = false;
 
         [ObservableProperty]
-        private IBrush _selectedStrokeBrush;
+        private IBrush _strokeBrush;
+
+        [ObservableProperty]
+        private bool _isCompromised = false;
 
         public Action<PathBaseViewModel, PointerPressedEventArgs> OnClickedPath { get; internal set; }
 
@@ -31,13 +36,29 @@ namespace Munyn.ViewModels
         {
             IsSelected = selected;
             if (IsSelected)
-                SelectedStrokeBrush = new SolidColorBrush(Color.Parse("#A0A0FF"));
+                StrokeBrush = new SolidColorBrush(Color.Parse("#A0A0FF"));
             else
-                SelectedStrokeBrush = new SolidColorBrush(Color.Parse("#f2f2f2"));
+                UpdateCompromisedStatus();
         }
-        // Properties for XAML binding to draw the line (now primarily for calculating PathData)
 
+        public void UpdateCompromisedStatus()
+        {
+            if (StartNode == null || EndNode == null) return;
 
+            var startNodeCompromised = StartNode.Properties.OfType<NodePropertyCompromised>().Any();
+            var endNodeCompromised = EndNode.Properties.OfType<NodePropertyCompromised>().Any();
+
+            IsCompromised = startNodeCompromised && endNodeCompromised;
+
+            if (IsCompromised)
+            {
+                StrokeBrush = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                StrokeBrush = new SolidColorBrush(Color.Parse("#f2f2f2"));
+            }
+        }
 
 
         public PathBaseViewModel(NodeBaseViewModel startNode, Point endPoint, MainViewModel mainViewModel)
@@ -50,6 +71,9 @@ namespace Munyn.ViewModels
             StartNode = startNode;
             StartPoint = new Point(StartNode.X, StartNode.Y);
             EndPoint = endPoint;
+            StrokeBrush = new SolidColorBrush(Color.Parse("#f2f2f2"));
+
+            UpdateCompromisedStatus();
             SetSelected(false);
 
 
@@ -67,13 +91,13 @@ namespace Munyn.ViewModels
             var startNodeView = _mainVm.FindNodeViewByViewModel(StartNode);
             if (startNodeView == null) return;
 
-            StartPoint = new Point(StartNode.X + startNodeView.Bounds.Width / 2, StartNode.Y+7);
+            StartPoint = new Point(StartNode.X + startNodeView.Bounds.Width / 2, StartNode.Y+12);
 
             if (EndNode != null)
             {
                 var endNodeView = _mainVm.FindNodeViewByViewModel(EndNode);
                 if (endNodeView == null) return;
-                EndPoint = new Point(EndNode.X + endNodeView.Bounds.Width / 2, EndNode.Y-7);
+                EndPoint = new Point(EndNode.X + endNodeView.Bounds.Width / 2, EndNode.Y-12);
             }
 
             if (StartPoint == null || EndPoint == null)

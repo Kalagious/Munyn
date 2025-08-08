@@ -54,9 +54,9 @@ namespace Munyn.ViewModels
         public void InitializeProperties()
         {
             AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Os", true, true));
-            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("User Count", true, true, false));
-            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Service Count", true, false, false));
             AddNodeProperty(new Nodes.Properties.NodePropertyText { PropertyName = "Description", IsDefault = true, IsEditable = true, IsVisableOnGraphNode = true, IconColor = NodeTheme });
+            AddNodeProperty(new Nodes.Properties.NodePropertyInterface());
+
         }
 
         public HostNodeViewModel(string name, float x, float y, ContextBase parent, Canvas tmpParentCanvas, MainViewModel mainVM)

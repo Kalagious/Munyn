@@ -79,7 +79,7 @@ namespace Munyn.ViewModels.Nodes.Properties
             {
                 PropertyType = typeof(NodePropertyCompromised),
                 PropertyName = "Compromised",
-                PropertyIcon = (StreamGeometry)Application.Current.Resources["skull"]
+                PropertyIcon = (StreamGeometry)Application.Current.Resources["bolt"]
             });
 
         }

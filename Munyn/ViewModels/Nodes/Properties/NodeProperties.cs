@@ -107,7 +107,7 @@ namespace Munyn.ViewModels.Nodes.Properties
         [ObservableProperty]
         private string? _description;
 
-        public NodePropertyCommand() : base() { IconName = "command"; Refresh(); IsVisableOnGraphNode = true; }
+        public NodePropertyCommand() : base() { IconName = "command"; Refresh(); }
     }
     
     public partial class NodePropertyInterface : NodePropertyBasic
@@ -155,9 +155,9 @@ public partial class NodePropertyLink : NodePropertyBasic
     public partial class NodePropertyCompromised : NodePropertyBasic
     {
         [ObservableProperty]
-        private double? _compromiseLevel = 5;
-
-        public NodePropertyCompromised() : base() { IconName = "skull"; Refresh(); IsVisableOnGraphNode = true; }
+        private double? _compromiseLevel = 10;
+        
+        public NodePropertyCompromised() : base() { IconName = "bolt"; Refresh(); }
     }
 
 }
