@@ -26,6 +26,21 @@ namespace Munyn.ViewModels
 
         public Action<PathBaseViewModel, PointerPressedEventArgs> OnClickedPath { get; internal set; }
 
+        [ObservableProperty]
+        private double _x;
+
+        [ObservableProperty]
+        private double _y;
+
+        [ObservableProperty]
+        private double _width;
+
+        [ObservableProperty]
+        private double _height;
+
+        [ObservableProperty]
+        private Rect _bounds;
+
 
         public void SetSelected(bool selected)
         {
@@ -83,8 +98,6 @@ namespace Munyn.ViewModels
             }
 
 
-            bool startNodeTop = false;
-
             double y1 = StartPoint.Y;
             double y2 = EndPoint.Y;
             double x1 = StartPoint.X;
@@ -94,9 +107,9 @@ namespace Munyn.ViewModels
             if (EndNode != null)
             {
                 y2 += _mainVm.FindNodeViewByViewModel(EndNode).Bounds.Height;
-                startNodeTop = true;
             }
             
+            bool startNodeTop = y1 < y2;
 
 
             double dx = x2 - x1;
@@ -129,13 +142,13 @@ namespace Munyn.ViewModels
             double sBendOffset = Math.Max(70.0, Math.Abs(dx) * 0.4); // Adjust 70.0 for min bend, 0.4 for dx proportion
 
             // Apply the offset to the Y-coordinates to create the S-curve.
-            // The direction of the bend depends on whether x1 is less than x2 (moving right) or greater (moving left).
-            if (!startNodeTop) // Moving generally right: first bend down, second bend up
+            // The direction of the bend depends on whether y1 is less than y2.
+            if (startNodeTop)
             {
                 cp1y = y1 + sBendOffset;
                 cp2y = y2 - sBendOffset;
             }
-            else // Moving generally left: first bend up, second bend down
+            else
             {
                 cp1y = y1 - sBendOffset;
                 cp2y = y2 + sBendOffset;
@@ -143,11 +156,36 @@ namespace Munyn.ViewModels
 
             // --- END NEW S-Curve Calculation ---
 
-            // Format the path data string
+            double minX = Math.Min(x1, x2);
+            double minY = Math.Min(y1, y2);
+            double maxX = Math.Max(x1, x2);
+            double maxY = Math.Max(y1, y2);
+
+            minX = Math.Min(minX, cp1x);
+            minY = Math.Min(minY, cp1y);
+            maxX = Math.Max(maxX, cp1x);
+            maxY = Math.Max(maxY, cp1y);
+
+            minX = Math.Min(minX, cp2x);
+            minY = Math.Min(minY, cp2y);
+            maxX = Math.Max(maxX, cp2x);
+            maxY = Math.Max(maxY, cp2y);
+
+            X = minX - 5;
+            Y = minY - 5;
+            Width = (maxX - minX) + 10;
+            Height = (maxY - minY) + 10;
+
+            Bounds = new Rect(X, Y, Width, Height);
+
+            // Format the path data string, making coordinates relative to the path's own origin (X, Y)
             PathData = string.Format(
                 CultureInfo.InvariantCulture,
                 "M {0},{1} C {2},{3} {4},{5} {6},{7}",
-                x1, y1, cp1x, cp1y, cp2x, cp2y, x2, y2
+                x1 - X, y1 - Y,
+                cp1x - X, cp1y - Y,
+                cp2x - X, cp2y - Y,
+                x2 - X, y2 - Y
             );
         }
 

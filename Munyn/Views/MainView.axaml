@@ -28,7 +28,12 @@
 			<nodes:NodeView DataContext="{Binding}"/>
 		</DataTemplate>
 		<DataTemplate DataType="vm:PathBaseViewModel">
-			<Path Data="{Binding PathData}" Stroke="{Binding SelectedStrokeBrush}" StrokeThickness="4" PointerPressed="Path_OnPointerPressed"/>
+			<Path Data="{Binding PathData}"
+				Stroke="{Binding SelectedStrokeBrush}"
+				StrokeThickness="4"
+				Width="{Binding Width}"
+				Height="{Binding Height}"
+				PointerPressed="Path_OnPointerPressed"/>
 		</DataTemplate>
 	</UserControl.DataTemplates>
 	
@@ -172,6 +177,10 @@
 
 								<ItemsControl.Styles>
 									<Style Selector="ContentPresenter" x:DataType="vm:NodeBaseViewModel">
+										<Setter Property="Canvas.Left" Value="{Binding X}"/>
+										<Setter Property="Canvas.Top" Value="{Binding Y}"/>
+									</Style>
+									<Style Selector="ContentPresenter" x:DataType="vm:PathBaseViewModel">
 										<Setter Property="Canvas.Left" Value="{Binding X}"/>
 										<Setter Property="Canvas.Top" Value="{Binding Y}"/>
 									</Style>
