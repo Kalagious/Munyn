@@ -48,6 +48,18 @@ namespace Munyn.ViewModels
             var startNodeCompromised = StartNode.Properties.OfType<NodePropertyCompromised>().Any();
             var endNodeCompromised = EndNode.Properties.OfType<NodePropertyCompromised>().Any();
 
+            if (StartNode.GetType() == typeof(AttackNodeViewModel) ||
+                StartNode.GetType() == typeof(ReconNodeViewModel) ||
+                StartNode.GetType() == typeof(CheckpointNodeViewModel))
+                startNodeCompromised = true;
+
+            if (EndNode.GetType() == typeof(AttackNodeViewModel) ||
+                EndNode.GetType() == typeof(ReconNodeViewModel) ||
+                EndNode.GetType() == typeof(CheckpointNodeViewModel))
+                endNodeCompromised = true;
+
+            //&& EndNode.GetType() == typeof(NodeBaseViewModel)
+
             IsCompromised = startNodeCompromised && endNodeCompromised;
 
             if (IsCompromised)
