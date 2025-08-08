@@ -24,12 +24,19 @@
 	</UserControl.Resources>
 
 	<UserControl.DataTemplates>
+
+		<DataTemplate DataType="vm:LinkNodeViewModel">
+			<nodes:LinkNodeView DataContext="{Binding}"/>
+		</DataTemplate>
+		
 		<DataTemplate DataType="vm:NodeBaseViewModel">
 			<nodes:NodeView DataContext="{Binding}"/>
 		</DataTemplate>
+		
 		<DataTemplate DataType="vm:PathBaseViewModel">
 			<Path Data="{Binding PathData}" Stroke="{Binding SelectedStrokeBrush}" StrokeThickness="4" PointerPressed="Path_OnPointerPressed"/>
 		</DataTemplate>
+		
 	</UserControl.DataTemplates>
 	
   <Design.DataContext>

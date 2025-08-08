@@ -15,25 +15,41 @@ namespace Munyn.ViewModels
 {
     public partial class LinkNodeViewModel : ContextBase
     {
-        public ContextBase targetContext;
+        public NodeBaseViewModel targetNode;
 
         [ObservableProperty]
         private string _iconPath;
 
+        [ObservableProperty]
+        private string _targetName;
+
         [RelayCommand]
         private void EnterLinkedContextButton()
         {
-            mainVM.EnterContext(targetContext);
+            mainVM.EnterContext((ContextBase)targetNode);
         }
 
-        public LinkNodeViewModel(string name, float x, float y, ContextBase parent, ContextBase targetContextTmp, Canvas tmpParentCanvas, MainViewModel mainVM)
+        public LinkNodeViewModel(string name, float x, float y, ContextBase parent, NodeBaseViewModel targetNodeTmp, Canvas tmpParentCanvas, MainViewModel mainVMIn)
         {
             NodeName = name;
             X = x;
             Y = y;
+
+            targetNode = targetNodeTmp;
             parentCanvas = tmpParentCanvas;
-            targetContext = targetContextTmp;
-            base.mainVM = mainVM;
+            parentContext = parent;
+            mainVM = mainVMIn;
+
+            RefreshLink();
+        }
+
+        public void RefreshLink()
+        {
+            TargetName = targetNode.NodeName;
+            NodeName = targetNode.NodeName + "_Link";
+            IconName = targetNode.IconName;
+            Icon = targetNode.Icon;
+            NodeTheme = targetNode.NodeTheme;
         }
     }
 }
