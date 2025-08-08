@@ -9,15 +9,14 @@ using System;
 
 namespace Munyn.Views.Nodes;
 
-public partial class NetworkNodeView : NodeView
+public partial class LinkNodeView : NodeView
 {
 
     
-    public NetworkNodeView()
+    public LinkNodeView()
     {
         InitializeComponent();
 
     }
-
     
 } 

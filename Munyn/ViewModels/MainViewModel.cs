@@ -162,12 +162,12 @@ public partial class MainViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void NewNetworkDrag()
+    private void NewLinkDrag()
     {
         if (NodeCanvasBase != null)
         {
             var center = GetCenterOfViewport();
-            NodeBaseViewModel newNode = new NetworkNodeViewModel("10.10.14.0/24", (float)center.X, (float)center.Y, currentContext, NodeCanvasBase, this);
+            NodeBaseViewModel newNode = new LinkNodeViewModel("NewLink", (float)center.X, (float)center.Y, currentContext, (NodeBaseViewModel)currentContext.contextNodes[0], NodeCanvasBase, this);
             newNode.OnStartConnectionDragNode = OnStartConnectionDragFromNode;
 
             currentContext.contextNodes.Add(newNode);

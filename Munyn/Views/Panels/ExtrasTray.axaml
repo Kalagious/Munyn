@@ -17,8 +17,9 @@
 			</Style>
 
 		</StackPanel.Styles>
-		<!-- Link Node -->
-		<Button Command="{Binding NewHostDragCommand}">
+
+		<Button Command="{Binding NewLinkDragCommand}">
+
 			<PathIcon Data="{StaticResource link}" Foreground="#f2f2f2" Width="45" Height="45"/>
 			<Button.Background>
 				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
@@ -61,5 +62,7 @@
 				</LinearGradientBrush>
 			</Button.Background>
 		</Button>
+		
+
 	</StackPanel>
 </UserControl>

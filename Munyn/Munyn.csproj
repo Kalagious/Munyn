@@ -33,8 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\Nodes\NetworkNodeView.axaml.cs">
-      <DependentUpon>NetworkNodeView.axaml</DependentUpon>
+    <Compile Update="Views\Nodes\LinkNodeView.axaml.cs">
+      <DependentUpon>LinkNodeView.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Nodes\NodeDetails\NodeDetailsView.axaml.cs">
       <DependentUpon>NodeDetailsView.axaml</DependentUpon>

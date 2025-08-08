@@ -154,16 +154,10 @@ namespace Munyn.ViewModels
 
             // Apply the offset to the Y-coordinates to create the S-curve.
             // The direction of the bend depends on whether x1 is less than x2 (moving right) or greater (moving left).
-            if (!startNodeTop) // Moving generally right: first bend down, second bend up
-            {
-                cp1y = y1 + sBendOffset;
-                cp2y = y2 - sBendOffset;
-            }
-            else // Moving generally left: first bend up, second bend down
-            {
-                cp1y = y1 - sBendOffset;
-                cp2y = y2 + sBendOffset;
-            }
+
+            cp1y = y1 - sBendOffset;
+            cp2y = y2 + sBendOffset;
+            
 
             // --- END NEW S-Curve Calculation ---
 

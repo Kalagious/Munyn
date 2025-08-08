@@ -25,9 +25,15 @@
 	</UserControl.Resources>
 
 	<UserControl.DataTemplates>
+
+		<DataTemplate DataType="vm:LinkNodeViewModel">
+			<nodes:LinkNodeView DataContext="{Binding}"/>
+		</DataTemplate>
+		
 		<DataTemplate DataType="vm:NodeBaseViewModel">
 			<nodes:NodeView DataContext="{Binding}"/>
 		</DataTemplate>
+		
 		<DataTemplate DataType="vm:PathBaseViewModel">
 			<ContentControl Content="{Binding}" Tag="{Binding IsCompromised}">
 				<ContentControl.Styles>
@@ -48,6 +54,7 @@
 				</ContentControl.Styles>
 			</ContentControl>
 		</DataTemplate>
+		
 	</UserControl.DataTemplates>
 	
   <Design.DataContext>
