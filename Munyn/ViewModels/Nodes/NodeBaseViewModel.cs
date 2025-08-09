@@ -39,6 +39,9 @@ namespace Munyn.ViewModels
         private bool _isContext = false;
 
         [ObservableProperty]
+        private bool _noGraphProperties = true;
+
+        [ObservableProperty]
         private double _x;
         [ObservableProperty]
         private double _y;
@@ -196,6 +199,11 @@ namespace Munyn.ViewModels
 
                 }
             }
+            if (PropertiesInNodeView.Count <= 0)
+                NoGraphProperties = true;
+            else
+                NoGraphProperties = false;
+
         }
 
         public void UpdatePropertiesFromDto(List<NodePropertyDto> propertyDtos)
