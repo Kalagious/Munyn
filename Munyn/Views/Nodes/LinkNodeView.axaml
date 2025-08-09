@@ -22,7 +22,7 @@
 			<StackPanel>
 				<PathIcon Data="{Binding Icon}" Margin="0,10,0,10" Width="75" Foreground="#f2f2f2"/>
 				<TextBlock Text="{Binding TargetName}"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"></TextBlock>
-				<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10" Command="{Binding EnterLinkedContextButtonCommand}">
+				<Button HorizontalAlignment="Center" CornerRadius="5" Margin="10" Command="{Binding GoToLinkedNodeCommand}">
 
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Text="Enter Context"  Foreground="#f2f2f2" FontWeight="Bold" FontSize="12" Margin="5"></TextBlock>

@@ -18,6 +18,9 @@ namespace Munyn.ViewModels
         public String? contextName;
         public ContextBase? parentContext;
 
+        public double[] lastTranslate = { 0, 0 };
+        public double[] lastScale = { 0, 0 };
+
         [ObservableProperty]
         private StreamGeometry _contextIcon;
         
@@ -27,6 +30,7 @@ namespace Munyn.ViewModels
         {
             contextName = NodeName;
             mainVM.EnterContext(this);
+
         }
 
 

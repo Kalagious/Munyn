@@ -121,7 +121,7 @@ public partial class MainViewModel : ViewModelBase
     {
         if (currentContext != null && currentContext.parentContext != null)
         {
-            currentContext = currentContext.parentContext;
+            EnterContext(currentContext.parentContext);
             RefreshContext();
         }
     }
@@ -580,6 +580,45 @@ public partial class MainViewModel : ViewModelBase
     }
     public void EnterContext(ContextBase context)
     {
+
+        if (NodeCanvasBase != null)
+        {
+            TransformGroup transformGroup = (TransformGroup)NodeCanvasBase.RenderTransform;
+
+            if (transformGroup != null)
+            {
+
+                if (transformGroup.Children[0] != null)
+                {
+                    if (currentContext != null)
+                    {
+                        currentContext.lastScale[0] = ((ScaleTransform)transformGroup.Children[0]).ScaleX;
+                        currentContext.lastScale[1] = ((ScaleTransform)transformGroup.Children[0]).ScaleY;
+                    }
+
+                    if (context.lastScale[0] != 0)
+                    {
+                        ((ScaleTransform)transformGroup.Children[0]).ScaleX = context.lastScale[0];
+                        ((ScaleTransform)transformGroup.Children[0]).ScaleY = context.lastScale[1];
+                    }
+                }
+
+                if (transformGroup.Children[1] != null)
+                {
+                    if (currentContext != null)
+                    {
+                        currentContext.lastTranslate[0] = ((TranslateTransform)transformGroup.Children[1]).X;
+                        currentContext.lastTranslate[1] = ((TranslateTransform)transformGroup.Children[1]).Y;
+                    }
+
+                    if (context.lastTranslate[0] != 0)
+                    {
+                        ((TranslateTransform)transformGroup.Children[1]).X = context.lastTranslate[0];
+                        ((TranslateTransform)transformGroup.Children[1]).Y = context.lastTranslate[1];
+                    }
+                }
+            }
+        }
         currentContext = context;
         RefreshContext();
     }

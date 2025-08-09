@@ -24,12 +24,16 @@ namespace Munyn.ViewModels
         private string _targetName;
 
         [RelayCommand]
-        private void EnterLinkedContextButton()
+        private void GoToLinkedNode()
         {
-            mainVM.EnterContext((ContextBase)targetNode);
+            if (targetNode.parentContext != mainVM.currentContext)
+                mainVM.EnterContext((ContextBase)targetNode);
+
+
+
         }
 
-        public LinkNodeViewModel(string name, float x, float y, ContextBase parent, NodeBaseViewModel targetNodeTmp, Canvas tmpParentCanvas, MainViewModel mainVMIn)
+            public LinkNodeViewModel(string name, float x, float y, ContextBase parent, NodeBaseViewModel targetNodeTmp, Canvas tmpParentCanvas, MainViewModel mainVMIn)
         {
             NodeName = name;
             X = x;
