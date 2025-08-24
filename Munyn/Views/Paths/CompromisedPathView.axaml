@@ -2,23 +2,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:vm="clr-namespace:Munyn.ViewModels"
+             xmlns:vm="clr-namespace:Munyn.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Munyn.Views.Paths.CompromisedPathView">
-	<Grid>
-		<Path Data="{Binding PathData}" Stroke="Red" StrokeThickness="4"/>
-		<Canvas>
-			<Polygon x:Name="AnimatedTriangle"
-					 Points="0,0 10,0 5,-12"
-					 Fill="#FF6666"
-					 IsVisible="False">
-				<Polygon.RenderTransform>
-					<TransformGroup>
-						<RotateTransform Angle="0" />
-						<TranslateTransform X="0" Y="0" />
-					</TransformGroup>
-				</Polygon.RenderTransform>
-			</Polygon>
-		</Canvas>
-	</Grid>
+    <Grid>
+        <Path Data="{Binding PathData}" Stroke="Red" StrokeThickness="6"/>
+        <ItemsControl ItemsSource="{Binding Triangles}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Polygon Points="-2,2 2,2 0,-2" Fill="#FF6666">
+                        <Polygon.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="{Binding Angle}" />
+                                <TranslateTransform X="{Binding X}" Y="{Binding Y}" />
+                            </TransformGroup>
+                        </Polygon.RenderTransform>
+                    </Polygon>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
 </UserControl>

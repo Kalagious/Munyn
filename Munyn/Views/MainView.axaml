@@ -205,7 +205,7 @@
 								
 								<ItemsControl.ItemsPanel>
 									<ItemsPanelTemplate>
-										<Canvas Name="NodeCanvas" Background="#232339" Width="25000" Height="25000" Focusable="True">
+										<Canvas Name="NodeCanvas" Background="#232339" Width="15000" Height="15000" Focusable="True">
 											<Canvas.RenderTransform>
 												<TransformGroup>
 													<ScaleTransform ScaleX="1.0" ScaleY="1.0" />

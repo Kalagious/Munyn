@@ -18,7 +18,7 @@
 
 		</StackPanel.Styles>
 
-		<Button Command="{Binding NewHostDragCommand}" ToolTip.Tip="Host Node">
+		<Button Command="{Binding NewHostDragCommand}">
 			<PathIcon Data="{StaticResource pc-display}" Foreground="#f2f2f2" Width="45" Height="45"/>
 			<Button.Background>
 				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
@@ -27,7 +27,7 @@
 				</LinearGradientBrush>
 			</Button.Background>
 		</Button>
-		<Button Command="{Binding NewUserDragCommand}" ToolTip.Tip="User Node">
+		<Button Command="{Binding NewUserDragCommand}">
 			<PathIcon Data="{StaticResource person-bounding-box}" Foreground="#f2f2f2" Width="45" Height="45"/>
 			<Button.Background>
 				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
@@ -36,7 +36,7 @@
 				</LinearGradientBrush>
 			</Button.Background>
 		</Button>
-		<Button Command="{Binding NewServiceDragCommand}" ToolTip.Tip="Service Node">
+		<Button Command="{Binding NewServiceDragCommand}">
 			<PathIcon Data="{StaticResource database-fill-gear}" Foreground="#f2f2f2" Width="45" Height="45"/>
 			<Button.Background>
 				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
@@ -45,7 +45,7 @@
 				</LinearGradientBrush>
 			</Button.Background>
 		</Button>
-		<Button Command="{Binding NewAssetDragCommand}" ToolTip.Tip="Asset Node">
+		<Button Command="{Binding NewAssetDragCommand}">
 			<PathIcon Data="{StaticResource gold-icon}" Foreground="#f2f2f2" Width="45" Height="45"/>
 			<Button.Background>
 				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">

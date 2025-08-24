@@ -110,21 +110,11 @@ namespace Munyn.ViewModels
         {
             if (property == null) throw new ArgumentNullException(nameof(property));
             property.ParentNode = this;
-
-            if (property.GetType() == typeof(NodePropertyCompromised))
-                if (GetNodePropertyFromType(typeof(NodePropertyCompromised)) != null)
-                    return;
-                else
-                    IsCompromised = true;
-
-            if (Properties.Count == 0 || property.PropertyName == "Description")
-                Properties.Add(property);
-            else
-                Properties.Insert(Properties.Count-1, property);
-
+            Properties.Add(property);
             GetGraphViewProperties();
 
-
+            if (property.GetType() == typeof(NodePropertyCompromised))
+                IsCompromised = true;
 
             foreach (var path in connectedPaths)
             {
@@ -213,8 +203,6 @@ namespace Munyn.ViewModels
                 NoGraphProperties = true;
             else
                 NoGraphProperties = false;
-
-            
 
         }
 

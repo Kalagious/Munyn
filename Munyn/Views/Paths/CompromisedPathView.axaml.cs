@@ -1,25 +1,39 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Threading;
-using Avalonia.Controls.Shapes;
 using Munyn.ViewModels;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Munyn.Views.Paths
 {
+    public partial class TriangleViewModel : ObservableObject
+    {
+        [ObservableProperty]
+        private double _x;
+
+        [ObservableProperty]
+        private double _y;
+
+        [ObservableProperty]
+        private double _angle;
+    }
+
     public partial class CompromisedPathView : UserControl
     {
         private DispatcherTimer _timer;
         private PathGeometry _pathGeometry;
-        private double _currentDistance;
         private double _pathLength;
+        private const double TriangleSpacing = 40.0;
+
+        public ObservableCollection<TriangleViewModel> Triangles { get; } = new ObservableCollection<TriangleViewModel>();
 
         public CompromisedPathView()
         {
             InitializeComponent();
             DataContextChanged += OnDataContextChanged;
-
             _timer = new DispatcherTimer(TimeSpan.FromMilliseconds(16), DispatcherPriority.Render, OnTimerTick);
         }
 
@@ -30,6 +44,11 @@ namespace Munyn.Views.Paths
                 vm.PropertyChanged += OnViewModelPropertyChanged;
                 UpdatePathData(vm.PathData);
             }
+            else
+            {
+                StopAnimation();
+            }
+            this.DataContext = this;
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -43,18 +62,27 @@ namespace Munyn.Views.Paths
 
         private void UpdatePathData(string pathData)
         {
-            if (string.IsNullOrWhiteSpace(pathData))
+            if (string.IsNullOrWhiteSpace(pathData) || pathData == "M 0,0")
             {
                 StopAnimation();
                 return;
             }
 
-            _pathGeometry = PathGeometry.Parse(pathData);
-            _pathLength = _pathGeometry.ContourLength;
-            _currentDistance = 0;
+            try
+            {
+                _pathGeometry = PathGeometry.Parse(pathData);
+                _pathLength = _pathGeometry.GetOrComputeLength();
+            }
+            catch (FormatException)
+            {
+                StopAnimation();
+                return;
+            }
+
 
             if (_pathLength > 0)
             {
+                PopulateTriangles();
                 StartAnimation();
             }
             else
@@ -63,38 +91,50 @@ namespace Munyn.Views.Paths
             }
         }
 
+        private void PopulateTriangles()
+        {
+            Triangles.Clear();
+            if (_pathLength <= 0) return;
+
+            var triangleCount = (int)(_pathLength / TriangleSpacing);
+            for (int i = 0; i < triangleCount; i++)
+            {
+                Triangles.Add(new TriangleViewModel());
+            }
+        }
+
         private void StartAnimation()
         {
-            this.FindControl<Polygon>("AnimatedTriangle").IsVisible = true;
             _timer.Start();
         }
 
         private void StopAnimation()
         {
             _timer.Stop();
-            this.FindControl<Polygon>("AnimatedTriangle").IsVisible = false;
+            Triangles.Clear();
         }
+
+        private double _animationOffset = 0;
 
         private void OnTimerTick(object sender, EventArgs e)
         {
-            _currentDistance += 1.5; // Speed of the animation
-            if (_currentDistance > _pathLength)
+            _animationOffset += 0.5; // Speed of the animation
+            if (_animationOffset > TriangleSpacing)
             {
-                _currentDistance = 0;
+                _animationOffset = 0;
             }
 
-            if (_pathGeometry.TryGetPointAndTangentAtDistance(_currentDistance, out var point, out var tangent))
+            for (int i = 0; i < Triangles.Count; i++)
             {
-                var angle = Math.Atan2(tangent.Y, tangent.X) * (180 / Math.PI) + 90;
-                var triangle = this.FindControl<Polygon>("AnimatedTriangle");
-
-                var transformGroup = (TransformGroup)triangle.RenderTransform;
-                var rotateTransform = (RotateTransform)transformGroup.Children[0];
-                var translateTransform = (TranslateTransform)transformGroup.Children[1];
-
-                rotateTransform.Angle = angle;
-                translateTransform.X = point.X;
-                translateTransform.Y = point.Y;
+                var distance = (i * TriangleSpacing + _animationOffset) % _pathLength;
+                if (_pathGeometry.TryGetPointAtLength(distance, out var point, out var tangent))
+                {
+                    var angle = Math.Atan2(tangent.Y, tangent.X) * (180 / Math.PI) + 90;
+                    var triangle = Triangles[i];
+                    triangle.Angle = angle;
+                    triangle.X = point.X;
+                    triangle.Y = point.Y;
+                }
             }
         }
 
