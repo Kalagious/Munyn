@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -16,6 +17,9 @@ namespace Munyn.ViewModels
     public partial class LinkNodeViewModel : ContextBase
     {
         public NodeBaseViewModel targetNode;
+
+        [ObservableProperty]
+        private bool isLinked = false;
 
         [ObservableProperty]
         private string _iconPath;
@@ -47,12 +51,26 @@ namespace Munyn.ViewModels
             RefreshLink();
         }
 
+
+        public void LinkToNode(NodeBaseViewModel newTarget)
+        {
+            targetNode = newTarget;
+            RefreshLink();
+        }
+
         public void RefreshLink()
         {
+            if (targetNode == null)
+            {
+                IsLinked = false;
+                TargetName = "Unlinked";
+                NodeName = "Unlinked_Link";
+                return;
+            }
+
+            IsLinked = true;
             TargetName = targetNode.NodeName;
             NodeName = targetNode.NodeName + "_Link";
-            IconName = targetNode.IconName;
-            Icon = targetNode.Icon;
             NodeTheme = targetNode.NodeTheme;
         }
     }

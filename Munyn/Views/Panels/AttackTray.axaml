@@ -17,7 +17,7 @@
 			</Style>
 
 		</StackPanel.Styles>
-		<Button Command="{Binding NewReconDragCommand}">
+		<Button Command="{Binding NewReconDragCommand}" ToolTip.Tip="Recon Node">
 			<PathIcon Data="{StaticResource radar}" Foreground="#f2f2f2" Width="45" Height="45"/>
 			<Button.Background>
 				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
@@ -26,7 +26,7 @@
 				</LinearGradientBrush>
 			</Button.Background>
 		</Button>
-		<Button Command="{Binding NewAttackDragCommand}">
+		<Button Command="{Binding NewAttackDragCommand}" ToolTip.Tip="Attack Node">
 			<PathIcon Data="{StaticResource striking-arrows}" Foreground="#f2f2f2" Width="45" Height="45"/>
 			<Button.Background>
 				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
@@ -35,7 +35,7 @@
 				</LinearGradientBrush>
 			</Button.Background>
 		</Button>
-		<Button Command="{Binding NewCheckpointDragCommand}">
+		<Button Command="{Binding NewCheckpointDragCommand}" ToolTip.Tip="Checkpoint Node">
 			<PathIcon Data="{StaticResource start-cog}" Foreground="#f2f2f2" Width="45" Height="45"/>
 			<Button.Background>
 				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">

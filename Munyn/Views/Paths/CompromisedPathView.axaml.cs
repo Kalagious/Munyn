@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Threading;
+using Avalonia.Controls.Shapes;
 using Munyn.ViewModels;
 using System;
 using System.ComponentModel;
@@ -49,7 +50,7 @@ namespace Munyn.Views.Paths
             }
 
             _pathGeometry = PathGeometry.Parse(pathData);
-            _pathLength = _pathGeometry.GetOrComputeLength();
+            _pathLength = _pathGeometry.ContourLength;
             _currentDistance = 0;
 
             if (_pathLength > 0)
@@ -82,7 +83,7 @@ namespace Munyn.Views.Paths
                 _currentDistance = 0;
             }
 
-            if (_pathGeometry.TryGetPointAtLength(_currentDistance, out var point, out var tangent))
+            if (_pathGeometry.TryGetPointAndTangentAtDistance(_currentDistance, out var point, out var tangent))
             {
                 var angle = Math.Atan2(tangent.Y, tangent.X) * (180 / Math.PI) + 90;
                 var triangle = this.FindControl<Polygon>("AnimatedTriangle");

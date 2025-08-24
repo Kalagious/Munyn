@@ -103,13 +103,13 @@ namespace Munyn.ViewModels
             var startNodeView = _mainVm.FindNodeViewByViewModel(StartNode);
             if (startNodeView == null) return;
 
-            StartPoint = new Point(StartNode.X + startNodeView.Bounds.Width / 2, StartNode.Y+12);
+            StartPoint = new Point(StartNode.X + startNodeView.Bounds.Width / 2, StartNode.Y+15);
 
             if (EndNode != null)
             {
                 var endNodeView = _mainVm.FindNodeViewByViewModel(EndNode);
                 if (endNodeView == null) return;
-                EndPoint = new Point(EndNode.X + endNodeView.Bounds.Width / 2, EndNode.Y-12);
+                EndPoint = new Point(EndNode.X + endNodeView.Bounds.Width / 2, EndNode.Y-15);
             }
 
             if (StartPoint == null || EndPoint == null)

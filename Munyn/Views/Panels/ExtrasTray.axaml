@@ -18,7 +18,7 @@
 
 		</StackPanel.Styles>
 
-		<Button Command="{Binding NewLinkDragCommand}">
+		<Button Command="{Binding NewLinkDragCommand}" ToolTip.Tip="Link Node (WIP)">
 
 			<PathIcon Data="{StaticResource link}" Foreground="#f2f2f2" Width="45" Height="45"/>
 			<Button.Background>
@@ -30,7 +30,7 @@
 			</Button.Background>
 		</Button>
 		<!-- Leaf Node -->
-		<Button Command="{Binding NewHostDragCommand}">
+		<Button Command="{Binding NewHostDragCommand}" ToolTip.Tip="Leaf Node (WIP)">
 			<PathIcon Data="{StaticResource tree-view}" Foreground="#f2f2f2" Width="45" Height="45"/>
 			<Button.Background>
 				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
@@ -41,7 +41,7 @@
 			</Button.Background>
 		</Button>
 		<!-- Blank Node-->
-		<Button Command="{Binding NewHostDragCommand}">
+		<Button Command="{Binding NewHostDragCommand}" ToolTip.Tip="Custom Node (WIP)">
 			<PathIcon Data="{StaticResource edit}" Foreground="#f2f2f2" Width="45" Height="45"/>
 			<Button.Background>
 				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
@@ -52,7 +52,7 @@
 			</Button.Background>
 		</Button>
 		<!-- Blank Context-->
-		<Button Command="{Binding NewHostDragCommand}">
+		<Button Command="{Binding NewHostDragCommand}" ToolTip.Tip="Custom Context (WIP)">
 			<PathIcon Data="{StaticResource container-software}" Foreground="#f2f2f2" Width="45" Height="45"/>
 			<Button.Background>
 				<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,50%">
