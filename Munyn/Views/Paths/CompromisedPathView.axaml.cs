@@ -27,6 +27,7 @@ namespace Munyn.Views.Paths
         private PathGeometry _pathGeometry;
         private double _pathLength;
         private const double TriangleSpacing = 40.0;
+        private PathBaseViewModel _viewModel;
 
         public ObservableCollection<TriangleViewModel> Triangles { get; } = new ObservableCollection<TriangleViewModel>();
 
@@ -39,24 +40,29 @@ namespace Munyn.Views.Paths
 
         private void OnDataContextChanged(object sender, EventArgs e)
         {
-            if (DataContext is PathBaseViewModel vm)
+            if (_viewModel != null)
             {
-                vm.PropertyChanged += OnViewModelPropertyChanged;
-                UpdatePathData(vm.PathData);
+                _viewModel.PropertyChanged -= OnViewModelPropertyChanged;
+            }
+
+            _viewModel = DataContext as PathBaseViewModel;
+
+            if (_viewModel != null)
+            {
+                _viewModel.PropertyChanged += OnViewModelPropertyChanged;
+                UpdatePathData(_viewModel.PathData);
             }
             else
             {
                 StopAnimation();
             }
-            this.DataContext = this;
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(PathBaseViewModel.PathData))
             {
-                var vm = (PathBaseViewModel)sender;
-                UpdatePathData(vm.PathData);
+                UpdatePathData(_viewModel.PathData);
             }
         }
 
@@ -78,7 +84,6 @@ namespace Munyn.Views.Paths
                 StopAnimation();
                 return;
             }
-
 
             if (_pathLength > 0)
             {
@@ -118,6 +123,8 @@ namespace Munyn.Views.Paths
 
         private void OnTimerTick(object sender, EventArgs e)
         {
+            if (_pathLength == 0) return;
+
             _animationOffset += 0.5; // Speed of the animation
             if (_animationOffset > TriangleSpacing)
             {
@@ -142,9 +149,9 @@ namespace Munyn.Views.Paths
         {
             base.OnDetachedFromVisualTree(e);
             StopAnimation();
-            if (DataContext is PathBaseViewModel vm)
+            if (_viewModel != null)
             {
-                vm.PropertyChanged -= OnViewModelPropertyChanged;
+                _viewModel.PropertyChanged -= OnViewModelPropertyChanged;
             }
         }
     }

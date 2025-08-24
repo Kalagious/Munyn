@@ -4,10 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Munyn.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Munyn.Views.Paths.CompromisedPathView">
+             x:Class="Munyn.Views.Paths.CompromisedPathView"
+             x:Name="self">
     <Grid>
         <Path Data="{Binding PathData}" Stroke="Red" StrokeThickness="6"/>
-        <ItemsControl ItemsSource="{Binding Triangles}">
+        <ItemsControl ItemsSource="{Binding Triangles, ElementName=self}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas />
