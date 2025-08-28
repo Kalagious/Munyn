@@ -53,8 +53,8 @@ namespace Munyn.ViewModels
 
         public void InitializeProperties()
         {
-            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Os", true, true));
-            AddNodeProperty(new Nodes.Properties.NodePropertyText { PropertyName = "Description", IsDefault = true, IsEditable = true, IsVisableOnGraphNode = true, IconColor = NodeTheme });
+            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Os"));
+            AddNodeProperty(new Nodes.Properties.NodePropertyText { PropertyName = "Description", IsDefault = true, IsEditable = true, IsVisableOnGraphNode = false, IconColor = NodeTheme });
             AddNodeProperty(new Nodes.Properties.NodePropertyInterface());
 
         }

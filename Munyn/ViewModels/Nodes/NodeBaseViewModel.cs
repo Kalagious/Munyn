@@ -110,7 +110,13 @@ namespace Munyn.ViewModels
         {
             if (property == null) throw new ArgumentNullException(nameof(property));
             property.ParentNode = this;
-            Properties.Add(property);
+
+            if (property.PropertyName != "Description" && Properties.Count > 0)
+                Properties.Insert(Properties.Count - 1, property);
+            else
+                Properties.Add(property);
+
+
             GetGraphViewProperties();
 
             if (property.GetType() == typeof(NodePropertyCompromised))

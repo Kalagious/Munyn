@@ -25,9 +25,8 @@ namespace Munyn.ViewModels
             NodeTheme = makeTheme("#b613d0", "#6524f3");
 
 
-            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Location", true, true));
-            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Version", true, true, false));
-            AddNodeProperty(new Nodes.Properties.NodePropertyText { PropertyName = "Description", IsDefault = true, IsEditable = true, IsVisableOnGraphNode = true, IconColor = NodeTheme });
+            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Location"));
+            AddNodeProperty(new Nodes.Properties.NodePropertyText { PropertyName = "Description", IsDefault = true, IsEditable = true, IsVisableOnGraphNode = false, IconColor = NodeTheme });
 
             parentCanvas = tmpParentCanvas;
             parentContext = parent;
