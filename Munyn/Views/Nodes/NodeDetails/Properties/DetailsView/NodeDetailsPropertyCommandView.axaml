@@ -33,7 +33,7 @@
 							</StackPanel>
 						</Button>
 						<Button Command="{Binding DeletePropertyCommand}" VerticalAlignment="Center" Background="Transparent" HorizontalAlignment="Right" Margin="5,0,15,0">
-							<PathIcon Data="{StaticResource delete}" Width="17" Height="17" Foreground="Black"/>
+							<PathIcon Data="{StaticResource delete}" Width="17" Height="17" Foreground="#f2f2f2"/>
 						</Button>
 					</StackPanel>
 				</Grid>

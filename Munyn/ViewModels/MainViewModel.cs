@@ -977,10 +977,6 @@ public partial class MainViewModel : ViewModelBase
             case NodePropertyMultiInterface multiInterface:
                 propDto.Interfaces = multiInterface.Interfaces;
                 break;
-            case NodePropertyLink link:
-                propDto.Url = link.Url;
-                propDto.DisplayText = link.DisplayText;
-                break;
             case NodePropertyVulnerability vulnerability:
                 propDto.Score = vulnerability.Score;
                 propDto.Location = vulnerability.Location;
@@ -988,7 +984,7 @@ public partial class MainViewModel : ViewModelBase
                 propDto.Description = vulnerability.Description;
                 break;
             case NodePropertyCompromised compromised:
-                propDto.CompromiseLevel = compromised.CompromiseLevel;
+                propDto.Indirect = compromised.IsIndirect;
                 break;
         }
 
@@ -1013,17 +1009,17 @@ public partial class MainViewModel : ViewModelBase
         {
             newProp = new NodePropertyCommand { Command = dto.Command, Description = dto.Description };
         }
-        else if (dto.PropertyType == "NodePropertyLink")
-        {
-            newProp = new NodePropertyLink { Url = dto.Url, DisplayText = dto.DisplayText };
-        }
         else if (dto.PropertyType == "NodePropertyVulnerability")
         {
             newProp = new NodePropertyVulnerability { Score = dto.Score.Value, Location = dto.Location, Resource = dto.Resource, Description = dto.Description };
         }
         else if (dto.PropertyType == "NodePropertyCompromised")
         {
-            newProp = new NodePropertyCompromised { CompromiseLevel = dto.CompromiseLevel };
+            newProp = new NodePropertyCompromised { IsIndirect = dto.Indirect };
+        }
+        else if (dto.PropertyType == "NodePropertyHighValue")
+        {
+            newProp = new NodePropertyHighValue();
         }
         else if (dto.PropertyType == "NodePropertyText")
         {

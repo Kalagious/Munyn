@@ -67,19 +67,26 @@ namespace Munyn.ViewModels.Nodes.Properties
                 PropertyName = "Link WIP",
                 PropertyIcon = (StreamGeometry)Application.Current.Resources["link"]
             });            
-            //Link
+            //Vulnerability
             PropertiesList.Add(new PropertySelectionItem
             {
                 PropertyType = typeof(NodePropertyVulnerability),
                 PropertyName = "Vulnerability",
                 PropertyIcon = (StreamGeometry)Application.Current.Resources["aim"]
             });            
-            //Link
+            //Compromised
             PropertiesList.Add(new PropertySelectionItem
             {
                 PropertyType = typeof(NodePropertyCompromised),
                 PropertyName = "Compromised",
                 PropertyIcon = (StreamGeometry)Application.Current.Resources["bolt"]
+            });
+            //HighValue
+            PropertiesList.Add(new PropertySelectionItem
+            {
+                PropertyType = typeof(NodePropertyHighValue),
+                PropertyName = "High Value",
+                PropertyIcon = (StreamGeometry)Application.Current.Resources["gold-icon"]
             });
 
         }

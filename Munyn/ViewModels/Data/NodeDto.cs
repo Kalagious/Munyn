@@ -41,10 +41,7 @@ namespace Munyn.ViewModels.Data
         public double? Score { get; set; }
         public string Location { get; set; }
         public string Resource { get; set; }
-        public double? CompromiseLevel { get; set; }
-        // For link properties
-        public string Url { get; set; }
-        public string DisplayText { get; set; }
+        public bool Indirect { get; set; }
 
         // For code properties
         public string IconName { get; set; }

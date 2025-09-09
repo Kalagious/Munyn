@@ -25,7 +25,7 @@ namespace Munyn.ViewModels
             IconName = "person-bounding-box";
             NodeTheme = makeTheme("#ef3f79", "#d511d5");
 
-            AddNodeProperty(new Nodes.Properties.NodePropertyBasic("Password"));
+            AddNodeProperty(new Nodes.Properties.NodePropertyBasic { PropertyName = "Password", IconName = "password"});
             AddNodeProperty(new Nodes.Properties.NodePropertyText { PropertyName = "Description", IsDefault = true, IsEditable = true, IsVisableOnGraphNode = false, IconColor = NodeTheme });
 
             parentCanvas = tmpParentCanvas;

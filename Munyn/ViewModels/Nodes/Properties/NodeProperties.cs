@@ -49,14 +49,14 @@ namespace Munyn.ViewModels.Nodes.Properties
         {
         }
 
-        public NodePropertyBasic(string propertyName = "New Property", bool isDefault = false, bool isVisiableOnGraphNode = false, bool isEditable = true)
+        public NodePropertyBasic(string propertyName = "New Property", bool isDefault = false, bool isVisiableOnGraphNode = false, bool isEditable = true, string iconName = "file-richtext-fill")
         {
             PropertyName = propertyName;
             IsDefault = isDefault;
             IsEditable = isEditable;
             IsFavorited = false;
             IsVisableOnGraphNode = isVisiableOnGraphNode;
-            IconName = "file-richtext-fill";
+            IconName = iconName;
             IconSelectionViewModel = new IconSelectionViewModel();
             IconSelectionViewModel.PropertyChanged += IconSelectionViewModel_PropertyChanged;
             Refresh();
@@ -155,9 +155,15 @@ public partial class NodePropertyLink : NodePropertyBasic
     public partial class NodePropertyCompromised : NodePropertyBasic
     {
         [ObservableProperty]
-        private double? _compromiseLevel = 10;
-        
+        private bool _isIndirect = false;
         public NodePropertyCompromised() : base() { IconName = "bolt"; Refresh(); }
     }
+
+
+    public partial class NodePropertyHighValue : NodePropertyBasic
+    {
+        public NodePropertyHighValue() : base() { IconName = "gold-icon"; Refresh(); }
+    }
+
 
 }

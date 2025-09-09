@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Munyn.Views.Nodes.NodeDetails.NodeDetailsPropertyHighValueView"
+             xmlns:panels="clr-namespace:Munyn.Views.Panels;assembly=Munyn">
+
+
+
+		<StackPanel Margin="10">
+			<Border BorderThickness="3" CornerRadius="5">
+				<Border.Background>
+					<LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+						<GradientStop Color="#eab900" Offset="0.0"/>
+						<GradientStop Color="#faa700" Offset="1.0"/>
+					</LinearGradientBrush>
+				</Border.Background>
+				<Border.BorderBrush>
+					<LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+						<GradientStop Color="#eab900" Offset="0.0"/>
+						<GradientStop Color="#faa700" Offset="1.0"/>
+					</LinearGradientBrush>
+				</Border.BorderBrush>
+				
+				<Grid ColumnDefinitions="*,Auto">
+					<StackPanel Orientation="Horizontal" Grid.Column="0">
+						<PathIcon HorizontalAlignment="Center" Margin="10,2,0,2" Data="{StaticResource gold-icon}" Foreground="#f2f2f2"/>
+						<TextBlock Margin="5,5,0,5" Text="High Value" Foreground="#f2f2f2" VerticalAlignment="Center"></TextBlock>
+					</StackPanel>
+					<StackPanel Grid.Column="1" Orientation="Horizontal">
+						<Button Command="{Binding DeletePropertyCommand}" VerticalAlignment="Center" Background="Transparent" HorizontalAlignment="Right" Margin="5,0,15,0">
+							<PathIcon Data="{StaticResource delete}" Width="17" Height="17" Foreground="#f2f2f2"/>
+						</Button>
+					</StackPanel>
+				</Grid>
+			</Border>
+		</StackPanel>
+
+</UserControl>

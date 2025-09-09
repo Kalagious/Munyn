@@ -108,6 +108,9 @@ namespace Munyn.ViewModels
 
         public void AddNodeProperty(NodePropertyBasic property)
         {
+            property.Refresh();
+
+
             if (property == null) throw new ArgumentNullException(nameof(property));
             property.ParentNode = this;
 
@@ -236,15 +239,6 @@ namespace Munyn.ViewModels
                         Description = propertyDto.Description
                     };
                 }
-                else if (propertyDto.PropertyType == "NodePropertyLink")
-                {
-                    newProperty = new NodePropertyLink
-                    {
-                        PropertyName = propertyDto.PropertyName,
-                        Url = propertyDto.Url,
-                        DisplayText = propertyDto.DisplayText
-                    };
-                }
                 else
                 {
                     newProperty = new NodePropertyBasic
@@ -282,11 +276,6 @@ namespace Munyn.ViewModels
                 {
                     propertyDto.Command = commandProperty.Command;
                     propertyDto.Description = commandProperty.Description;
-                }
-                else if (property is NodePropertyLink linkProperty)
-                {
-                    propertyDto.Url = linkProperty.Url;
-                    propertyDto.DisplayText = linkProperty.DisplayText;
                 }
                 else
                 {

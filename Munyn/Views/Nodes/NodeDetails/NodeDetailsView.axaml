@@ -62,6 +62,10 @@
 				<nodedetails:NodeDetailsPropertyCompromisedView DataContext="{Binding}"/>
 			</DataTemplate>
 			
+			<DataTemplate DataType="properties:NodePropertyHighValue">
+				<nodedetails:NodeDetailsPropertyHighValueView DataContext="{Binding}"/>
+			</DataTemplate>
+			
 			<DataTemplate DataType="properties:NodePropertyBasic">
 				<nodedetails:NodeDetailsPropertyBasicView DataContext="{Binding}"/>
 			</DataTemplate>
